@@ -1,0 +1,12 @@
+{
+  "name": "meteotiles",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Web interface for Arkimaps tiles",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Emanuele Di Giacomo <edigiacomo@arpae.it>",
+  "license": "GPL-3.0-or-later"
+}
