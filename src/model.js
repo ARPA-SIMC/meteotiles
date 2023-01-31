@@ -14,19 +14,33 @@ class Product {
     }
 };
 
-export class ProductList extends EventTarget{
+export class ProductList {
     baseUrl;
     products = [];
+    onLoaded = (productList) => { console.debug("Loaded", productList) };
+    onLoading = () => { console.debug("Loading") };
+    onFetchError = (error) => { console.debug("Fetch error", error) };
 
     constructor(baseUrl) {
-        super();
         this.baseUrl = baseUrl;
         this.products = [];
     }
 
+    bindOnLoading(callback) {
+        this.onLoading = callback;
+    }
+
+    bindOnLoaded(callback) {
+        this.onLoaded = callback;
+    }
+
+    bindOnFetchError(callback) {
+        this.onFetchError = callback;
+    }
+
     fetchProducts() {
         const configUrl = `${this.baseUrl}/config.json`;
-        this.dispatchEvent(new CustomEvent("loading"));
+        this.onLoading();
         fetch(configUrl)
             .then(resp => {
                 if (resp.ok)
@@ -69,14 +83,10 @@ export class ProductList extends EventTarget{
             })
             .then(productLists => {
                 this.products = productLists.flat();
-                this.dispatchEvent(new CustomEvent("loaded"));
+                this.onLoaded(this);
             })
             .catch(err => {
-                this.dispatchEvent(new CustomEvent("fetchError", {
-                    detail: {
-                        error: err,
-                    }
-                }));
+                this.onFetchError(err);
             });
     }
 

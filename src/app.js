@@ -10,25 +10,25 @@ class App {
         this.productList = productList;
         this.view = view;
 
-        this.productList.addEventListener("loading", this.onProductListLoading.bind(this));
-        this.productList.addEventListener("loaded", this.onProductListLoaded.bind(this));
-        this.productList.addEventListener("fetchError", this.onProductListFetchError.bind(this));
+        this.productList.bindOnLoading(this.onProductListLoading.bind(this));
+        this.productList.bindOnLoaded(this.onProductListLoaded.bind(this));
+        this.productList.bindOnFetchError(this.onProductListFetchError.bind(this));
     }
 
     init() {
         this.productList.fetchProducts();
     }
 
-    onProductListLoading(event) {
+    onProductListLoading() {
         console.debug("Product list is loading");
     }
 
-    onProductListLoaded(event) {
+    onProductListLoaded() {
         console.debug("Product list is loaded", this.productList);
         this.view.render(this.productList);
     }
 
-    onProductListFetchError(event) {
+    onProductListFetchError(error) {
     }
 
     static async createApp(configBaseUrl = ".") {
