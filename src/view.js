@@ -170,8 +170,6 @@ class TimePlayer {
        root.querySelector(".step-forward").addEventListener("click", () => {
             const timerangeElement = root.querySelector(".time-range");
             this.timeDimension.nextTime(1);
-            // timerangeElement.stepUp();
-            // timerangeElement.dispatchEvent(new Event("input"));
         });
         root.querySelector(".loop").addEventListener("click", () => {
             const loopButton = root.querySelector(".loop");
