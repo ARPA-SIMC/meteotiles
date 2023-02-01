@@ -29,6 +29,7 @@ class App {
     }
 
     onProductListFetchError(error) {
+        console.error(error);
     }
 
     static async createApp(configBaseUrl = ".") {
