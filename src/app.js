@@ -52,5 +52,5 @@ class App {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    App.createApp("https://simc.arpae.it/meteotiles").then(app => app.init());
+    App.createApp("http://meteotiles.metarpa").then(app => app.init());
 });
