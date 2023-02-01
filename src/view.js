@@ -2,7 +2,7 @@ export class SingleMapView {
     map;
     timePlayer;
     productListMenu;
-    selectedProducts = {};
+    productListSelection = {};
 
     constructor() {
         const map = L.map("map", {
@@ -19,49 +19,60 @@ export class SingleMapView {
         this.productListMenu = new ProductListMenu("map-menu-products");
         this.productListMenu.bindOnProductSelected((product) => {
             const key = `${product.modelName}-${product.name}`;
-            const layer = L.timeDimension.layer.tileLayer.arkimapsCached({
-                reftime: product.reftime,
-                steps: product.forecastSteps,
-                baseUrl: product.baseUrl,
-                modelName: product.modelName,
-                productName: product.name,
-                productDescription: product.description,
-                legendUrl: `${product.baseUrl}/${product.modelName}/{d}/${product.name}+legend.png`,
-                legendOn: product.legendOn,
-                bounds: L.latLngBounds(
-                    L.latLng(product.boundingBox.latMin, product.boundingBox.lonMin),
-                    L.latLng(product.boundingBox.latMax, product.boundingBox.lonMax),
-                ),
-                opacity: product.opacity,
-                zIndex: product.zIndex,
-                minNativeZoom: product.minZoom,
-                maxNativeZoom: product.maxZoom,
-            });
-            this.selectedProducts[key] = {
-                product: product,
-                layer: layer,
-            };
+            const item = this.productListSelection[key];
+            const layer = item.layer;
+            item.selected = true;
             this.map.addLayer(layer);
             this.updateTimeDimension();
         });
 
         this.productListMenu.bindOnProductUnselected((product) => {
             const key = `${product.modelName}-${product.name}`;
-            this.map.removeLayer(this.selectedProducts[key].layer);
-            delete this.selectedProducts[key];
+            const item = this.productListSelection[key];
+            const layer = item.layer;
+            item.selected = false;
+            this.map.removeLayer(layer);
             this.updateTimeDimension();
         });
     }
 
     render(productList) {
-        console.debug("Rendering", productList);
+        this.productListSelection = Object.fromEntries(
+            productList.products.map((product) => {
+                const key = `${product.modelName}-${product.name}`;
+                const layer = L.timeDimension.layer.tileLayer.arkimapsCached({
+                    reftime: product.reftime,
+                    steps: product.forecastSteps,
+                    baseUrl: product.baseUrl,
+                    modelName: product.modelName,
+                    productName: product.name,
+                    productDescription: product.description,
+                    legendUrl: `${product.baseUrl}/${product.modelName}/{d}/${product.name}+legend.png`,
+                    legendOn: product.legendOn,
+                    bounds: L.latLngBounds(
+                        L.latLng(product.boundingBox.latMin, product.boundingBox.lonMin),
+                        L.latLng(product.boundingBox.latMax, product.boundingBox.lonMax),
+                    ),
+                    opacity: product.opacity,
+                    zIndex: product.zIndex,
+                    minNativeZoom: product.minZoom,
+                    maxNativeZoom: product.maxZoom,
+                });
+                return [key, {
+                    product: product,
+                    layer: layer,
+                    selected: false,
+                }];
+            })
+        );
         this.productListMenu.render(productList);
     }
 
     updateTimeDimension() {
-        const times = [...new Set(Object.values(this.selectedProducts).map(p => {
-            return p.product.getTimes()
-        }).flat()
+        const times = [...new Set(
+            Object.values(this.productListSelection)
+            .filter(p => p.selected)
+            .map(p => p.product.getTimes()).flat()
         )].sort();
         if (times.length == 0) {
             this.map.timeDimension.setAvailableTimes([0], "replace");
