@@ -16,7 +16,7 @@
             <p>meteotiles - version <span id="meteotiles-version">DEVEL</span></p>
         </header>
         <main>
-            <div id="map-menu" class="map-menu">
+            <div id="map-menu" class="map-menu-container">
                 <div class="map-menu-products" id="map-menu-products">
                     <h2>Elenco dei prodotti</h2>
                     <div class="map-menu-search">
@@ -26,9 +26,9 @@
                 </div>
             </div>
             <div id="map" class="map-container"></div>
-            <div id="time-player">
-                <div id="time-player-controls">
-                    <div id="time-player-controls-buttons">
+            <div id="time-player" class="time-player-container">
+                <div class="time-player-controls">
+                    <div class="time-player-controls-buttons">
                         <button class="step-backward">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
@@ -64,7 +64,7 @@
                         </button>
                     </div>
                     <input class="time-range" type="range" value="0" step="1" min="0" max="72">
-                    <span class="datetime"></span>
+                    <span class="datetime-label"></span>
                 </div>
             </div>
         </main>

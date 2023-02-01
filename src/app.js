@@ -44,7 +44,7 @@ class App {
             .then(json => {
                 const tilesUrl = `${configBaseUrl}/${json.tiles.baseurl}`;
                 const productList = new ProductList(tilesUrl);
-                const view = new SingleMapView("body");
+                const view = new SingleMapView();
                 return new App(productList, view);
             })
     }

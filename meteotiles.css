@@ -24,17 +24,19 @@ main {
     overflow: hidden;
 }
 
-.map-menu {
-    grid-row: 1/3;
-    grid-column: 1;
+.map-menu-container {
     padding: 1em;
     overflow-y: auto;
 }
 
-.map-menu .map-menu-header {
+.map-menu-container .map-menu-header {
     margin: 0;
     padding: 0;
-    display: inline;
+}
+
+#map-menu {
+    grid-row: 1/3;
+    grid-column: 1;
 }
 
 #map {
@@ -42,43 +44,43 @@ main {
     grid-column: 2/4;
 }
 
-#time-player {
-    grid-column: 1/4;
-    grid-row: 3/4;
+.time-player-container {
     padding: 0.5em;
     color: black;
     text-align: center;
     background-color: #53a8b6;
 }
 
-#time-player-controls {
+#time-player {
+    grid-column: 1/4;
+    grid-row: 3/4;
 }
 
-#time-player-controls-buttons {
+.time-player-container .time-player-controls-buttons {
     display: inline;
 }
 
-#time-player-controls-buttons button {
+.time-player-controls-buttons button {
     text-align: center;
     border: 1px solid silver;
     padding: 0.7em;
     border-radius: 20%;
 }
 
-#time-player-controls-buttons button.loop.active {
+.time-player-controls-buttons button.loop.active {
     background-color: CornFlowerBlue;
 }
 
-#time-player-controls-buttons button:active {
+.time-player-controls-buttons button:active {
     background-color: CornFlowerBlue;
 }
 
-#time-player-controls .time-range {
+.time-player-controls .time-range {
     vertical-align: middle;
     width: 100ch;
 }
 
-#time-player-controls .datetime {
+.time-player-controls .datetime-label {
     display: inline-block;
     width: 25ch;
     font-size: 100%;

@@ -7,9 +7,9 @@ export class SingleMapView {
     constructor() {
         const map = L.map("map").setView([42, 12], 6);
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-
         this.map = map;
-        this.timePlayer = new TimePlayer();
+
+        this.timePlayer = new TimePlayer("time-player");
 
         this.productListMenu = new ProductListMenu("map-menu-products", map);
         this.productListMenu.bindOnProductSelected((product) => {
@@ -114,26 +114,29 @@ class ProductListMenu {
 
 // TODO: add root element
 class TimePlayer {
+    elementId;
     timeDimensionPlayer = null;
     timeDimension = null;
 
-    constructor() {
+    constructor(elementId) {
+        this.elementId = elementId;
         this.initializeDom();
     }
 
     initializeDom() {
-        document.querySelector(".step-backward").addEventListener("click", () => {
-            const timerangeElement = document.querySelector(".time-range");
+        const root = document.getElementById(this.elementId);
+        root.querySelector(".step-backward").addEventListener("click", () => {
+            const timerangeElement = root.querySelector(".time-range");
             timerangeElement.stepDown();
             timerangeElement.dispatchEvent(new Event("input"));
         });
-        document.querySelector(".step-forward").addEventListener("click", () => {
-            const timerangeElement = document.querySelector(".time-range");
+       root.querySelector(".step-forward").addEventListener("click", () => {
+            const timerangeElement = root.querySelector(".time-range");
             timerangeElement.stepUp();
             timerangeElement.dispatchEvent(new Event("input"));
         });
-        document.querySelector(".loop").addEventListener("click", () => {
-            const loopButton = document.querySelector(".loop");
+        root.querySelector(".loop").addEventListener("click", () => {
+            const loopButton = root.querySelector(".loop");
             if (loopButton.classList.contains("active")) {
                 loopButton.classList.remove("active");
                 loopButton.classList.add("inactive");
@@ -142,10 +145,10 @@ class TimePlayer {
                 loopButton.classList.add("active");
             }
         });
-        document.querySelector(".time-range").addEventListener("input", () => {
+        root.querySelector(".time-range").addEventListener("input", () => {
             this.updateDom();
         });
-        document.querySelector(".time-range").addEventListener("wheel", (event) => {
+        root.querySelector(".time-player-controls").addEventListener("wheel", (event) => {
             const direction = event.deltaY;
             const timerangeElement = document.querySelector(".time-range");
             if (direction > 0) {
@@ -172,8 +175,9 @@ class TimePlayer {
     }
 
     updateDom() {
-        const timerangeElement = document.querySelector(".time-range");
-        const value = parseInt(document.querySelector(".time-range").value);
+        const root = document.getElementById(this.elementId);
+        const timerangeElement = root.querySelector(".time-range");
+        const value = parseInt(root.querySelector(".time-range").value);
         const min = 0;
         const max = this.timeDimension ? this.timeDimension.getAvailableTimes().length - 1 : 0;
         if (this.timeDimension) {
@@ -185,21 +189,23 @@ class TimePlayer {
         } else {
             this.enableControls();
         }
-        document.querySelector(".time-range").min = min;
-        document.querySelector(".time-range").max = max;
-        document.querySelector(".time-range").step = 1;
-        document.querySelector(".step-backward").disabled = value <= min;
-        document.querySelector(".step-forward").disabled = value >= max;
+        root.querySelector(".time-range").min = min;
+        root.querySelector(".time-range").max = max;
+        root.querySelector(".time-range").step = 1;
+        root.querySelector(".step-backward").disabled = value <= min;
+        root.querySelector(".step-forward").disabled = value >= max;
         const currentDate = this.timeDimension ? new Date(this.timeDimension.getCurrentTime()) : null;
         console.debug("Current time", currentDate);
-        document.querySelector(".datetime").textContent = currentDate ? currentDate.toISOString() : "";
+        root.querySelector(".datetime-label").textContent = currentDate ? currentDate.toISOString() : "";
     }
 
     disableControls() {
-        document.querySelectorAll("#time-player button").forEach((el) => el.disabled = true);
+        const root = document.getElementById(this.elementId);
+        root.querySelectorAll(".time-player-controls-buttons button").forEach((el) => el.disabled = true);
     }
 
     enableControls() {
-        document.querySelectorAll("#time-player button").forEach((el) => el.disabled = false);
+        const root = document.getElementById(this.elementId);
+        root.querySelectorAll(".time-player-controls-buttons button").forEach((el) => el.disabled = false);
     }
 }
