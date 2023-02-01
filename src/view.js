@@ -5,7 +5,12 @@ export class SingleMapView {
     selectedProducts = {};
 
     constructor() {
-        const map = L.map("map").setView([42, 12], 6);
+        const map = L.map("map", {
+            timeDimension: true,
+            timeDimensionOptions: {
+                times: [],
+            }
+        }).setView([42, 12], 6);
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
         this.map = map;
 
