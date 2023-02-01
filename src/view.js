@@ -8,7 +8,7 @@ export class SingleMapView {
         const map = L.map("map", {
             timeDimension: true,
             timeDimensionOptions: {
-                times: [],
+                times: [new Date(0)],
             }
         }).setView([42, 12], 6);
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
@@ -44,8 +44,10 @@ export class SingleMapView {
             this.map.addLayer(layer);
             this.updateTimeDimension();
         });
+
         this.productListMenu.bindOnProductUnselected((product) => {
             const key = `${product.modelName}-${product.name}`;
+            this.map.removeLayer(this.selectedProducts[key].layer);
             delete this.selectedProducts[key];
             this.updateTimeDimension();
         });
@@ -61,7 +63,16 @@ export class SingleMapView {
             return p.product.getTimes()
         }).flat()
         )].sort();
-        this.map.timeDimension.setAvailableTimes(times, "replace");
+        if (times.length == 0) {
+            this.map.timeDimension.setAvailableTimes([0], "replace");
+        } else {
+            const currentTime = this.map.timeDimension.getCurrentTime();
+            let currentTimeIndex = times.findIndex((el) => el == currentTime);
+            if (currentTimeIndex < 0)
+                currentTimeIndex = 0;
+            this.map.timeDimension.setAvailableTimes(times, "replace");
+            this.map.timeDimension.setCurrentTimeIndex(currentTimeIndex);
+        }
     }
 };
 
@@ -146,6 +157,7 @@ class TimePlayer {
     constructor(elementId, timeDimension) {
         this.elementId = elementId;
         this.timeDimension = timeDimension;
+        this.updateTimeDimensionPlayer();
         this.initializeDom();
     }
 
@@ -153,13 +165,13 @@ class TimePlayer {
         const root = document.getElementById(this.elementId);
         root.querySelector(".step-backward").addEventListener("click", () => {
             const timerangeElement = root.querySelector(".time-range");
-            timerangeElement.stepDown();
-            timerangeElement.dispatchEvent(new Event("input"));
+            this.timeDimension.nextTime(-1);
         });
        root.querySelector(".step-forward").addEventListener("click", () => {
             const timerangeElement = root.querySelector(".time-range");
-            timerangeElement.stepUp();
-            timerangeElement.dispatchEvent(new Event("input"));
+            this.timeDimension.nextTime(1);
+            // timerangeElement.stepUp();
+            // timerangeElement.dispatchEvent(new Event("input"));
         });
         root.querySelector(".loop").addEventListener("click", () => {
             const loopButton = root.querySelector(".loop");
@@ -178,24 +190,29 @@ class TimePlayer {
             const direction = event.deltaY;
             const timerangeElement = root.querySelector(".time-range");
             if (direction < 0) {
-                timerangeElement.stepUp();
+                this.timeDimension.nextTime(1);
             } else {
-                timerangeElement.stepDown();
+                this.timeDimension.nextTime(-1);
             }
             timerangeElement.dispatchEvent(new Event("input"));
+        }, {
+            passive: true,
         });
-        this.updateDom();
-        this.timeDimension.on("availabletimeschanged", () => {
+        this.timeDimension.on("availabletimeschanged", (ev) => {
             this.updateTimeDimensionPlayer(),
             this.updateDom();
         });
-        this.timeDimension.on("timeloading", () => {
-            console.debug("Time loading");
-            this.disableControls();
+        this.timeDimension.on("timeloading", (ev) => {
+            if (ev.time == this.timeDimension.getCurrentTime()) {
+                this.disableControls();
+                root.querySelector(".time-player-controls .loader").classList.add("loading");
+            }
         });
-        this.timeDimension.on("timeloaded", () => {
+        this.timeDimension.on("timeload", (ev) => {
+            root.querySelector(".time-player-controls .loader").classList.remove("loading");
             this.updateDom();
         });
+        this.updateDom();
     }
 
     updateTimeDimensionPlayer() {
@@ -207,36 +224,46 @@ class TimePlayer {
 
     updateDom() {
         const root = document.getElementById(this.elementId);
-        const timerangeElement = root.querySelector(".time-range");
-        const value = parseInt(root.querySelector(".time-range").value);
         const min = 0;
-        const max = this.timeDimension ? this.timeDimension.getAvailableTimes().length - 1 : 0;
-        if (this.timeDimension) {
-            this.timeDimension.setCurrentTimeIndex(value);
-        }
+        const max = this.timeDimension.getAvailableTimes().length - 1;
+        const value = this.timeDimension.getCurrentTimeIndex();
 
         if (min == 0 && min == max) {
             this.disableControls();
         } else {
             this.enableControls();
         }
-        root.querySelector(".time-range").min = min;
-        root.querySelector(".time-range").max = max;
-        root.querySelector(".time-range").step = 1;
-        root.querySelector(".step-backward").disabled = value <= min;
-        root.querySelector(".step-forward").disabled = value >= max;
-        const currentDate = this.timeDimension ? new Date(this.timeDimension.getCurrentTime()) : null;
-        console.debug("Current time", currentDate);
-        root.querySelector(".datetime-label").textContent = currentDate ? currentDate.toISOString() : "";
+
+        const timerangeElement = root.querySelector(".time-range");
+        timerangeElement.min = min;
+        timerangeElement.max = max;
+        timerangeElement.step = 1;
+        timerangeElement.value = this.timeDimension.getCurrentTimeIndex();
+
+        const stepBackwardElement = root.querySelector(".step-backward")
+        stepBackwardElement.disabled = value <= min;
+
+        const stepForwardElement = root.querySelector(".step-forward");
+        stepForwardElement.disabled = value >= max;
+
+        const currentTime = this.timeDimension.getCurrentTime();
+        if (this.timeDimension.getAvailableTimes().length > 1 || currentTime > 0) {
+            const currentDate = new Date(this.timeDimension.getCurrentTime());
+            root.querySelector(".datetime-label").textContent = currentDate.toISOString();
+        } else {
+            root.querySelector(".datetime-label").textContent = "";
+        }
     }
 
     disableControls() {
         const root = document.getElementById(this.elementId);
         root.querySelectorAll(".time-player-controls-buttons button").forEach((el) => el.disabled = true);
+        root.querySelector(".time-player-controls .time-range").disabled = true;
     }
 
     enableControls() {
         const root = document.getElementById(this.elementId);
         root.querySelectorAll(".time-player-controls-buttons button").forEach((el) => el.disabled = false);
+        root.querySelector(".time-player-controls .time-range").disabled = false;
     }
 }

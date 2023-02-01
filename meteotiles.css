@@ -86,6 +86,33 @@ main {
     font-size: 100%;
 }
 
+.time-player-controls .loader {
+    width: 3ch;
+    height: 3ch;
+    display: inline-block;
+    border: 5px solid #FFF;
+    border-bottom-color: #FF3D00;
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    visibility: hidden;
+    vertical-align: middle;
+}
+
+.time-player-controls .loader.loading {
+    visibility: visible;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
 footer {
     background-color: black;
     color: white;
