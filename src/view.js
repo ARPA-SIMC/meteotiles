@@ -14,12 +14,31 @@ export class SingleMapView {
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
         this.map = map;
 
-        this.timePlayer = new TimePlayer("time-player");
+        this.timePlayer = new TimePlayer("time-player", map.timeDimension);
 
-        this.productListMenu = new ProductListMenu("map-menu-products", map);
+        this.productListMenu = new ProductListMenu("map-menu-products");
         this.productListMenu.bindOnProductSelected((product) => {
             const key = `${product.modelName}-${product.name}`;
-            this.selectedProducts[key] = product;
+            const layer = L.timeDimension.layer.tileLayer.arkimapsCached({
+                reftime: product.reftime,
+                steps: product.forecastSteps,
+                baseUrl: product.baseUrl,
+                modelName: product.modelName,
+                productName: product.name,
+                productDescription: product.description,
+                legendUrl: `${product.baseUrl}/${product.modelName}/{d}/${product.name}+legend.png`,
+                // legendOn: product_cfg.legend_on,
+                // bounds: bounds,
+                // opacity: product_cfg.opacita,
+                // zIndex: product_cfg.zIndex,
+                // minNativeZoom: product_cfg.minZoom,
+                // maxNativeZoom: product_cfg.maxZoom,
+            });
+            this.selectedProducts[key] = {
+                product: product,
+                layer: layer,
+            };
+            this.map.addLayer(layer);
             this.updateTimeDimension();
         });
         this.productListMenu.bindOnProductUnselected((product) => {
@@ -35,22 +54,22 @@ export class SingleMapView {
     }
 
     updateTimeDimension() {
-        const times = [...new Set(Object.values(this.selectedProducts).map(p => p.getTimes()).flat())].sort();
-        this.timePlayer.setTimes(times);
+        const times = [...new Set(Object.values(this.selectedProducts).map(p => {
+            return p.product.getTimes()
+        }).flat()
+        )].sort();
+        this.map.timeDimension.setAvailableTimes(times, "replace");
     }
-
 };
 
 
 class ProductListMenu {
     elementId;
-    map;
     onProductSelected = (product) => { console.debug("Selected", product) };
     onProductUnselected = (product) => { console.debug("Unselected", product) };
 
-    constructor(elementId, map) {
+    constructor(elementId) {
         this.elementId = elementId;
-        this.map = map;
     }
 
     render(productList) {
@@ -73,12 +92,11 @@ class ProductListMenu {
             checkbox.id = `map-menu-products-${product.modelName}-${product.name}`;
             checkbox.type = "checkbox";
             label.htmlFor = checkbox.id;
-            label.innerText = `${product.modelName} - ${product.description}`;
+            label.innerText = `${product.modelDescription} - ${product.description}`;
             li.append(checkbox);
             li.append(label);
             checkbox.addEventListener("change", (ev) => {
                 if (ev.target.checked) {
-                    // TODO: aggiungi prodotto alla mappa
                     this.onProductSelected(product);
                 } else {
                     this.onProductUnselected(product);
@@ -122,8 +140,9 @@ class TimePlayer {
     timeDimensionPlayer = null;
     timeDimension = null;
 
-    constructor(elementId) {
+    constructor(elementId, timeDimension) {
         this.elementId = elementId;
+        this.timeDimension = timeDimension;
         this.initializeDom();
     }
 
@@ -163,19 +182,24 @@ class TimePlayer {
             timerangeElement.dispatchEvent(new Event("input"));
         });
         this.updateDom();
+        this.timeDimension.on("availabletimeschanged", () => {
+            this.updateTimeDimensionPlayer(),
+            this.updateDom();
+        });
+        this.timeDimension.on("timeloading", () => {
+            console.debug("Time loading");
+            this.disableControls();
+        });
+        this.timeDimension.on("timeloaded", () => {
+            this.updateDom();
+        });
     }
 
-    setTimes(times) {
-        this.timeDimension = times.length > 0 ? new L.TimeDimension({times:times}) : null;
-        if (this.timeDimension) {
-            this.timeDimensionPlayer = new L.TimeDimension.Player({
-                buffer: this.timeDimension.getAvailableTimes().length,
-                minBufferReady: this.timeDimension.getAvailableTimes().length,
-            }, this.timeDimension);
-        } else {
-            this.timeDimensionPlayer = null;
-        }
-        this.updateDom();
+    updateTimeDimensionPlayer() {
+        this.timeDimensionPlayer = new L.TimeDimension.Player({
+            buffer: this.timeDimension.getAvailableTimes().length,
+            minBufferReady: this.timeDimension.getAvailableTimes().length,
+        }, this.timeDimension);
     }
 
     updateDom() {

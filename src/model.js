@@ -1,6 +1,8 @@
 class Product {
-    constructor(modelName, name, description, reftime, forecastSteps) {
+    constructor(baseUrl, modelName, modelDescription, name, description, reftime, forecastSteps) {
+        this.baseUrl = baseUrl;
         this.modelName = modelName;
+        this.modelDescription = modelDescription;
         this.name = name;
         this.description = description;
         this.reftime = reftime;
@@ -66,6 +68,8 @@ export class ProductList {
                             for (const item of json) {
                                 for (const [reftime, reftimeOptions] of Object.entries(item.reftimes)) {
                                     const product = new Product(
+                                        this.baseUrl,
+                                        modelKey,
                                         model.nome,
                                         `${item.recipe.name}_${item.flavour.name}`,
                                         item.recipe.description,
