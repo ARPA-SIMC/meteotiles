@@ -165,29 +165,22 @@ class TimePlayer {
         const root = document.getElementById(this.elementId);
         root.querySelector(".step-backward").addEventListener("click", () => {
             const timerangeElement = root.querySelector(".time-range");
-            this.timeDimension.nextTime(-1);
+            this.previousTimeDimensionStep();
         });
-       root.querySelector(".step-forward").addEventListener("click", () => {
+        root.querySelector(".step-forward").addEventListener("click", () => {
             const timerangeElement = root.querySelector(".time-range");
-            this.timeDimension.nextTime(1);
+            this.nextTimeDimensionStep();
         });
         root.querySelector(".loop").addEventListener("click", () => {
-            const loopButton = root.querySelector(".loop");
-            if (loopButton.classList.contains("active")) {
-                loopButton.classList.remove("active");
-                loopButton.classList.add("inactive");
-            } else {
-                loopButton.classList.remove("inactive");
-                loopButton.classList.add("active");
-            }
+            this.toggleLoop();
         });
         root.querySelector(".time-player-controls").addEventListener("wheel", (event) => {
             const direction = event.deltaY;
             const timerangeElement = root.querySelector(".time-range");
             if (direction < 0) {
-                this.timeDimension.nextTime(1);
+                this.nextTimeDimensionStep();
             } else {
-                this.timeDimension.nextTime(-1);
+                this.previousTimeDimensionStep();
             }
         }, {
             passive: true,
@@ -207,6 +200,33 @@ class TimePlayer {
             this.updateDom();
         });
         this.updateDom();
+    }
+
+    isLoopActivated() {
+        const root = document.getElementById(this.elementId);
+        const loopButton = root.querySelector(".loop");
+        return loopButton.classList.contains("active");
+    }
+
+    toggleLoop() {
+        const root = document.getElementById(this.elementId);
+        const loopButton = root.querySelector(".loop");
+        if (loopButton.classList.contains("active")) {
+            loopButton.classList.remove("active");
+            loopButton.classList.add("inactive");
+        } else {
+            loopButton.classList.remove("inactive");
+            loopButton.classList.add("active");
+        }
+
+    }
+
+    nextTimeDimensionStep() {
+        this.timeDimension.nextTime(1);
+    }
+
+    previousTimeDimensionStep() {
+        this.timeDimension.nextTime(-1);
     }
 
     updateTimeDimensionPlayer() {
