@@ -117,7 +117,6 @@ class ProductListMenu {
 };
 
 
-// TODO: add root element
 class TimePlayer {
     elementId;
     timeDimensionPlayer = null;
