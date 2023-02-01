@@ -90,8 +90,8 @@ class ProductListMenu {
         const root = document.getElementById(this.elementId);
         const ul = document.createElement("ul");
         productList.products.sort((a, b) => {
-            const nameA = `${a.modelName}-${a.name}`;
-            const nameB = `${b.modelName}-${b.name}`;
+            const nameA = `${a.modelDescription}-${a.description}`;
+            const nameB = `${b.modelDescription}-${b.description}`;
             if (nameA < nameB) {
                 return -1;
             } else if (nameA > nameB) {
