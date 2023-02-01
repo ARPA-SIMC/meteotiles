@@ -28,7 +28,7 @@ L.TimeDimension.Layer.TileLayer.ArkimapsChached = L.TimeDimension.Layer.TileLaye
             maxNativeZoom: this.options.maxNativeZoom,
             tms: this.options.tms,
             opacity: this.options.opacity,
-            // zIndex: this.options.zIndex,
+            zIndex: this.options.zIndex + 1,
             bounds: this.options.bounds,
             attribution: `${this.options.modelName} - ${this.options.productDescription}`
         });
@@ -39,7 +39,7 @@ L.TimeDimension.Layer.TileLayer.ArkimapsChached = L.TimeDimension.Layer.TileLaye
         this._layers = Object.fromEntries(this.options.times.map(time => [time, this._createLayerForTime(time)]));
         this._currentLayer = null;
         this._opacity = this._baselayer.options.opacity || 1;
-        this.legendUrl = this._getUrlForTime(this.options.legendUrl);
+        this.legendUrl = this._getUrlForTime(`${this.options.baseUrl}/${this.options.modelName}/{d}/${this.options.productName}+legend.png`);
         this.hasLegend = this.options.legendOn;
     },
     _getUrlForTime: function(baseurl, time) {
@@ -84,6 +84,10 @@ L.TimeDimension.Layer.TileLayer.ArkimapsChached = L.TimeDimension.Layer.TileLaye
     _update: function() {
         const time = this._timeDimension.getCurrentTime();
         if (!this._layers.hasOwnProperty(time)) {
+	    if (this._currentLayer) {
+                this._hideLayer(this._currentLayer);
+		this._currentLayer = null;
+	    }
             return;
         }
         const previousLayer = this._currentLayer;
@@ -102,14 +106,16 @@ L.TimeDimension.Layer.TileLayer.ArkimapsChached = L.TimeDimension.Layer.TileLaye
     _hideLayer: function(layer) {
         layer.setOpacity(0);
     },
-    eachLayer: function(method, context) {
+    setZIndex: function(number) {
         for (const [time, layer] of Object.entries(this._layers)) {
-            method.call(context, layer);
+            layer.setZIndex(number);
+        }
+    },
+    eachLayer: function(method, context) {
+        if (this._currentLayer) {
+            method.call(context, this._currentLayer);
         }
         return L.TimeDimension.Layer.TileLayer.prototype.eachLayer.call(this, method, context);
-    },
-    setZIndex: function(number) {
-        this.eachLayer(l => l.setZIndex(number), this);
     },
 });
 

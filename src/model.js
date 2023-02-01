@@ -8,7 +8,7 @@ class BoundingBox {
 }
 
 class Product {
-    constructor(baseUrl, modelName, modelDescription, name, description, reftime, forecastSteps, boundingBox) {
+    constructor(baseUrl, modelName, modelDescription, name, description, reftime, forecastSteps, boundingBox, minZoom, maxZoom, zIndex, opacity, legendOn) {
         this.baseUrl = baseUrl;
         this.modelName = modelName;
         this.modelDescription = modelDescription;
@@ -17,6 +17,11 @@ class Product {
         this.reftime = reftime;
         this.forecastSteps = forecastSteps;
         this.boundingBox = boundingBox;
+        this.minZoom = minZoom;
+        this.maxZoom = maxZoom;
+        this.zIndex = zIndex;
+        this.opacity = opacity;
+        this.legendOn = legendOn;
     }
 
     getTimes() {
@@ -86,6 +91,11 @@ export class ProductList {
                                         new Date(reftime + "Z"),
                                         Object.keys(reftimeOptions.steps).map(s => parseInt(s)),
                                         new BoundingBox(item.flavour.lat_min, item.flavour.lon_min, item.flavour.lat_max, item.flavour.lon_max),
+                                        item.flavour.zoom_min,
+                                        item.flavour.zoom_max,
+                                        item.recipe.info.zIndex,
+                                        item.recipe.info.opacity,
+                                        reftimeOptions.legend_info != null,
                                     )
                                     products.push(product);
                                 }
