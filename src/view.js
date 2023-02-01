@@ -181,9 +181,6 @@ class TimePlayer {
                 loopButton.classList.add("active");
             }
         });
-        root.querySelector(".time-range").addEventListener("input", () => {
-            this.updateDom();
-        });
         root.querySelector(".time-player-controls").addEventListener("wheel", (event) => {
             const direction = event.deltaY;
             const timerangeElement = root.querySelector(".time-range");
@@ -192,7 +189,6 @@ class TimePlayer {
             } else {
                 this.timeDimension.nextTime(-1);
             }
-            timerangeElement.dispatchEvent(new Event("input"));
         }, {
             passive: true,
         });
