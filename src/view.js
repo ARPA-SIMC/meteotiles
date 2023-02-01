@@ -150,8 +150,8 @@ class TimePlayer {
         });
         root.querySelector(".time-player-controls").addEventListener("wheel", (event) => {
             const direction = event.deltaY;
-            const timerangeElement = document.querySelector(".time-range");
-            if (direction > 0) {
+            const timerangeElement = root.querySelector(".time-range");
+            if (direction < 0) {
                 timerangeElement.stepUp();
             } else {
                 timerangeElement.stepDown();
