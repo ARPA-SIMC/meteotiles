@@ -28,7 +28,10 @@ export class SingleMapView {
                 productDescription: product.description,
                 legendUrl: `${product.baseUrl}/${product.modelName}/{d}/${product.name}+legend.png`,
                 // legendOn: product_cfg.legend_on,
-                // bounds: bounds,
+                bounds: L.latLngBounds(
+                    L.latLng(product.boundingBox.latMin, product.boundingBox.lonMin),
+                    L.latLng(product.boundingBox.latMax, product.boundingBox.lonMax),
+                ),
                 // opacity: product_cfg.opacita,
                 // zIndex: product_cfg.zIndex,
                 // minNativeZoom: product_cfg.minZoom,

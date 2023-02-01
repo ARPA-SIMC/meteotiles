@@ -1,5 +1,14 @@
+class BoundingBox {
+    constructor(latMin, lonMin, latMax, lonMax) {
+        this.latMin = latMin;
+        this.lonMin = lonMin;
+        this.latMax = latMax;
+        this.lonMax = lonMax;
+    }
+}
+
 class Product {
-    constructor(baseUrl, modelName, modelDescription, name, description, reftime, forecastSteps) {
+    constructor(baseUrl, modelName, modelDescription, name, description, reftime, forecastSteps, boundingBox) {
         this.baseUrl = baseUrl;
         this.modelName = modelName;
         this.modelDescription = modelDescription;
@@ -7,6 +16,7 @@ class Product {
         this.description = description;
         this.reftime = reftime;
         this.forecastSteps = forecastSteps;
+        this.boundingBox = boundingBox;
     }
 
     getTimes() {
@@ -75,6 +85,7 @@ export class ProductList {
                                         item.recipe.description,
                                         new Date(reftime + "Z"),
                                         Object.keys(reftimeOptions.steps).map(s => parseInt(s)),
+                                        new BoundingBox(item.flavour.lat_min, item.flavour.lon_min, item.flavour.lat_max, item.flavour.lon_max),
                                     )
                                     products.push(product);
                                 }
