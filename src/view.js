@@ -5,21 +5,8 @@ export class SingleMapView {
     productListSelection = {};
 
     constructor() {
-        const map = L.map("map", {
-            timeDimension: true,
-            timeDimensionOptions: {
-                times: [new Date(0)],
-            },
-            center: [42.8, 12.6],
-            zoom: 6,
-            minZoom: 6,
-            maxZoom: 8,
-        });
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-        this.map = map;
-
-        this.timePlayer = new TimePlayer("time-player", map.timeDimension);
-
+        this.map = this.createMap();
+        this.timePlayer = new TimePlayer("time-player", this.map.timeDimension);
         this.productListMenu = new ProductListMenu("map-menu-products");
         this.productListMenu.bindOnProductSelected((product) => {
             const key = `${product.modelName}-${product.name}`;
@@ -38,6 +25,29 @@ export class SingleMapView {
             this.map.removeLayer(layer);
             this.updateTimeDimension();
         });
+    }
+
+    createMap() {
+        const map = L.map("map", {
+            timeDimension: true,
+            timeDimensionOptions: {
+                times: [new Date(0)],
+            },
+            center: [42.8, 12.6],
+            zoom: 6,
+            minZoom: 6,
+            maxZoom: 8,
+        });
+
+        L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
+            attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            subdomains: 'abcd',
+            minZoom: 6,
+            maxZoom: 8,
+            ext: 'png'
+        }).addTo(map);
+
+        return map;
     }
 
     updateTimeDimension() {
