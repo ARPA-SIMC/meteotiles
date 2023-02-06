@@ -249,14 +249,7 @@ class TimePlayer {
     toggleLoop() {
         const root = document.getElementById(this.elementId);
         const loopButton = root.querySelector(".loop");
-        if (loopButton.classList.contains("active")) {
-            loopButton.classList.remove("active");
-            loopButton.classList.add("inactive");
-        } else {
-            loopButton.classList.remove("inactive");
-            loopButton.classList.add("active");
-        }
-
+        loopButton.classList.toggle("active");
     }
 
     nextTimeDimensionStep() {
