@@ -211,11 +211,9 @@ class TimePlayer {
             playForwardElement.classList.toggle("playing");
         });
         root.querySelector(".step-backward").addEventListener("click", () => {
-            const timerangeElement = root.querySelector(".time-range");
             this.previousTimeDimensionStep();
         });
         root.querySelector(".step-forward").addEventListener("click", () => {
-            const timerangeElement = root.querySelector(".time-range");
             this.nextTimeDimensionStep();
         });
         root.querySelector(".loop").addEventListener("click", () => {
