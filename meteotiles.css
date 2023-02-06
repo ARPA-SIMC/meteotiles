@@ -1,3 +1,7 @@
+:root {
+    --main-bg-color: #53a8b6;
+}
+
 html,
 body {
     height: 100%;
@@ -11,8 +15,9 @@ body {
 }
 
 header {
-    background-color: black;
-    color: white;
+    background-color: var(--main-bg-color);
+    font-weight: normal;
+    color: black;
     padding: 0.5em;
 }
 
@@ -27,6 +32,7 @@ main {
 .map-menu-container {
     padding: 1em;
     overflow-y: auto;
+    border-right: 0.5em solid var(--main-bg-color);
 }
 
 .map-menu-container .map-menu-header {
@@ -48,7 +54,7 @@ main {
     padding: 0.5em;
     color: black;
     text-align: center;
-    background-color: #53a8b6;
+    background-color: var(--main-bg-color);
 }
 
 #time-player {
