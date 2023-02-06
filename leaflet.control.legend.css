@@ -1,0 +1,9 @@
+.leaflet-control-legend {
+    background-color: white;
+    opacity: 1;
+}
+
+.leaflet-control-legend img {
+    height: 50vh;
+    min-height: 500px;
+}

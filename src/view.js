@@ -3,9 +3,13 @@ export class SingleMapView {
     timePlayer;
     productListMenu;
     productListSelection = {};
+    legendControl;
 
     constructor() {
         this.map = this.createMap();
+        this.legendControl = L.control.legend({
+            position: 'topright'
+        }).addTo(this.map);
         this.timePlayer = new TimePlayer("time-player", this.map.timeDimension);
         this.productListMenu = new ProductListMenu("map-menu-products");
         this.productListMenu.bindOnProductSelected((product) => {
@@ -15,6 +19,11 @@ export class SingleMapView {
             item.selected = true;
             this.map.addLayer(layer);
             this.updateTimeDimension();
+            if (layer.hasLegend) {
+                this.legendControl.addLegend(layer.legendUrl, {
+                    opacity: layer.options.opacity,
+                });
+            }
         });
 
         this.productListMenu.bindOnProductUnselected((product) => {
@@ -24,6 +33,7 @@ export class SingleMapView {
             item.selected = false;
             this.map.removeLayer(layer);
             this.updateTimeDimension();
+            this.legendControl.removeLegend(layer.legendUrl);
         });
     }
 
