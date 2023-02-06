@@ -135,37 +135,43 @@ class ProductListMenu {
 
     createProductListDom(productList) {
         const root = document.getElementById(this.elementId);
-        const ul = document.createElement("ul");
-        productList.products.sort((a, b) => {
-            const nameA = `${a.modelDescription}-${a.description}`;
-            const nameB = `${b.modelDescription}-${b.description}`;
-            if (nameA < nameB) {
-                return -1;
-            } else if (nameA > nameB) {
-                return 1;
-            } else {
-                return 0;
+        const groupedProductList = {};
+        productList.products.forEach((product) => {
+            const modelName = product.modelDescription;
+            const reftime = product.reftime.toISOString().slice(0, 16).replace("T", " ");
+            const title = `${modelName} - ${reftime}`;
+            if (!(title in groupedProductList)) {
+                groupedProductList[title] = [];
             }
-        }).forEach((product) => {
-            const li = document.createElement("li");
-            const checkbox = document.createElement("input");
-            const label = document.createElement("label");
-            checkbox.id = `map-menu-products-${product.modelName}-${product.name}`;
-            checkbox.type = "checkbox";
-            label.htmlFor = checkbox.id;
-            label.innerText = `${product.modelDescription} - ${product.description}`;
-            li.append(checkbox);
-            li.append(label);
-            checkbox.addEventListener("change", (ev) => {
-                if (ev.target.checked) {
-                    this.onProductSelected(product);
-                } else {
-                    this.onProductUnselected(product);
-                }
-            });
-            ul.append(li);
+            groupedProductList[title].push(product);
         });
-        root.append(ul);
+        Object.keys(groupedProductList).sort().forEach((title) => {
+            const products = groupedProductList[title].sort();
+            const titleElement = document.createElement("h3");
+            titleElement.innerText = title;
+            root.append(titleElement);
+            const ul = document.createElement("ul");
+            products.forEach((product) => {
+                const li = document.createElement("li");
+                const checkbox = document.createElement("input");
+                const label = document.createElement("label");
+                checkbox.id = `map-menu-products-${product.modelName}-${product.name}`;
+                checkbox.type = "checkbox";
+                label.htmlFor = checkbox.id;
+                label.innerText = `${product.modelDescription} - ${product.description}`;
+                li.append(checkbox);
+                li.append(label);
+                checkbox.addEventListener("change", (ev) => {
+                    if (ev.target.checked) {
+                        this.onProductSelected(product);
+                    } else {
+                        this.onProductUnselected(product);
+                    }
+                });
+                ul.append(li);
+            });
+            root.append(ul);
+        });
         root.querySelector(".map-menu-search input").addEventListener("input", (ev) => {
             this.filterProductList();
         });

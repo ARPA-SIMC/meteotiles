@@ -161,7 +161,6 @@ main {
     }
 }
 
-
 footer {
     background-color: black;
     color: white;
@@ -171,7 +170,15 @@ footer {
 }
 
 .map-menu-products {
-    font-size: 90%;
+    font-size: 80%;
+}
+
+.map-menu-products h2 {
+    font-size: 160%;
+}
+
+.map-menu-products h3 {
+    font-size: 120%;
 }
 
 .map-menu-products ul {
