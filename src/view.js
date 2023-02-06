@@ -204,7 +204,7 @@ class TimePlayer {
         root.querySelector(".play-forward").addEventListener("click", () => {
             const playForwardElement = root.querySelector(".play-forward");
             if (playForwardElement.classList.contains("playing")) {
-                this.timeDimensionPlayer.pause();
+                this.timeDimensionPlayer.stop();
             } else {
                 this.timeDimensionPlayer.start();
             }
