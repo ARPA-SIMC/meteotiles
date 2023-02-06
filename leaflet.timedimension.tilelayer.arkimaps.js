@@ -30,7 +30,7 @@ L.TimeDimension.Layer.TileLayer.ArkimapsChached = L.TimeDimension.Layer.TileLaye
             opacity: this.options.opacity,
             zIndex: this.options.zIndex + 1,
             bounds: this.options.bounds,
-            attribution: `${this.options.modelName} - ${this.options.productDescription}`
+            // attribution: `${this.options.modelName} - ${this.options.productDescription}`
         });
         this.options.times = this.options.steps.map(step => new Date(this.options.reftime.getTime() + step * 3600 * 1000).getTime()),
         L.TimeDimension.Layer.TileLayer.prototype.initialize.call(this, layer, this.options);
