@@ -21,15 +21,17 @@ class App {
 
     onProductListLoading() {
         console.debug("Product list is loading");
+        this.view.onProductListLoading();
     }
 
-    onProductListLoaded() {
-        console.debug("Product list is loaded", this.productList);
-        this.view.render(this.productList);
+    onProductListLoaded(productList) {
+        console.debug("Product list is loaded", productList);
+        this.view.onProductListLoaded(productList);
     }
 
     onProductListFetchError(error) {
         console.error(error);
+        this.view.onProductListFetchError(error);
     }
 
     static async createApp(configBaseUrl = ".") {

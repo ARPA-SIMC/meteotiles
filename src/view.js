@@ -40,7 +40,25 @@ export class SingleMapView {
         });
     }
 
-    render(productList) {
+    updateTimeDimension() {
+        const times = [...new Set(
+            Object.values(this.productListSelection)
+            .filter(p => p.selected)
+            .map(p => p.product.getTimes()).flat()
+        )].sort();
+        if (times.length == 0) {
+            this.map.timeDimension.setAvailableTimes([0], "replace");
+        } else {
+            const currentTime = this.map.timeDimension.getCurrentTime();
+            let currentTimeIndex = times.findIndex((el) => el == currentTime);
+            if (currentTimeIndex < 0)
+                currentTimeIndex = 0;
+            this.map.timeDimension.setAvailableTimes(times, "replace");
+            this.map.timeDimension.setCurrentTimeIndex(currentTimeIndex);
+        }
+    }
+
+    createProductListLayers(productList) {
         this.productListSelection = Object.fromEntries(
             productList.products.map((product) => {
                 const key = `${product.modelName}-${product.name}`;
@@ -69,25 +87,19 @@ export class SingleMapView {
                 }];
             })
         );
-        this.productListMenu.render(productList);
     }
 
-    updateTimeDimension() {
-        const times = [...new Set(
-            Object.values(this.productListSelection)
-            .filter(p => p.selected)
-            .map(p => p.product.getTimes()).flat()
-        )].sort();
-        if (times.length == 0) {
-            this.map.timeDimension.setAvailableTimes([0], "replace");
-        } else {
-            const currentTime = this.map.timeDimension.getCurrentTime();
-            let currentTimeIndex = times.findIndex((el) => el == currentTime);
-            if (currentTimeIndex < 0)
-                currentTimeIndex = 0;
-            this.map.timeDimension.setAvailableTimes(times, "replace");
-            this.map.timeDimension.setCurrentTimeIndex(currentTimeIndex);
-        }
+    onProductListLoading() {
+        this.productListMenu.onProductListLoading();
+    }
+
+    onProductListLoaded(productList) {
+        this.createProductListLayers(productList);
+        this.productListMenu.onProductListLoaded(productList);
+    }
+
+    onProductListFetchError(error) {
+        alert("Error while fetching the product list: " + error);
     }
 };
 
@@ -101,7 +113,7 @@ class ProductListMenu {
         this.elementId = elementId;
     }
 
-    render(productList) {
+    createProductListDom(productList) {
         const root = document.getElementById(this.elementId);
         const ul = document.createElement("ul");
         productList.products.sort((a, b) => {
@@ -152,6 +164,17 @@ class ProductListMenu {
                 label.parentElement.classList.add("hide");
             }
         });
+    }
+
+    onProductListLoading() {
+        const root = document.getElementById(this.elementId);
+        root.querySelector(".loader").classList.add("loading");
+    }
+
+    onProductListLoaded(productList) {
+        const root = document.getElementById(this.elementId);
+        this.createProductListDom(productList);
+        root.querySelector(".loader").classList.remove("loading");
     }
 
     bindOnProductSelected(callback) {

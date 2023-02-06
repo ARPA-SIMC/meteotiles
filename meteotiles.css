@@ -117,11 +117,11 @@ main {
     font-size: 100%;
 }
 
-.time-player-controls .loader {
+.time-player-controls .loader, .map-menu-products .loader {
     width: 3ch;
     height: 3ch;
     display: inline-block;
-    border: 5px solid #FFF;
+    border: 5px solid CornFlowerBlue;
     border-bottom-color: #FF3D00;
     border-radius: 50%;
     box-sizing: border-box;
@@ -130,7 +130,7 @@ main {
     vertical-align: middle;
 }
 
-.time-player-controls .loader.loading {
+.time-player-controls .loader.loading, .map-menu-products .loader.loading {
     visibility: visible;
 }
 
