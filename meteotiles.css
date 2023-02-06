@@ -162,8 +162,13 @@ footer {
 
 .map-menu-products li {
     list-style-type: none;
+    display: flex;
 }
 
 .map-menu-products li.hide {
     display: none;
+}
+
+.map-menu-products li input {
+    align-self: baseline;
 }
