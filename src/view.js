@@ -9,8 +9,12 @@ export class SingleMapView {
             timeDimension: true,
             timeDimensionOptions: {
                 times: [new Date(0)],
-            }
-        }).setView([42, 12], 6);
+            },
+            center: [42.8, 12.6],
+            zoom: 6,
+            minZoom: 6,
+            maxZoom: 8,
+        });
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
         this.map = map;
 
