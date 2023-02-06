@@ -201,6 +201,15 @@ class TimePlayer {
 
     initializeDom() {
         const root = document.getElementById(this.elementId);
+        root.querySelector(".play-forward").addEventListener("click", () => {
+            const playForwardElement = root.querySelector(".play-forward");
+            if (playForwardElement.classList.contains("playing")) {
+                this.timeDimensionPlayer.pause();
+            } else {
+                this.timeDimensionPlayer.start();
+            }
+            playForwardElement.classList.toggle("playing");
+        });
         root.querySelector(".step-backward").addEventListener("click", () => {
             const timerangeElement = root.querySelector(".time-range");
             this.previousTimeDimensionStep();
@@ -211,6 +220,7 @@ class TimePlayer {
         });
         root.querySelector(".loop").addEventListener("click", () => {
             this.toggleLoop();
+            this.timeDimensionPlayer.setLooped(this.isLoopActivated());
         });
         root.querySelector(".time-player-controls").addEventListener("wheel", (event) => {
             const direction = event.deltaY;
@@ -222,6 +232,11 @@ class TimePlayer {
             }
         }, {
             passive: true,
+        });
+        root.querySelector(".time-range").addEventListener("change", (event) => {
+            const timerangeElement = root.querySelector(".time-range");
+            const value = timerangeElement.value;
+            this.timeDimension.setCurrentTimeIndex(value);
         });
         this.timeDimension.on("availabletimeschanged", (ev) => {
             this.updateTimeDimensionPlayer(),
@@ -264,7 +279,13 @@ class TimePlayer {
         this.timeDimensionPlayer = new L.TimeDimension.Player({
             buffer: this.timeDimension.getAvailableTimes().length,
             minBufferReady: this.timeDimension.getAvailableTimes().length,
+            loop: this.isLoopActivated(),
         }, this.timeDimension);
+        this.timeDimensionPlayer.on("animationfinished", () => {
+            const root = document.getElementById(this.elementId);
+            const playForwardElement = root.querySelector(".play-forward");
+            playForwardElement.classList.remove("playing");
+        });
     }
 
     updateDom() {
