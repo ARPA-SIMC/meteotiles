@@ -15,6 +15,7 @@ export class SingleMapView {
         }).addTo(this.map);
         this.timePlayer = new TimePlayer("time-player", this.map.timeDimension);
         this.productListMenu = new ProductListMenu("map-menu-products");
+        this.productListSelectionMenu = new ProductListSelectionSummary("product-list-selection-summary");
         this.productListMenu.bindOnProductSelected((product) => {
             const key = `${product.modelName}-${product.name}`;
             const item = this.productListSelection[key];
@@ -27,6 +28,7 @@ export class SingleMapView {
                     opacity: layer.options.opacity,
                 });
             }
+            this.productListSelectionMenu.onProductSelected(product);
         });
 
         this.productListMenu.bindOnProductUnselected((product) => {
@@ -37,6 +39,7 @@ export class SingleMapView {
             this.map.removeLayer(layer);
             this.updateTimeDimension();
             this.legendControl.removeLegend(layer.legendUrl);
+            this.productListSelectionMenu.onProductUnselected(product);
         });
 
         document.querySelector(".version").innerText = `meteotiles version ${VERSION}`;
@@ -127,6 +130,37 @@ export class SingleMapView {
         alert("Error while fetching the product list: " + error);
     }
 };
+
+
+class ProductListSelectionSummary {
+    elementId;
+
+    constructor(elementId) {
+        this.elementId = elementId;
+    }
+
+    getProductElementId(product) {
+        return "badge-" + product.modelName + "-" + product.reftime.getTime() + "-" + product.name;
+    }
+
+    getProductElementText(product) {
+        return product.modelDescription + " - " + product.reftime.toISOString().slice(0, 16).replace("T", " ") + " - " + product.description;
+    }
+
+    onProductSelected(product) {
+        const root = document.getElementById(this.elementId);
+        const badge = document.createElement("span");
+        badge.classList.add("product-selection-badge");
+        badge.id = this.getProductElementId(product);
+        badge.innerText = this.getProductElementText(product);
+        root.append(badge);
+    }
+
+    onProductUnselected(product) {
+        const badge = document.getElementById(this.getProductElementId(product));
+        badge.remove();
+    }
+}
 
 
 class ProductListMenu {
