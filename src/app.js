@@ -35,22 +35,10 @@ class App {
         this.view.onProductListFetchError(error);
     }
 
-    static async createApp(configBaseUrl = ".") {
-        const configUrl = `${configBaseUrl}/config.json`;
-        return fetch(configUrl)
-            .then(resp => {
-                if (resp.ok)
-                    return resp
-                else
-                    throw Error(resp.statusText)
-            })
-            .then(resp => resp.json())
-            .then(json => {
-                const tilesUrl = `${configBaseUrl}/${json.tiles.baseurl}`;
-                const productList = new ProductList(tilesUrl);
-                const view = new SingleMapView();
-                return new App(productList, view);
-            })
+    static async createApp(tilesServerUrl = ".") {
+        const productList = new ProductList(tilesServerUrl);
+        const view = new SingleMapView();
+        return new App(productList, view);
     }
 };
 
