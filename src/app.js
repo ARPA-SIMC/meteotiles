@@ -1,5 +1,6 @@
 import { ProductList } from "./model.js";
 import { SingleMapView } from "./view.js";
+import { TILES_SERVER_URL } from "./settings.js";
 
 
 class App {
@@ -54,5 +55,5 @@ class App {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-    App.createApp("http://meteotiles.metarpa").then(app => app.init());
+    App.createApp(TILES_SERVER_URL).then(app => app.init());
 });
