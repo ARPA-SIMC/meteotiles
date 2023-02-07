@@ -231,6 +231,9 @@ class TimePlayer {
             const playForwardElement = root.querySelector(".play-forward");
             if (playForwardElement.classList.contains("playing")) {
                 this.timeDimensionPlayer.stop();
+                // Recreate timeDimensionPlayer when stopped, because
+                // otherwise it starts when a new layer is loaded.
+                this.updateTimeDimensionPlayer();
             } else {
                 this.timeDimensionPlayer.start();
             }
