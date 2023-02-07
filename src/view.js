@@ -16,6 +16,9 @@ export class SingleMapView {
         this.timePlayer = new TimePlayer("time-player", this.map.timeDimension);
         this.productListMenu = new ProductListMenu("map-menu-products");
         this.productListSelectionMenu = new ProductListSelectionSummary("product-list-selection-summary");
+        this.productListSelectionMenu.bindOnProductClicked((product) => {
+            this.productListMenu.unselectProduct(product);
+        });
         this.productListMenu.bindOnProductSelected((product) => {
             const key = `${product.modelName}-${product.name}`;
             const item = this.productListSelection[key];
@@ -134,6 +137,7 @@ export class SingleMapView {
 
 class ProductListSelectionSummary {
     elementId;
+    onProductClicked = (product) => { console.debug("Unselected", product) };
 
     constructor(elementId) {
         this.elementId = elementId;
@@ -150,15 +154,25 @@ class ProductListSelectionSummary {
     onProductSelected(product) {
         const root = document.getElementById(this.elementId);
         const badge = document.createElement("span");
+        const productId = this.getProductElementId(product);
+
         badge.classList.add("product-selection-badge");
-        badge.id = this.getProductElementId(product);
+        badge.id = productId;
         badge.innerText = this.getProductElementText(product);
         root.append(badge);
+        badge.addEventListener("click", () => {
+            this.onProductClicked(product);
+        });
     }
 
     onProductUnselected(product) {
-        const badge = document.getElementById(this.getProductElementId(product));
+        const productId = this.getProductElementId(product);
+        const badge = document.getElementById(productId);
         badge.remove();
+    }
+
+    bindOnProductClicked(callback) {
+        this.onProductClicked = callback;
     }
 }
 
@@ -170,6 +184,28 @@ class ProductListMenu {
 
     constructor(elementId) {
         this.elementId = elementId;
+    }
+
+    getProductCheckboxElementId(product) {
+        return `map-menu-products-${product.modelName}-${product.name}`;
+    }
+
+    unselectProduct(product) {
+        const productId = this.getProductCheckboxElementId(product);
+        const checkbox = document.getElementById(productId);
+        if (checkbox.checked) {
+            checkbox.checked = false;
+        }
+        this.onProductUnselected(product);
+    }
+
+    selectProduct(product) {
+        const productId = this.getProductCheckboxElementId(product);
+        const checkbox = document.getElementById(productId);
+        if (!checkbox.checked) {
+            checkbox.checked = true;
+        }
+        this.onProductSelected(product);
     }
 
     createProductListDom(productList) {
@@ -194,7 +230,7 @@ class ProductListMenu {
                 const li = document.createElement("li");
                 const checkbox = document.createElement("input");
                 const label = document.createElement("label");
-                checkbox.id = `map-menu-products-${product.modelName}-${product.name}`;
+                checkbox.id = this.getProductCheckboxElementId(product);
                 checkbox.type = "checkbox";
                 label.htmlFor = checkbox.id;
                 label.innerText = `${product.modelDescription} - ${product.description}`;
@@ -202,9 +238,9 @@ class ProductListMenu {
                 li.append(label);
                 checkbox.addEventListener("change", (ev) => {
                     if (ev.target.checked) {
-                        this.onProductSelected(product);
+                        this.selectProduct(product);
                     } else {
-                        this.onProductUnselected(product);
+                        this.unselectProduct(product);
                     }
                 });
                 ul.append(li);
