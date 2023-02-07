@@ -104,7 +104,7 @@ export class SingleMapView {
                         L.latLng(product.boundingBox.latMax, product.boundingBox.lonMax),
                     ),
                     opacity: product.opacity,
-                    zIndex: product.zIndex + 1,
+                    zIndex: product.zIndex,
                     minNativeZoom: product.minZoom,
                     maxNativeZoom: product.maxZoom,
                 });
