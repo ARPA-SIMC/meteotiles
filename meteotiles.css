@@ -37,7 +37,7 @@ main {
     background-color: white;
     display: grid;
     grid-template-columns: 2fr 3fr 3fr;
-    grid-template-rows: 2.5lh 1fr 1fr auto;
+    grid-template-rows: 4lh 1fr 1fr auto;
     overflow: hidden;
 }
 
@@ -57,9 +57,12 @@ main {
     border-radius: 5px;
     font-size: 80%;
     margin: 0.4em;
-    vertical-align: middle;
-    display: inline-block;
     cursor: pointer;
+}
+
+.product-selection-badge::after {
+    margin-left: 1ch;
+    content: "\00d7";
 }
 
 .map-menu-container {
