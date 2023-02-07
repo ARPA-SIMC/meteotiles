@@ -1,3 +1,6 @@
+import { VERSION } from "./settings.js";
+
+
 export class SingleMapView {
     map;
     timePlayer;
@@ -35,6 +38,8 @@ export class SingleMapView {
             this.updateTimeDimension();
             this.legendControl.removeLegend(layer.legendUrl);
         });
+
+        document.querySelector(".version").innerText = `meteotiles version ${VERSION}`;
     }
 
     createMap() {
