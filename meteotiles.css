@@ -37,7 +37,7 @@ main {
     background-color: white;
     display: grid;
     grid-template-columns: 1.5fr 3fr 3fr;
-    grid-template-rows: 4lh 1fr 1fr auto;
+    grid-template-rows: auto 1fr 1fr auto;
     overflow: hidden;
 }
 
@@ -46,6 +46,7 @@ main {
     background-color: white;
     border-bottom: 0.2em solid var(--main-bg-color);
     padding: 0.5em;
+    min-height: 2lh;
 }
 
 .product-selection-badge {
@@ -58,6 +59,7 @@ main {
     font-size: 80%;
     margin: 0.4em;
     cursor: pointer;
+    display: inline-block;
 }
 
 .product-selection-badge::after {
