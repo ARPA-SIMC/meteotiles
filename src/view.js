@@ -19,33 +19,36 @@ export class SingleMapView {
         this.productListSelectionMenu.bindOnProductClicked((product) => {
             this.productListMenu.unselectProduct(product);
         });
-        this.productListMenu.bindOnProductSelected((product) => {
-            const key = `${product.modelName}-${product.name}`;
-            const item = this.productListSelection[key];
-            const layer = item.layer;
-            item.selected = true;
-            this.map.addLayer(layer);
-            this.updateTimeDimension();
-            if (layer.hasLegend) {
-                this.legendControl.addLegend(layer.legendUrl, {
-                    opacity: layer.options.opacity,
-                });
-            }
-            this.productListSelectionMenu.onProductSelected(product);
-        });
-
-        this.productListMenu.bindOnProductUnselected((product) => {
-            const key = `${product.modelName}-${product.name}`;
-            const item = this.productListSelection[key];
-            const layer = item.layer;
-            item.selected = false;
-            this.map.removeLayer(layer);
-            this.updateTimeDimension();
-            this.legendControl.removeLegend(layer.legendUrl);
-            this.productListSelectionMenu.onProductUnselected(product);
-        });
-
+        this.productListMenu.bindOnProductSelected((product) => this.onProductSelected(product));
+        this.productListMenu.bindOnProductUnselected((product) => this.onProductUnselected(product));
         document.querySelector(".version").innerText = `meteotiles version ${VERSION}`;
+    }
+
+    onProductSelected(product) {
+        const key = `${product.modelName}-${product.name}`;
+        const item = this.productListSelection[key];
+        const layer = item.layer;
+        item.selected = true;
+        this.map.addLayer(layer);
+        this.updateTimeDimension();
+        if (layer.hasLegend) {
+            this.legendControl.addLegend(layer.legendUrl, {
+                opacity: layer.options.opacity,
+            });
+        }
+        this.productListSelectionMenu.onProductSelected(product);
+    }
+
+    onProductUnselected(product) {
+        const key = `${product.modelName}-${product.name}`;
+        const item = this.productListSelection[key];
+        const layer = item.layer;
+        item.selected = false;
+        this.map.removeLayer(layer);
+        this.updateTimeDimension();
+        this.legendControl.removeLegend(layer.legendUrl);
+        this.productListSelectionMenu.onProductUnselected(product);
+
     }
 
     createMap() {
