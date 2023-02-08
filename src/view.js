@@ -232,7 +232,11 @@ class ProductListMenu {
 
     disableProductSelection() {
         const root = document.getElementById(this.elementId);
-        root.querySelectorAll("input").forEach((el) => el.disabled = true);
+        root.querySelectorAll("input").forEach((el) => {
+            if (!el.checked) {
+                el.disabled = true
+            }
+        });
     }
 
     createProductListDom(productList) {
