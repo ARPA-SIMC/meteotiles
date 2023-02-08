@@ -46,7 +46,7 @@ main {
     background-color: white;
     border-bottom: 0.2em solid var(--main-bg-color);
     padding: 0.5em;
-    min-height: 2lh;
+    min-height: 2em;
 }
 
 .product-selection-badge {
