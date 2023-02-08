@@ -1,4 +1,4 @@
-import { VERSION } from "./settings.js";
+import { VERSION, MAX_PRODUCTS_SELECTED } from "./settings.js";
 
 
 export class SingleMapView {
@@ -184,6 +184,7 @@ class ProductListMenu {
     elementId;
     onProductSelected = (product) => { console.debug("Selected", product) };
     onProductUnselected = (product) => { console.debug("Unselected", product) };
+    selectedProductsCount = 0;
 
     constructor(elementId) {
         this.elementId = elementId;
@@ -194,6 +195,11 @@ class ProductListMenu {
     }
 
     unselectProduct(product) {
+        this.selectedProductsCount -= 1;
+        if (this.selectedProductsCount < MAX_PRODUCTS_SELECTED) {
+            this.enableProductSelection();
+        }
+
         const productId = this.getProductCheckboxElementId(product);
         const checkbox = document.getElementById(productId);
         if (checkbox.checked) {
@@ -203,12 +209,27 @@ class ProductListMenu {
     }
 
     selectProduct(product) {
+        this.selectedProductsCount += 1;
+        if (this.selectedProductsCount >= MAX_PRODUCTS_SELECTED) {
+            this.disableProductSelection();
+        }
+
         const productId = this.getProductCheckboxElementId(product);
         const checkbox = document.getElementById(productId);
         if (!checkbox.checked) {
             checkbox.checked = true;
         }
         this.onProductSelected(product);
+    }
+
+    enableProductSelection() {
+        const root = document.getElementById(this.elementId);
+        root.querySelectorAll("input").forEach((el) => el.disabled = false);
+    }
+
+    disableProductSelection() {
+        const root = document.getElementById(this.elementId);
+        root.querySelectorAll("input").forEach((el) => el.disabled = true);
     }
 
     createProductListDom(productList) {
