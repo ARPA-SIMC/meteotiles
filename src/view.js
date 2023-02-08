@@ -1,4 +1,5 @@
 import { VERSION, MAX_PRODUCTS_SELECTED } from "./settings.js";
+import { convertBoundingBoxToLeafletBounds } from "./utils.js";
 
 
 export class SingleMapView {
@@ -105,10 +106,7 @@ export class SingleMapView {
                     productDescription: product.description,
                     legendUrl: `${product.baseUrl}/${product.modelName}/{d}/${product.name}+legend.png`,
                     legendOn: product.legendOn,
-                    bounds: L.latLngBounds(
-                        L.latLng(product.boundingBox.latMin, product.boundingBox.lonMin),
-                        L.latLng(product.boundingBox.latMax, product.boundingBox.lonMax),
-                    ),
+                    bounds: convertBoundingBoxToLeafletBounds(product.boundingBox),
                     opacity: product.opacity,
                     zIndex: product.zIndex,
                     minNativeZoom: product.minZoom,
@@ -130,6 +128,11 @@ export class SingleMapView {
     onProductListLoaded(productList) {
         this.createProductListLayers(productList);
         this.productListMenu.onProductListLoaded(productList);
+        const bounds = productList.products
+            .map((p) => convertBoundingBoxToLeafletBounds(p.boundingBox))
+            .reduce((acc, cur) => acc.extend(cur));
+        this.map.fitBounds(bounds);
+        this.map.setMaxBounds(bounds);
     }
 
     onProductListFetchError(error) {
