@@ -60,6 +60,7 @@ main {
     margin: 0.4em;
     cursor: pointer;
     display: inline-block;
+    user-select: none;
 }
 
 .product-selection-badge::after {
