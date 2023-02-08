@@ -224,7 +224,15 @@ class ProductListMenu {
             groupedProductList[title].push(product);
         });
         Object.keys(groupedProductList).sort().forEach((title) => {
-            const products = groupedProductList[title].sort();
+            const products = groupedProductList[title].sort((a, b) => {
+                if (a.description > b.description) {
+                    return 1
+                }
+                if (a.description < b.description) {
+                    return -1;
+                }
+                return 0;
+            });
             const titleElement = document.createElement("h3");
             titleElement.innerText = title;
             root.append(titleElement);
