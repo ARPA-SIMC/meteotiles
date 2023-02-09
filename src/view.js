@@ -446,6 +446,21 @@ class TimePlayer {
         timerangeElement.max = max;
         timerangeElement.step = 1;
         timerangeElement.value = this.timeDimension.getCurrentTimeIndex();
+        const datalistElementId = timerangeElement.getAttribute("list");
+        const datalistElement = root.querySelector("#" + datalistElementId);
+        datalistElement.innerHTML = "";
+        this.timeDimension.getAvailableTimes()
+            .map((time, index) => [time, index])
+            .filter(item => item[0] % 86400000 == 0)
+            .forEach(item => {
+                const time = item[0];
+                const index = item[1];
+                const date = new Date(time);
+                const option = document.createElement("option");
+                option.label = `${date.getUTCDay()}-${date.getUTCMonth() + 1}`;
+                option.value = index;
+                datalistElement.append(option);
+        });
 
         const stepBackwardElement = root.querySelector(".step-backward")
         stepBackwardElement.disabled = value <= min;
