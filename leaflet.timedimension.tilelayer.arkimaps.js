@@ -58,7 +58,10 @@ L.TimeDimension.Layer.TileLayer.ArkimapsChached = L.TimeDimension.Layer.TileLaye
         const url = this._getUrlForTime(this._baseLayer.getURL(), time);
         const layer = new this._baseLayer.constructor(url, this._baseLayer.options);
         layer.on('load', (function(layer, time) {
-           layer.setLoaded(true);
+            layer.setLoaded(true);
+            this.fire('timeload', {
+                time: time
+            });
         }).bind(this, layer, time));
         return layer;
     },
