@@ -104,10 +104,18 @@ L.TimeDimension.Layer.TileLayer.ArkimapsChached = L.TimeDimension.Layer.TileLaye
         this._showLayer(this._currentLayer);
     },
     _showLayer: function(layer) {
-        layer.setOpacity(this._opacity);
+        //layer.setOpacity(this._opacity);
+        const container = layer.getContainer();
+        if (container) {
+            container.style.display = 'block';
+        }
     },
     _hideLayer: function(layer) {
-        layer.setOpacity(0);
+        //layer.setOpacity(0);
+        const container = layer.getContainer();
+        if (container) {
+            container.style.display = 'none';
+        }
     },
     setZIndex: function(number) {
         for (const [time, layer] of Object.entries(this._layers)) {
