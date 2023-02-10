@@ -22,7 +22,7 @@ export class SingleMapView {
         });
         this.productListMenu.bindOnProductSelected((product) => this.onProductSelected(product));
         this.productListMenu.bindOnProductUnselected((product) => this.onProductUnselected(product));
-        document.querySelector(".version").innerText = `meteotiles version ${VERSION}`;
+        document.querySelector(".version").innerText = `meteotiles version ${VERSION} (prototype)`;
     }
 
     onProductSelected(product) {
