@@ -1,5 +1,17 @@
-import { VERSION, MAX_PRODUCTS_SELECTED } from "./settings.js";
+import { VERSION, MAX_PRODUCTS_SELECTED, USE_GRID_DEBUG } from "./settings.js";
 import { convertBoundingBoxToLeafletBounds } from "./utils.js";
+
+
+L.GridLayer.GridDebug = L.GridLayer.extend({
+    createTile: function (coords) {
+        const tile = document.createElement('div');
+        tile.style.outline = '1px solid black';
+        tile.style.fontWeight = 'bold';
+        tile.style.fontSize = '14pt';
+        tile.innerHTML = [coords.z, coords.x, coords.y].join('/');
+        return tile;
+    },
+});
 
 
 export class SingleMapView {
@@ -69,6 +81,10 @@ export class SingleMapView {
             subdomains: 'abcd',
             ext: 'png'
         }).addTo(map);
+
+        if (USE_GRID_DEBUG) {
+            map.addLayer(new L.GridLayer.GridDebug());
+        }
 
         return map;
     }
