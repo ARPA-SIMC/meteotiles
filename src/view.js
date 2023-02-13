@@ -129,7 +129,13 @@ export class SingleMapView {
         const bounds = productList.products
             .map((p) => convertBoundingBoxToLeafletBounds(p.boundingBox))
             .reduce((acc, cur) => acc.extend(cur));
-        this.map.fitBounds(bounds);
+        // TODO: decremento di 1 lo zoom minimo necessario per
+        // visualizzare i prodotti perché c'è qualche problema sui
+        // bounding box dei prodotti, si veda
+        // https://github.com/ARPA-SIMC/meteotiles/issues/47
+        const minZoom = this.map.getBoundsZoom(bounds) - 1;
+        this.map.setMinZoom(minZoom);
+        this.map.fitBounds(bounds, { maxZoom: minZoom });
         this.map.setMaxBounds(bounds);
     }
 
