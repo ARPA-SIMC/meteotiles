@@ -1,7 +1,13 @@
 #!/usr/bin/python3
 import argparse
 import os
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+try:
+    # From Python 3.7
+    from http.server import ThreadingHTTPServer as HTTPServer
+except ModuleNotFoundError:
+    from http.server import HTTPServer
+
+from http.server import SimpleHTTPRequestHandler
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError
 
