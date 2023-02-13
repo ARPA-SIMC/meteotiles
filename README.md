@@ -16,3 +16,7 @@ TILES_SERVER_URL=http://tiles-server.test/path/to/tiles
 python3 development-server.py --port ${PORT} ${TILES_SERVER_URL}
 xdg-open http://localhost:${PORT}
 ```
+
+Il server `development-server.py` di default risponde con un `HTTP 302` alle
+richieste di tiles. È possibile farlo funzionare in modalità proxy con
+l'opzione `--action=proxy`.
