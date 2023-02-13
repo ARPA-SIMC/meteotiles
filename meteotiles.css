@@ -198,6 +198,10 @@ footer {
     font-size: 90%;
 }
 
+footer a, footer a:visited {
+    color: var(--main-bg-color);
+}
+
 .map-menu-products {
     font-size: 80%;
 }
