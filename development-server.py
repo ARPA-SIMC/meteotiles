@@ -2,7 +2,8 @@
 import argparse
 import os
 from http.server import HTTPServer, SimpleHTTPRequestHandler
-from urllib.request import urlopen
+from urllib.request import Request, urlopen
+from urllib.error import HTTPError
 
 
 def create_handler(tiles_server_url, do_redirect):
@@ -16,13 +17,25 @@ def create_handler(tiles_server_url, do_redirect):
                     self.send_header('Location', new_path)
                     self.end_headers()
                 else:
-                    with urlopen(new_path) as response:
-                        self.send_response(response.status)
-                        for key, value in response.getheaders():
+                    request = Request(new_path)
+                    for key, value in self.headers.items():
+                        request.add_header(key, value)
+
+                    try:
+                        with urlopen(request) as response:
+                            print(response.status)
+                            self.send_response(response.status)
+                            for key, value in response.getheaders():
+                                self.send_header(key, value)
+
+                            self.end_headers()
+                            self.wfile.write(response.read())
+                    except HTTPError as e:
+                        self.send_response(e.code, e.reason)
+                        for key, value in e.headers.items():
                             self.send_header(key, value)
 
                         self.end_headers()
-                        self.wfile.write(response.read())
             else:
                 super().do_GET()
 
