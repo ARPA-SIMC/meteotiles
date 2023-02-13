@@ -29,7 +29,6 @@ def create_handler(tiles_server_url, do_redirect):
 
                     try:
                         with urlopen(request) as response:
-                            print(response.status)
                             self.send_response(response.status)
                             for key, value in response.getheaders():
                                 self.send_header(key, value)
