@@ -107,6 +107,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    column-gap: 1em;
 }
 
 .time-player-container .time-player-controls-buttons {
@@ -166,7 +167,7 @@ main {
 
 .time-player-controls .datetime-label {
     display: inline-block;
-    width: 25ch;
+    width: 16ch;
     font-size: 140%;
     font-weight: bold;
 }
