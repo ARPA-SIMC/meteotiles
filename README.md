@@ -2,6 +2,9 @@
 
 Prototipo per la visualizzazione di prodotti meteorologici.
 
+![screenshot](https://user-images.githubusercontent.com/13255425/219043356-2dd789d3-005f-4718-a779-904523b29f61.png)
+
+*screenshot dell'interfaccia con tile prodotti da [arkimaps](https://github.com/ARPA-SIMC/arkimaps)*
 
 ## Utilizzo
 
