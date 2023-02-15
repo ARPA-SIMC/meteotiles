@@ -35,6 +35,7 @@ export class SingleMapView {
         this.productListMenu.bindOnProductSelected((product) => this.onProductSelected(product));
         this.productListMenu.bindOnProductUnselected((product) => this.onProductUnselected(product));
         document.querySelector(".version").innerText = `version ${VERSION} (prototype)`;
+        document.querySelector(".version-link").href = `https://github.com/ARPA-SIMC/meteotiles/releases/tag/v${VERSION}`;
     }
 
     onProductSelected(product) {
