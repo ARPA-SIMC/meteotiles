@@ -42,11 +42,13 @@ main {
 }
 
 .product-list-selection-summary-container {
+    display: flex;
+    align-items: center;
     grid-column: 1/4;
     background-color: white;
     border-bottom: 0.2em solid var(--main-bg-color);
-    padding: 0.5em;
-    min-height: 2em;
+    padding: 0.1em;
+    height: 2lh;
 }
 
 .product-selection-badge {
@@ -195,6 +197,10 @@ footer {
     padding: 0.5em;
     text-align: center;
     font-size: 90%;
+}
+
+footer a, footer a:visited {
+    color: var(--main-bg-color);
 }
 
 .map-menu-products {

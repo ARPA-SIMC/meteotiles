@@ -1,5 +1,17 @@
-import { VERSION, MAX_PRODUCTS_SELECTED } from "./settings.js";
+import { VERSION, MAX_PRODUCTS_SELECTED, USE_GRID_DEBUG } from "./settings.js";
 import { convertBoundingBoxToLeafletBounds } from "./utils.js";
+
+
+L.GridLayer.GridDebug = L.GridLayer.extend({
+    createTile: function (coords) {
+        const tile = document.createElement('div');
+        tile.style.outline = '1px solid black';
+        tile.style.fontWeight = 'bold';
+        tile.style.fontSize = '14pt';
+        tile.innerHTML = [coords.z, coords.x, coords.y].join('/');
+        return tile;
+    },
+});
 
 
 export class SingleMapView {
@@ -22,7 +34,8 @@ export class SingleMapView {
         });
         this.productListMenu.bindOnProductSelected((product) => this.onProductSelected(product));
         this.productListMenu.bindOnProductUnselected((product) => this.onProductUnselected(product));
-        document.querySelector(".version").innerText = `meteotiles version ${VERSION}`;
+        document.querySelector(".version").innerText = `version ${VERSION} (prototype)`;
+        document.querySelector(".version-link").href = `https://github.com/ARPA-SIMC/meteotiles/releases/tag/v${VERSION}`;
     }
 
     onProductSelected(product) {
@@ -67,10 +80,12 @@ export class SingleMapView {
         L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
             attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
             subdomains: 'abcd',
-            minZoom: 6,
-            maxZoom: 8,
             ext: 'png'
         }).addTo(map);
+
+        if (USE_GRID_DEBUG) {
+            map.addLayer(new L.GridLayer.GridDebug());
+        }
 
         return map;
     }
@@ -131,7 +146,13 @@ export class SingleMapView {
         const bounds = productList.products
             .map((p) => convertBoundingBoxToLeafletBounds(p.boundingBox))
             .reduce((acc, cur) => acc.extend(cur));
-        this.map.fitBounds(bounds);
+        // TODO: decremento di 1 lo zoom minimo necessario per
+        // visualizzare i prodotti perché c'è qualche problema sui
+        // bounding box dei prodotti, si veda
+        // https://github.com/ARPA-SIMC/meteotiles/issues/47
+        const minZoom = this.map.getBoundsZoom(bounds) - 1;
+        this.map.setMinZoom(minZoom);
+        this.map.fitBounds(bounds, { maxZoom: minZoom });
         this.map.setMaxBounds(bounds);
     }
 
