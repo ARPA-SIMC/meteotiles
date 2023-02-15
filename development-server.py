@@ -30,8 +30,11 @@ def create_handler(tiles_server_url, do_redirect):
                     try:
                         with urlopen(request) as response:
                             self.send_response(response.status)
+                            self.send_header("Access-Control-Allow-Origin", "*")
                             for key, value in response.getheaders():
-                                self.send_header(key, value)
+                                if key != "Access-Control-Allow-Origin":
+                                    self.send_header(key, value)
+
 
                             self.end_headers()
                             self.wfile.write(response.read())
