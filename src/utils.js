@@ -5,19 +5,28 @@ export function convertBoundingBoxToLeafletBounds(boundingBox) {
     );
 }
 
-function lng2tile(lon, z) {
-    return (Math.floor((lon+180)/360*Math.pow(2,z)))
+// From https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames#ECMAScript_(JavaScript/ActionScript,_etc.)
+function lon2tile(lon,zoom) { return (Math.floor((lon+180)/360*Math.pow(2,zoom))); }
+function lat2tile(lat,zoom)  { return (Math.floor((1-Math.log(Math.tan(lat*Math.PI/180) + 1/Math.cos(lat*Math.PI/180))/Math.PI)/2 *Math.pow(2,zoom))); }
+
+
+function geographicCoordsToTileBounds(map, latlng) {
+    const zoom = map.getZoom();
+    const i = lon2tile(latlng.lng, zoom)
+    const j = lat2tile(latlng.lat, zoom)
+    const coords = L.point(i, j);
+    const tileSize = L.point(256, 256);
+    const nwPoint = coords.scaleBy(tileSize);
+    const sePoint = nwPoint.add(tileSize);
+    const nw = map.unproject(nwPoint, zoom);
+    const se = map.unproject(sePoint, zoom);
+    const bounds = L.latLngBounds(nw, se);
+    return bounds;
 }
 
-function lat2tile(lat, z)  {
-    return (Math.floor((1-Math.log(Math.tan(lat*Math.PI/180) + 1/Math.cos(lat*Math.PI/180))/Math.PI)/2 *Math.pow(2,z)))
-}
-
-export function geographicCoordsToTileBounds(map, latlng) {
-    const x = lat2tile(latlng.lat, map.getZoom());
-    const y = lng2tile(latlng.lng, map.getZoom());
-    const coords = L.point(x, y);
-    const nw = map.unproject(coords, map.getZoom());
-    const se = map.unproject(coords, map.getZoom());
-    return L.latLngBounds(se, nw);
+export function extendBoundsToTiles(map, bounds) {
+    const boundsSW = geographicCoordsToTileBounds(map, bounds.getSouthWest());
+    const boundsNE = geographicCoordsToTileBounds(map, bounds.getNorthEast());
+    const newBounds = boundsSW.extend(boundsNE);
+    return newBounds;
 }
