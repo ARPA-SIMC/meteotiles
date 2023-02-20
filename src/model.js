@@ -34,31 +34,15 @@ class Product {
 export class ProductList {
     baseUrl;
     products = [];
-    onLoaded = (productList) => { console.debug("Loaded", productList) };
-    onLoading = () => { console.debug("Loading") };
-    onFetchError = (error) => { console.debug("Fetch error", error) };
 
     constructor(baseUrl) {
         this.baseUrl = baseUrl;
         this.products = [];
     }
 
-    bindOnLoading(callback) {
-        this.onLoading = callback;
-    }
-
-    bindOnLoaded(callback) {
-        this.onLoaded = callback;
-    }
-
-    bindOnFetchError(callback) {
-        this.onFetchError = callback;
-    }
-
-    fetchProducts() {
+    async fetchProducts() {
         const configUrl = `${this.baseUrl}/config.json`;
-        this.onLoading();
-        fetch(configUrl)
+        return fetch(configUrl)
             .then(resp => {
                 if (resp.ok)
                     return resp;
@@ -108,11 +92,8 @@ export class ProductList {
             })
             .then(productLists => {
                 this.products = productLists.flat();
-                this.onLoaded(this);
+                return this;
             })
-            .catch(err => {
-                this.onFetchError(err);
-            });
     }
 
     getTimes() {
