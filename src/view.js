@@ -73,8 +73,8 @@ export class SingleMapView {
                 times: [new Date(0)],
             },
             center: [42.8, 12.6],
-            zoom: 1,
-            minZoom: 1,
+            zoom: 5,
+            minZoom: 5,
             maxZoom: 8,
         });
 
@@ -144,7 +144,6 @@ export class SingleMapView {
     onProductListLoaded(productList) {
         this.createProductListLayers(productList);
         this.productListMenu.onProductListLoaded(productList);
-        this.map.setMinZoom(productList.getMinZoom());
         const bounds = productList.products
             .map((p) => convertBoundingBoxToLeafletBounds(p.boundingBox))
             .reduce((acc, cur) => acc.extend(cur));

@@ -118,15 +118,4 @@ export class ProductList {
     getTimes() {
         return [... new Set(this.products.map((p) => p.getTimes()).flat())];
     }
-
-    getMinZoom() {
-        const minZooms = this.products
-            .filter(p => p.minZoom != null)
-            .map(p => p.minZoom);
-        if (minZooms.length == 0) {
-            return 1;
-        } else {
-            return Math.min(... minZooms)
-        }
-    }
 };
