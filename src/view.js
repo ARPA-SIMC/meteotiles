@@ -1,5 +1,6 @@
 import { VERSION, MAX_PRODUCTS_SELECTED, USE_GRID_DEBUG } from "./settings.js";
 import { convertBoundingBoxToLeafletBounds } from "./utils.js";
+import { extendBoundsToTiles } from "./utils.js";
 
 
 L.GridLayer.GridDebug = L.GridLayer.extend({
@@ -70,8 +71,8 @@ export class SingleMapView {
                 times: [new Date(0)],
             },
             center: [42.8, 12.6],
-            zoom: 6,
-            minZoom: 6,
+            zoom: 5,
+            minZoom: 5,
             maxZoom: 8,
         });
 
@@ -143,14 +144,21 @@ export class SingleMapView {
         const bounds = productList.products
             .map((p) => convertBoundingBoxToLeafletBounds(p.boundingBox))
             .reduce((acc, cur) => acc.extend(cur));
-        // TODO: decremento di 1 lo zoom minimo necessario per
-        // visualizzare i prodotti perché c'è qualche problema sui
-        // bounding box dei prodotti, si veda
+        // Estendo il bounding box a quello dei tile
         // https://github.com/ARPA-SIMC/meteotiles/issues/47
-        const minZoom = this.map.getBoundsZoom(bounds) - 1;
+        // https://github.com/ARPA-SIMC/arkimaps/issues/91
+        const tileBounds = extendBoundsToTiles(this.map, bounds);
+        this.setMapBounds(tileBounds, true);
+        this.map.on('zoomend', () => this.setMapBounds(tileBounds, false));
+    }
+
+    setMapBounds(bounds, fit) {
+        const minZoom = this.map.getBoundsZoom(bounds);
         this.map.setMinZoom(minZoom);
-        this.map.fitBounds(bounds, { maxZoom: minZoom });
         this.map.setMaxBounds(bounds);
+        if (fit) {
+            this.map.fitBounds(bounds, { maxZoom: minZoom });
+        }
     }
 
     onProductListFetchError(error) {
