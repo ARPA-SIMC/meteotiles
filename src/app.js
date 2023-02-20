@@ -16,7 +16,10 @@ class App {
         this.view.onProductListLoading();
         this.productList.fetchProducts()
             .then((productList) => this.view.onProductListLoaded(productList))
-            .catch((error) => this.view.onProductListFetchError(error));
+            .catch((error) => {
+                console.error(error);
+                this.view.onProductListFetchError(error)
+            });
     }
 }
 

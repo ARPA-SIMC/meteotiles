@@ -8,7 +8,8 @@ class BoundingBox {
 }
 
 class Product {
-    constructor(baseUrl, modelName, modelDescription, name, description, reftime, forecastSteps, boundingBox, minZoom, maxZoom, zIndex, opacity, legendOn) {
+    constructor(id, baseUrl, modelName, modelDescription, name, description, reftime, forecastSteps, boundingBox, minZoom, maxZoom, zIndex, opacity, legendOn) {
+        this.id = id;
         this.baseUrl = baseUrl;
         this.modelName = modelName;
         this.modelDescription = modelDescription;
@@ -42,6 +43,7 @@ export class ProductList {
 
     async fetchProducts() {
         const configUrl = `${this.baseUrl}/config.json`;
+        let id = 0;
         return fetch(configUrl)
             .then(resp => {
                 if (resp.ok)
@@ -67,6 +69,7 @@ export class ProductList {
                             for (const item of json) {
                                 for (const [reftime, reftimeOptions] of Object.entries(item.reftimes)) {
                                     const product = new Product(
+                                        ++id,
                                         this.baseUrl,
                                         modelKey,
                                         model.nome,

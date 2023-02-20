@@ -39,8 +39,7 @@ export class SingleMapView {
     }
 
     onProductSelected(product) {
-        const key = `${product.modelName}-${product.name}`;
-        const item = this.productListSelection[key];
+        const item = this.productListSelection[product.id];
         const layer = item.layer;
         item.selected = true;
         this.map.addLayer(layer);
@@ -54,8 +53,7 @@ export class SingleMapView {
     }
 
     onProductUnselected(product) {
-        const key = `${product.modelName}-${product.name}`;
-        const item = this.productListSelection[key];
+        const item = this.productListSelection[product.id];
         const layer = item.layer;
         item.selected = false;
         this.map.removeLayer(layer);
@@ -111,7 +109,6 @@ export class SingleMapView {
     createProductListLayers(productList) {
         this.productListSelection = Object.fromEntries(
             productList.products.map((product) => {
-                const key = `${product.modelName}-${product.name}`;
                 const layer = L.timeDimension.layer.tileLayer.arkimapsCached({
                     reftime: product.reftime,
                     steps: product.forecastSteps,
@@ -127,7 +124,7 @@ export class SingleMapView {
                     minNativeZoom: product.minZoom,
                     maxNativeZoom: product.maxZoom,
                 });
-                return [key, {
+                return [product.id, {
                     product: product,
                     layer: layer,
                     selected: false,
