@@ -92,6 +92,11 @@ player.bindOnPlayClicked(() => {
 });
 
 map.bindOnLayerLoading((product) => {
+    if (isPlaying) {
+        isPlaying = false;
+        clearInterval(playerTimer);
+        player.setPaused();
+    }
     player.renderLoading();
 });
 
