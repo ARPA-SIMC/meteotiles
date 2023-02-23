@@ -47,6 +47,7 @@ function extendBoundsToTiles(map, bounds) {
 class TimeMap {
     #root;
     #map;
+    #legendControl;
     #currentTime;
     #layers = {};
     #onLayerLoading = () => {};
@@ -72,6 +73,10 @@ class TimeMap {
             attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
             subdomains: 'abcd',
             ext: 'png'
+        }).addTo(map);
+
+        this.#legendControl = L.control.legend({
+            'position': 'topright'
         }).addTo(map);
 
         if (USE_GRID_DEBUG) {
@@ -111,11 +116,12 @@ class TimeMap {
     }
 
     renderProductSelected(product) {
+        const date = product.reftime.toISOString().split(".")[0];
+        const legendUrl = `${product.baseUrl}/${product.modelName}/${date}/${product.name}+legend.png`;
         if (product.selected) {
             this.#onLayerLoading(product);
             const productLayers = Object.fromEntries(product.forecastSteps.map(step => {
                 const time = product.reftime.getTime() + step * 3600 * 1000;
-                const date = product.reftime.toISOString().split(".")[0];
                 const hour = new String(step).padStart(3, '0');
                 const layer = L.tileLayer(`${product.baseUrl}/${product.modelName}/${date}/${product.name}+${hour}/{z}/{x}/{y}.png`, {
                     minNativeZoom: product.minZoom || this.#map.getMinZoom(),
@@ -141,10 +147,18 @@ class TimeMap {
                 loaded: Object.fromEntries(product.forecastSteps.map(step => [step, false])),
             };
             Object.values(productLayers).map(layer => layer.addTo(this.#map));
+            if (product.legendOn) {
+                this.#legendControl.addLegend(legendUrl, {
+                    opacity: product.opacity || 0.6
+                });
+            }
         } else {
             const productLayers = this.#layers[product.id].layers;
             Object.values(productLayers).forEach(layer => this.#map.removeLayer(layer));
             delete this.#layers[product.id];
+            if (product.legendOn) {
+                this.#legendControl.removeLegend(legendUrl);
+            }
         }
     }
 
