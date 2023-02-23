@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import argparse
 import os
+
 try:
     # From Python 3.7
     from http.server import ThreadingHTTPServer as HTTPServer
@@ -12,7 +13,7 @@ from urllib.request import Request, urlopen
 from urllib.error import HTTPError
 
 
-def create_handler(tiles_server_url, do_redirect):
+def create_handler(tiles_server_url, do_redirect, tiles_cache_ttl):
     class DevelopmentHttpHandler(SimpleHTTPRequestHandler):
         def do_GET(self):
             if self.path.startswith("/tiles"):
@@ -32,8 +33,15 @@ def create_handler(tiles_server_url, do_redirect):
                             self.send_response(response.status)
                             self.send_header("Access-Control-Allow-Origin", "*")
                             for key, value in response.getheaders():
-                                if key != "Access-Control-Allow-Origin":
+                                if key == "Access-Control-Allow-Origin":
+                                    pass
+                                elif key == "Cache-Control" and tiles_cache_ttl is not None:
+                                    pass
+                                else:
                                     self.send_header(key, value)
+
+                            if tiles_cache_ttl is not None:
+                                self.send_header("Cache-Control", f"max-age={tiles_cache_ttl}")
 
 
                             self.end_headers()
@@ -57,8 +65,9 @@ if __name__ == '__main__':
                         choices=["redirect", "proxy"],
                         default="redirect",
                         help="Redirect (HTTP 302) or act as a proxy for tiles (default: %(default)s)")
+    parser.add_argument("--tiles-cache-ttl", type=int, default=None)
     parser.add_argument("tiles_server_url")
     args = parser.parse_args()
-    handler = create_handler(args.tiles_server_url, args.action == "redirect")
+    handler = create_handler(args.tiles_server_url, args.action == "redirect", args.tiles_cache_ttl)
     server = HTTPServer(("localhost", args.port), handler)
     server.serve_forever()
