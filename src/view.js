@@ -482,7 +482,7 @@ class TimePlayer {
         const currentTime = this.timeDimension.getCurrentTime();
         if (this.timeDimension.getAvailableTimes().length > 1 || currentTime > 0) {
             const currentDate = new Date(this.timeDimension.getCurrentTime());
-            root.querySelector(".datetime-label").textContent = currentDate.toISOString();
+            root.querySelector(".datetime-label").textContent = currentDate.toISOString().slice(0, 16).replace("T", " ");
         } else {
             root.querySelector(".datetime-label").textContent = "";
         }

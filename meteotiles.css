@@ -103,6 +103,13 @@ main {
     grid-column: 1/4;
 }
 
+.time-player-container .time-player-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 1em;
+}
+
 .time-player-container .time-player-controls-buttons {
     display: inline;
 }
@@ -160,8 +167,9 @@ main {
 
 .time-player-controls .datetime-label {
     display: inline-block;
-    width: 25ch;
-    font-size: 100%;
+    width: 16ch;
+    font-size: 140%;
+    font-weight: bold;
 }
 
 .time-player-controls .loader, .map-menu-products .loader {
