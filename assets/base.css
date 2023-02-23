@@ -82,7 +82,7 @@ footer a, footer a:visited {
     background-color: white;
     border-bottom: 0.2em solid var(--main-bg-color);
     padding: 0.1em;
-    height: 2lh;
+    height: 3em;
 }
 
 .product-selection-badge {
