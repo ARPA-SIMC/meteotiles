@@ -137,6 +137,12 @@ class TimeMap {
                     zIndex: product.zIndex || 1,
                     bounds: convertBoundingBoxToLeafletBounds(product.boundingBox),
                 });
+                layer.on('loading', () => {
+                    if (this.#layers[product.id]) {
+                        this.#layers[product.id].loaded[step] = false;
+                        this.#onLayersLoading();
+                    }
+                });
                 layer.on('load', () => {
                     if (this.#layers[product.id]) {
                         this.#layers[product.id].loaded[step] = true;
