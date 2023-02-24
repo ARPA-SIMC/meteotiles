@@ -1,8 +1,6 @@
 import BoundingBox from "./BoundingBox.js";
 
 class Product {
-    #onProductSelectedCallbacks = [];
-
     constructor(id, baseUrl, modelName, modelDescription, name, description, reftime, forecastSteps, boundingBox, minZoom, maxZoom, zIndex, opacity, legendOn) {
         this.id = id;
         this.baseUrl = baseUrl;
