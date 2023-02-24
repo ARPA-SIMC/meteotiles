@@ -98,6 +98,10 @@ function checkTimePlayerTime() {
             }
             if (currentTimeIndex == availableTimes.length - 1) {
                 isPlayerStepForwardEnabled = false;
+                isPlayerPlaying = false;
+                if (playerTimer) {
+                    clearInterval(playerTimer);
+                }
             } else {
                 isPlayerStepForwardEnabled = true;
             }
