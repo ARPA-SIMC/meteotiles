@@ -46,7 +46,6 @@ class TimeDimension {
             return;
         }
         this.#availableTimes = availableTimes;
-        this.#notifyAvailableTimesChanged(this.getAvailableTimes());
         // change current time if needed
         if (availableTimes.length == 0) {
             this.setCurrentTime(null);
@@ -55,6 +54,7 @@ class TimeDimension {
         } else if (availableTimes.indexOf(this.#currentTime) == -1) {
             this.setCurrentTime(availableTimes[0]);
         }
+        this.#notifyAvailableTimesChanged(this.getAvailableTimes());
     }
 
     nextTime() {

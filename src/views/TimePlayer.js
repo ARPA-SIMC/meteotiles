@@ -41,21 +41,36 @@ class TimePlayer {
         }, false);
     }
 
-    renderTime(currentTime, availableTimes, loopOn) {
+    renderTime(currentTime, availableTimes, isDisabled, isPlaying, isStepForwardEnabled, isStepBackwardEnabled, isLoopOn, isLoading) {
         const slider = this.#root.querySelector(".time-range");
         if (availableTimes.length == 0) {
-            slider.max = 0;
-            slider.value = 0;
-            this.disableControls();
+            slider.max = "0";
+            slider.value = "0";
         } else {
-            this.enableControls();
             slider.min = "0";
             slider.max = (availableTimes.length - 1).toString();
             slider.value = availableTimes.indexOf(currentTime).toString();
         }
+        if (isDisabled) {
+            this.disableControls();
+        } else {
+            this.enableControls();
+        }
+        if (isPlaying) {
+            this.#root.querySelector(".play-forward").classList.add("playing");
+        } else {
+            this.#root.querySelector(".play-forward").classList.remove("playing");
+        }
+        this.#root.querySelector(".step-forward").disabled = !isStepForwardEnabled;
+        this.#root.querySelector(".step-backward").disabled = !isStepBackwardEnabled;
         let datetimeLabel = formatDate(currentTime);
         this.#root.querySelector(".datetime-label").innerText = datetimeLabel;
-        this.setLoop(loopOn);
+        this.setLoop(isLoopOn);
+        if (isLoading) {
+            this.#root.querySelector(".time-player-controls .loader").classList.add("loading");
+        } else {
+            this.#root.querySelector(".time-player-controls .loader").classList.remove("loading");
+        }
     }
 
     renderLoading() {

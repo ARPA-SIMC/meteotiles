@@ -50,8 +50,8 @@ class TimeMap {
     #legendControl;
     #currentTime;
     #layers = {};
-    #onLayerLoading = () => {};
-    #onLayerLoaded = () => {};
+    #onLayersLoading = () => {};
+    #onLayersLoaded = () => {};
 
     constructor(element) {
         this.#root = element;
@@ -115,11 +115,17 @@ class TimeMap {
         this.#currentTime = currentTime;
     }
 
+    #areLayersLoaded() {
+        return Object.values(this.#layers)
+            .map(l => Object.values(l.loaded).reduce((acc, curr) => acc && curr, true))
+            .reduce((acc, curr) => acc && curr, true);
+    }
+
     renderProductSelected(product) {
         const date = product.reftime.toISOString().split(".")[0];
         const legendUrl = `${product.baseUrl}/${product.modelName}/${date}/${product.name}+legend.png`;
         if (product.selected) {
-            this.#onLayerLoading(product);
+            this.#onLayersLoading();
             const productLayers = Object.fromEntries(product.forecastSteps.map(step => {
                 const time = product.reftime.getTime() + step * 3600 * 1000;
                 const hour = new String(step).padStart(3, '0');
@@ -134,11 +140,11 @@ class TimeMap {
                 layer.on('load', () => {
                     if (this.#layers[product.id]) {
                         this.#layers[product.id].loaded[step] = true;
-                        if (Object.values(this.#layers[product.id].loaded).reduce((acc, curr) => acc && curr)) {
-                            this.#onLayerLoaded(product);
-                        }
                     }
-                });
+                    if (this.#areLayersLoaded()) {
+                        this.#onLayersLoaded();
+                    }
+                })
                 return [time, layer];
             }));
             this.#layers[product.id] = {
@@ -159,6 +165,9 @@ class TimeMap {
             if (product.legendOn) {
                 this.#legendControl.removeLegend(legendUrl);
             }
+            if (this.#areLayersLoaded()) {
+                this.#onLayersLoaded();
+            }
         }
     }
 
@@ -171,12 +180,12 @@ class TimeMap {
         }
     }
 
-    bindOnLayerLoading(callback) {
-        this.#onLayerLoading = callback;
+    bindOnLayersLoading(callback) {
+        this.#onLayersLoading = callback;
     }
 
-    bindOnLayerLoaded(callback) {
-        this.#onLayerLoaded = callback;
+    bindOnLayersLoaded(callback) {
+        this.#onLayersLoaded = callback;
     }
 
 }

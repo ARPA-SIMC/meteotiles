@@ -32,30 +32,25 @@ productList.registerOnProductSelected((product) => {
 });
 
 timeDimension.registerOnCurrentTimeChanged((currentTime) => {
-    player.renderTime(timeDimension.getCurrentTime(), timeDimension.getAvailableTimes(), timeDimension.isLoopOn());
     map.renderTime(timeDimension.getCurrentTime());
-});
-
-timeDimension.registerOnAvailableTimesChanged((availableTimes) => {
-    player.renderTime(timeDimension.getCurrentTime(), timeDimension.getAvailableTimes(), timeDimension.isLoopOn());
-});
-
-timeDimension.registerOnLoopChanged((loopOn) => {
-    player.renderTime(timeDimension.getCurrentTime(), timeDimension.getAvailableTimes(), timeDimension.isLoopOn());
 });
 
 productList.registerOnProductsLoadingCallbacks(() => {
     menu.renderLoading();
-    player.renderLoading();
 });
 
 productList.registerOnProductsLoadedCallbacks(() => {
     menu.renderLoaded();
     menu.renderProductList(productList.getProducts());
     map.renderLoaded(productList.getProducts());
-    player.renderTime(timeDimension.getCurrentTime(), timeDimension.getAvailableTimes(), timeDimension.isLoopOn());
-    player.renderLoaded();
 });
+
+let isPlayerPlaying = false;
+let playerTimer = null;
+let isPlayerDisabled = true;
+let isPlayerStepForwardEnabled = false;
+let isPlayerStepBackwardEnabled = false;
+let isPlayerLoading = false;
 
 player.bindOnStepForwardClicked(() => {
     timeDimension.nextTime();
@@ -74,11 +69,77 @@ player.bindOnSelectTimeIndex((value) => {
     timeDimension.setCurrentTime(newCurrentTime);
 });
 
-let isPlaying = false;
-let playerTimer = null;
+function renderTimePlayer() {
+    player.renderTime(
+        timeDimension.getCurrentTime(),
+        timeDimension.getAvailableTimes(),
+        isPlayerDisabled,
+        isPlayerPlaying,
+        isPlayerStepForwardEnabled,
+        isPlayerStepBackwardEnabled,
+        timeDimension.isLoopOn(),
+        isPlayerLoading,
+    );
+}
+
+function checkTimePlayerTime() {
+    const availableTimes = timeDimension.getAvailableTimes();
+    const currentTimeIndex = availableTimes.indexOf(timeDimension.getCurrentTime());
+    if (availableTimes.length > 0 || currentTimeIndex != -1) {
+        isPlayerDisabled = false;
+        if (timeDimension.isLoopOn()) {
+            isPlayerStepForwardEnabled = true;
+            isPlayerStepBackwardEnabled = true;
+        } else {
+            if (currentTimeIndex == 0) {
+                isPlayerStepBackwardEnabled = false;
+            } else {
+                isPlayerStepBackwardEnabled = true;
+            }
+            if (currentTimeIndex == availableTimes.length - 1) {
+                isPlayerStepForwardEnabled = false;
+            } else {
+                isPlayerStepForwardEnabled = true;
+            }
+        }
+    } else {
+        isPlayerDisabled = true;
+        isPlayerStepForwardEnabled = false;
+        isPlayerStepBackwardEnabled = false;
+        isPlayerPlaying = false;
+        if (playerTimer) {
+            clearInterval(playerTimer);
+        }
+    }
+}
+
+timeDimension.registerOnAvailableTimesChanged((availableTimes) => {
+    checkTimePlayerTime();
+    renderTimePlayer();
+});
+
+timeDimension.registerOnCurrentTimeChanged((currentTime) => {
+    checkTimePlayerTime();
+    renderTimePlayer();
+});
+
+timeDimension.registerOnLoopChanged((loopOn) => {
+    checkTimePlayerTime();
+    renderTimePlayer();
+});
+
+productList.registerOnProductsLoadingCallbacks(() => {
+    isPlayerLoading = true;
+    renderTimePlayer();
+});
+
+productList.registerOnProductsLoadedCallbacks(() => {
+    isPlayerLoading = false;
+    renderTimePlayer();
+});
 
 player.bindOnPlayClicked(() => {
-    if (!isPlaying) {
+    if (!isPlayerPlaying) {
         player.setPlaying();
         timeDimension.nextTime();
         playerTimer = setInterval(() => {
@@ -86,23 +147,19 @@ player.bindOnPlayClicked(() => {
         }, 1000);
     } else {
         clearInterval(playerTimer);
-        player.setPaused();
     }
-    isPlaying = !isPlaying;
+    isPlayerPlaying = !isPlayerPlaying;
+    renderTimePlayer();
 });
 
-map.bindOnLayerLoading((product) => {
-    if (isPlaying) {
-        isPlaying = false;
-        clearInterval(playerTimer);
-        player.setPaused();
-    }
-    player.renderLoading();
+map.bindOnLayersLoading(() => {
+    isPlayerLoading = true;
+    renderTimePlayer();
 });
 
-map.bindOnLayerLoaded((product) => {
-    player.renderLoaded();
-    player.renderTime(timeDimension.getCurrentTime(), timeDimension.getAvailableTimes(), timeDimension.isLoopOn());
+map.bindOnLayersLoaded(() => {
+    isPlayerLoading = false;
+    renderTimePlayer();
 });
 
 menu.render();
