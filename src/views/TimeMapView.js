@@ -166,7 +166,7 @@ class TimeMapView {
                 product: product,
                 loaded: Object.fromEntries(product.forecastSteps.map(step => [step, false])),
             };
-            Object.values(productLayers).map(layer => layer.addTo(this.#map));
+            Object.values(productLayers).map(layer => setTimeout(() => layer.addTo(this.#map)));
             if (product.legendOn) {
                 this.#legendControl.addLegend(legendUrl, {
                     opacity: product.opacity || 0.6
