@@ -15,7 +15,7 @@ class ProductListMenuView {
         const searchDiv = document.createElement("div");
         searchDiv.classList.add("map-menu-search");
         const searchInput = document.createElement("input");
-        searchInput.type = "text";
+        searchInput.type = "search";
         searchInput.placeholder = "\u{1F50D} Filtra i prodotti";
         searchDiv.append(searchInput);
         this.#root.append(searchDiv);
