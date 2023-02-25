@@ -44,7 +44,7 @@ function extendBoundsToTiles(map, bounds) {
     return newBounds;
 }
 
-class TimeMap {
+class TimeMapView {
     #root;
     #map;
     #legendControl;
@@ -196,4 +196,4 @@ class TimeMap {
 
 }
 
-export default TimeMap;
+export default TimeMapView;

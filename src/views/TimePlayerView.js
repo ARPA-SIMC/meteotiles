@@ -1,6 +1,6 @@
 import { formatDate } from '../utils.js';
 
-class TimePlayer {
+class TimePlayerView {
     #root;
     #onStepForwardClicked = () => {};
     #onStepBackwardClicked = () => {};
@@ -41,7 +41,7 @@ class TimePlayer {
         }, false);
     }
 
-    renderTime(currentTime, availableTimes, isDisabled, isPlaying, isStepForwardEnabled, isStepBackwardEnabled, isLoopOn, isLoading) {
+    renderTime(currentTime, availableTimes, isEnabled, isPlaying, isPlayForwardEnabled, isStepForwardEnabled, isStepBackwardEnabled, isLoopOn, isLoading) {
         const slider = this.#root.querySelector(".time-range");
         if (availableTimes.length == 0) {
             slider.max = "0";
@@ -51,16 +51,17 @@ class TimePlayer {
             slider.max = (availableTimes.length - 1).toString();
             slider.value = availableTimes.indexOf(currentTime).toString();
         }
-        if (isDisabled) {
-            this.disableControls();
-        } else {
+        if (isEnabled) {
             this.enableControls();
+        } else {
+            this.disableControls();
         }
         if (isPlaying) {
             this.#root.querySelector(".play-forward").classList.add("playing");
         } else {
             this.#root.querySelector(".play-forward").classList.remove("playing");
         }
+        this.#root.querySelector(".play-forward").disabled = !isPlayForwardEnabled;
         this.#root.querySelector(".step-forward").disabled = !isStepForwardEnabled;
         this.#root.querySelector(".step-backward").disabled = !isStepBackwardEnabled;
         let datetimeLabel = formatDate(currentTime);
@@ -139,4 +140,4 @@ class TimePlayer {
     }
 }
 
-export default TimePlayer;
+export default TimePlayerView;

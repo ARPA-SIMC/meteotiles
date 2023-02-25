@@ -1,5 +1,5 @@
-export { default as ProductListMenu } from './views/ProductListMenu.js';
-export { default as ProductListSelectionSummary } from './views/ProductListSelectionSummary.js';
-export { default as TimePlayer } from './views/TimePlayer.js';
-export { default as TimeMap } from './views/TimeMap.js';
+export { default as ProductListMenuView } from './views/ProductListMenuView.js';
+export { default as SelectedProductsView } from './views/SelectedProductsView.js';
+export { default as TimePlayerView } from './views/TimePlayerView.js';
+export { default as TimeMapView } from './views/TimeMapView.js';
 export { default as Version } from './views/Version.js';

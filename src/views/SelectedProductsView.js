@@ -1,6 +1,6 @@
 import { formatDate } from '../utils.js';
 
-class ProductListSelectionSummary {
+class SelectedProductsView {
     #root;
     #onProductClicked = () => {};
 
@@ -34,4 +34,4 @@ class ProductListSelectionSummary {
     }
 }
 
-export default ProductListSelectionSummary;
+export default SelectedProductsView;

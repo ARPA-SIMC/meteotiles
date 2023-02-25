@@ -1,4 +1,4 @@
-class ProductListMenu {
+class ProductListMenuView {
     #root;
     #productsUl;
     #onProductClicked = () => {};
@@ -62,4 +62,4 @@ class ProductListMenu {
     }
 }
 
-export default ProductListMenu;
+export default ProductListMenuView;
