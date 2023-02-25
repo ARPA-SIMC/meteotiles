@@ -142,7 +142,23 @@ footer a, footer a:visited {
     display: flex;
 }
 
-.map-menu-container .map-menu-products li.hidden {
+.map-menu-container .map-menu-products h3 {
+    cursor: pointer;
+}
+
+.map-menu-container .map-menu-products h3::before {
+    width: 2ch;
+    content: "\25BD";
+    padding-right: 0.2em;
+}
+
+.map-menu-container .map-menu-products h3.collapsed::before {
+    width: 2ch;
+    content: "\25B7";
+    padding-right: 0.2em;
+}
+
+.map-menu-container .map-menu-products .hidden {
     display: none;
 }
 

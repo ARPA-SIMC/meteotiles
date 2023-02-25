@@ -76,6 +76,10 @@ class ProductListMenuView {
                     });
                     return li;
                 }));
+                titleElement.addEventListener('click', () => {
+                    ul.classList.toggle('hidden');
+                    titleElement.classList.toggle('collapsed');
+                });
                 return [titleElement, ul];
             }).flat();
         this.#productsUl.replaceChildren(...nodes);
