@@ -75,7 +75,7 @@ class ProductListMenuView {
                         this.#onProductClicked(product, checkbox.checked);
                     });
                     return li;
-                }));
+                }).sort((a, b) => a.innerText.localeCompare(b.innerText)));
                 titleElement.addEventListener('click', () => {
                     ul.classList.toggle('hidden');
                     titleElement.classList.toggle('collapsed');
