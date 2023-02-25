@@ -32,9 +32,9 @@ class ProductListMenuView {
 
     renderEnableProductSelection(enabled) {
         if (enabled) {
-            this.#productsUl.querySelectorAll('input [type="checkbox"]').forEach(input => input.disabled = false);
+            this.#productsUl.querySelectorAll('input[type="checkbox"]').forEach(input => input.disabled = false);
         } else {
-            this.#productsUl.querySelectorAll('input').forEach(input => {
+            this.#productsUl.querySelectorAll('input[type="checkbox"]').forEach(input => {
                 if (!input.checked) {
                     input.disabled = true;
                 }

@@ -1,3 +1,5 @@
+import { MAX_PRODUCTS_SELECTED } from '../settings.js';
+
 class ProductListMenuController {
     #productList;
     #view;
@@ -13,7 +15,7 @@ class ProductListMenuController {
         });
         this.#productList.registerOnProductSelected(product => {
             this.#view.renderProductSelected(product);
-            this.#view.renderEnableProductSelection(this.#productList.getSelectedProducts().length >= 4);
+            this.#view.renderEnableProductSelection(this.#productList.getSelectedProducts().length < MAX_PRODUCTS_SELECTED);
         });
         this.#productList.registerOnProductsLoadingCallbacks(() => {
             this.#view.renderLoading();
