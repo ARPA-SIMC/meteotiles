@@ -12,6 +12,7 @@ class TimePlayerController {
     #playerTimer;
     #timeDimension;
     #view;
+    #loadingPercentage;
 
     constructor(timeDimension, view) {
         this.#state = new TimePlayerState();
@@ -81,6 +82,7 @@ class TimePlayerController {
             this.#state.isStepBackwardEnabled,
             this.#timeDimension.isLoopOn(),
             this.#state.isLoading,
+            this.#loadingPercentage,
         );
     }
 
@@ -116,8 +118,9 @@ class TimePlayerController {
         }
     }
 
-    setLoading() {
+    setLoading(percentage) {
         this.#state.isLoading = true;
+        this.#loadingPercentage = percentage;
         this.#updateState();
         this.#updateView();
     }

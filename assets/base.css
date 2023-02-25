@@ -49,7 +49,7 @@ footer a, footer a:visited {
     color: var(--main-bg-color);
 }
 
-.loader {
+.map-menu-products .loader {
     width: 3ch;
     height: 3ch;
     margin: 0 0.5em;
@@ -63,7 +63,7 @@ footer a, footer a:visited {
     vertical-align: middle;
 }
 
-.loader.loading {
+.map-menu-products .loader.loading {
     visibility: visible;
 }
 
@@ -237,4 +237,14 @@ footer a, footer a:visited {
     width: 16ch;
     font-size: 140%;
     font-weight: bold;
+}
+
+.time-player-controls .loader {
+    display: inline-block;
+    width: 4ch;
+    visibility: hidden;
+}
+
+.time-player-controls .loader {
+    visibility: visible;
 }

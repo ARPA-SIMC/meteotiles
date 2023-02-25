@@ -40,8 +40,8 @@ const playerController = new TimePlayerController(
     new TimePlayerView(document.getElementById("time-player")),
 );
 
-mapController.bindOnLoading(() => {
-    playerController.setLoading();
+mapController.bindOnLoading((percentage) => {
+    playerController.setLoading(percentage);
 });
 
 mapController.bindOnLoaded(() => {

@@ -41,7 +41,7 @@ class TimePlayerView {
         }, false);
     }
 
-    renderTime(currentTime, availableTimes, isEnabled, isPlaying, isPlayForwardEnabled, isStepForwardEnabled, isStepBackwardEnabled, isLoopOn, isLoading) {
+    renderTime(currentTime, availableTimes, isEnabled, isPlaying, isPlayForwardEnabled, isStepForwardEnabled, isStepBackwardEnabled, isLoopOn, isLoading, loadingPercentage) {
         const slider = this.#root.querySelector(".time-range");
         if (availableTimes.length == 0) {
             slider.max = "0";
@@ -71,6 +71,11 @@ class TimePlayerView {
             this.#root.querySelector(".time-player-controls .loader").classList.add("loading");
         } else {
             this.#root.querySelector(".time-player-controls .loader").classList.remove("loading");
+        }
+        if (isLoading || availableTimes.length > 0) {
+            this.#root.querySelector(".time-player-controls .loader").innerText = `${loadingPercentage}%`;
+        } else {
+            this.#root.querySelector(".time-player-controls .loader").innerText = "";
         }
     }
 

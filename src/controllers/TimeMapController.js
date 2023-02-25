@@ -3,7 +3,7 @@ class TimeMapController {
     #timeDimension;
     #view;
 
-    #onLoading = () => {};
+    #onLoading = (percentage) => {};
     #onLoaded = () => {};
 
     constructor(productList, timeDimension, view) {
@@ -26,8 +26,8 @@ class TimeMapController {
             this.#view.renderLoaded(this.#productList.getProducts());
         });
 
-        this.#view.bindOnLayersLoading(() => {
-            this.#onLoading();
+        this.#view.bindOnLayersLoading((percentage) => {
+            this.#onLoading(percentage);
         });
 
         this.#view.bindOnLayersLoaded(() => {

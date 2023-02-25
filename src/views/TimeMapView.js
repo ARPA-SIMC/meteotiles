@@ -121,11 +121,18 @@ class TimeMapView {
             .reduce((acc, curr) => acc && curr, true);
     }
 
+    #getLoadingPercentage() {
+        const loadingStateList = Object.values(this.#layers).map(l => Object.values(l.loaded)).flat();
+        const total = loadingStateList.length;
+        const loaded = loadingStateList.filter(i => i).length;
+        const percentage = Math.floor(100 * loaded / total);
+        return percentage;
+    }
+
     renderProductSelected(product) {
         const date = product.reftime.toISOString().split(".")[0];
         const legendUrl = `${product.baseUrl}/${product.modelName}/${date}/${product.name}+legend.png`;
         if (product.selected) {
-            this.#onLayersLoading();
             const productLayers = Object.fromEntries(product.forecastSteps.map(step => {
                 const time = product.reftime.getTime() + step * 3600 * 1000;
                 const hour = new String(step).padStart(3, '0');
@@ -138,14 +145,15 @@ class TimeMapView {
                     bounds: convertBoundingBoxToLeafletBounds(product.boundingBox),
                 });
                 layer.on('loading', () => {
+                    this.#onLayersLoading(this.#getLoadingPercentage());
                     if (this.#layers[product.id]) {
                         this.#layers[product.id].loaded[step] = false;
-                        this.#onLayersLoading();
                     }
                 });
                 layer.on('load', () => {
                     if (this.#layers[product.id]) {
                         this.#layers[product.id].loaded[step] = true;
+                        this.#onLayersLoading(this.#getLoadingPercentage());
                     }
                     if (this.#areLayersLoaded()) {
                         this.#onLayersLoaded();
