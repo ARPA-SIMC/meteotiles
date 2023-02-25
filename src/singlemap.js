@@ -17,7 +17,7 @@ const timeState = new TimeState(TILES_SERVER_URL, 1);
 const productList = timeState.getProductList(0);
 const timeDimension = timeState.getTimeDimension();
 
-const version = new Version(document.querySelector(".version-container"));
+const versionView = new Version(document.querySelector(".version-container"));
 
 const summaryController = new SelectedProductsController(
     productList,
@@ -53,6 +53,6 @@ productListMenuController.init();
 mapController.init();
 playerController.init();
 
-version.render();
+versionView.render();
 
 productList.fetchProducts();
