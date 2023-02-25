@@ -128,7 +128,7 @@ footer a, footer a:visited {
 }
 
 .map-menu-container .map-menu-products .map-menu-search input {
-    width: 100%;
+    width: 80%;
     padding: 0.5em;
 }
 
@@ -142,7 +142,7 @@ footer a, footer a:visited {
     display: flex;
 }
 
-.map-menu-container .map-menu-products li.hide {
+.map-menu-container .map-menu-products li.hidden {
     display: none;
 }
 

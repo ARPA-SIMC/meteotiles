@@ -13,6 +13,7 @@ class ProductListMenuController {
         });
         this.#productList.registerOnProductSelected(product => {
             this.#view.renderProductSelected(product);
+            this.#view.renderEnableProductSelection(this.#productList.getSelectedProducts().length >= 4);
         });
         this.#productList.registerOnProductsLoadingCallbacks(() => {
             this.#view.renderLoading();
