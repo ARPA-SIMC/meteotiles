@@ -44,6 +44,21 @@ function extendBoundsToTiles(map, bounds) {
     return newBounds;
 }
 
+function hideLayer(layer) {
+    const container = layer.getContainer();
+    if (container) {
+        container.style.display = 'none';
+    }
+}
+
+function showLayer(layer) {
+    const container = layer.getContainer();
+    if (container) {
+        container.style.display = 'block';
+    }
+}
+
+
 class TimeMapView {
     #root;
     #map;
@@ -106,10 +121,10 @@ class TimeMapView {
     renderTime(currentTime) {
         Object.values(this.#layers).forEach(productLayers => {
             if (this.#currentTime in productLayers.layers) {
-                productLayers.layers[this.#currentTime].setOpacity(0);
+                hideLayer(productLayers.layers[this.#currentTime]);
             }
             if (currentTime in productLayers.layers) {
-                productLayers.layers[currentTime].setOpacity(productLayers.product.opacity || 0.6);
+                showLayer(productLayers.layers[currentTime]);
             }
         });
         this.#currentTime = currentTime;
@@ -140,7 +155,7 @@ class TimeMapView {
                     minNativeZoom: product.minZoom || this.#map.getMinZoom(),
                     maxNativeZoom: product.maxZoom || this.#map.getMaxZoom(),
                     tms: false,
-                    opacity: 0,
+                    opacity: product.opacity || 0.6,
                     zIndex: product.zIndex || 1,
                     bounds: convertBoundingBoxToLeafletBounds(product.boundingBox),
                 });
@@ -166,7 +181,10 @@ class TimeMapView {
                 product: product,
                 loaded: Object.fromEntries(product.forecastSteps.map(step => [step, false])),
             };
-            Object.values(productLayers).map(layer => setTimeout(() => layer.addTo(this.#map)));
+            Object.values(productLayers).map(layer => setTimeout(() => {
+                layer.addTo(this.#map)
+                hideLayer(layer);
+            }));
             if (product.legendOn) {
                 this.#legendControl.addLegend(legendUrl, {
                     opacity: product.opacity || 0.6
