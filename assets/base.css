@@ -242,9 +242,11 @@ footer a, footer a:visited {
 .time-player-controls .loader {
     display: inline-block;
     width: 4ch;
-    visibility: hidden;
+    visibility: visible;
+    font-weight: bold;
+    text-align: right;
 }
 
-.time-player-controls .loader {
-    visibility: visible;
+.time-player-controls .loader.loading {
+    color: red;
 }
