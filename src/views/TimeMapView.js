@@ -120,11 +120,11 @@ class TimeMapView {
 
     renderTime(currentTime) {
         Object.values(this.#layers).forEach(productLayers => {
-            if (this.#currentTime in productLayers.layers) {
-                hideLayer(productLayers.layers[this.#currentTime]);
-            }
             if (currentTime in productLayers.layers) {
                 showLayer(productLayers.layers[currentTime]);
+            }
+            if (currentTime != this.#currentTime && this.#currentTime in productLayers.layers) {
+                hideLayer(productLayers.layers[this.#currentTime]);
             }
         });
         this.#currentTime = currentTime;
