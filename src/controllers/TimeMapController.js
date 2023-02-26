@@ -32,6 +32,9 @@ class TimeMapController {
 
         this.#view.bindOnLayersLoaded(() => {
             this.#onLoaded();
+            // TODO: renderTime is called again because the layer are loaded
+            // asynchronously.
+            this.#view.renderTime(this.#timeDimension.getCurrentTime());
         });
 
         this.#view.render();
