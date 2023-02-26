@@ -64,15 +64,14 @@ class TimePlayerView {
         this.#root.querySelector(".play-forward").disabled = !isPlayForwardEnabled;
         this.#root.querySelector(".step-forward").disabled = !isStepForwardEnabled;
         this.#root.querySelector(".step-backward").disabled = !isStepBackwardEnabled;
-        let datetimeLabel = formatDate(currentTime);
-        this.#root.querySelector(".datetime-label").innerText = datetimeLabel;
+        this.#root.querySelector(".datetime-label").innerText = formatDate(currentTime);
         this.setLoop(isLoopOn);
         if (isLoading) {
             this.#root.querySelector(".time-player-controls .loader").classList.add("loading");
         } else {
             this.#root.querySelector(".time-player-controls .loader").classList.remove("loading");
         }
-        if (isLoading || availableTimes.length > 0) {
+        if ((isLoading || availableTimes.length > 0) && loadingPercentage != null) {
             this.#root.querySelector(".time-player-controls .loader").innerText = `${loadingPercentage}%`;
         } else {
             this.#root.querySelector(".time-player-controls .loader").innerText = "";
