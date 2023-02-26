@@ -41,11 +41,9 @@ class TimePlayerController {
         this.#view.bindOnPlayClicked(() => {
             if (!this.#state.isPlaying) {
                 this.#view.setPlaying();
-                this.#playerTimer = setInterval(() => {
-                    this.#timeDimension.nextTime();
-                }, 1000);
+                this.#startPlayerTimer();
             } else {
-                clearInterval(this.#playerTimer);
+                this.#stopPlayerTimer();
             }
             this.#state.isPlaying = !this.#state.isPlaying;
             this.#updateView();
@@ -71,6 +69,17 @@ class TimePlayerController {
         this.#updateView();
     }
 
+    #startPlayerTimer() {
+        this.#stopPlayerTimer();
+        this.#playerTimer = setInterval(() => {
+            this.#timeDimension.nextTime();
+        }, 1000);
+    }
+
+    #stopPlayerTimer() {
+        clearInterval(this.#playerTimer);
+    }
+
     #updateView() {
         this.#view.renderTime(
             this.#timeDimension.getCurrentTime(),
@@ -93,7 +102,10 @@ class TimePlayerController {
         const isFirstTime = currentTimeIndex == 0;
         const isLastTime = currentTimeIndex == availableTimes.length - 1;
 
-        if (availableTimes.length > 0 || currentTimeIndex != -1) {
+        if (this.#state.isLoading) {
+            this.#state.isEnabled = false;
+            this.#stopPlayerTimer();
+        } else if (availableTimes.length > 0 || currentTimeIndex != -1) {
             this.#state.isEnabled = true;
             if (isLoopOn) {
                 this.#state.isPlayForwardEnabled = true;
@@ -105,7 +117,7 @@ class TimePlayerController {
                 this.#state.isPlayForwardEnabled = !isLastTime;
                 if (isLastTime) {
                     this.#state.isPlaying = false;
-                    clearInterval(this.#playerTimer);
+                    this.#stopPlayerTimer();
                 }
             }
         } else {
@@ -114,7 +126,7 @@ class TimePlayerController {
             this.#state.isStepBackwardEnabled = false;
             this.#state.isPlayForwardEnabled = false;
             this.#state.isPlaying = false;
-            clearInterval(this.#playerTimer);
+            this.#stopPlayerTimer();
         }
     }
 
@@ -127,6 +139,9 @@ class TimePlayerController {
 
     setLoaded() {
         this.#state.isLoading = false;
+        if (this.#state.isPlaying) {
+            this.#startPlayerTimer();
+        }
         this.#updateState();
         this.#updateView();
     }
