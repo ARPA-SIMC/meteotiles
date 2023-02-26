@@ -96,6 +96,8 @@ class TimePlayerController {
     }
 
     #updateState() {
+        // TODO: if the behaviour of the player become more complex, then
+        // this method will have to be refactored (probably using a state pattern)
         const availableTimes = this.#timeDimension.getAvailableTimes();
         const currentTimeIndex = availableTimes.indexOf(this.#timeDimension.getCurrentTime());
         const isLoopOn = this.#timeDimension.isLoopOn();
