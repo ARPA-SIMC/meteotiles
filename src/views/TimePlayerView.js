@@ -51,6 +51,9 @@ class TimePlayerView {
             slider.max = (availableTimes.length - 1).toString();
             slider.value = availableTimes.indexOf(currentTime).toString();
         }
+        if (isEnabled) {
+            this.enableControls();
+        }
         if (isPlaying) {
             this.#root.querySelector(".play-forward").classList.add("playing");
         } else {
@@ -71,9 +74,7 @@ class TimePlayerView {
         } else {
             this.#root.querySelector(".time-player-controls .loader").innerText = "";
         }
-        if (isEnabled) {
-            this.enableControls();
-        } else {
+        if (!isEnabled) {
             this.disableControls();
         }
     }
