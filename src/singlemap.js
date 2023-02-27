@@ -22,6 +22,7 @@ const versionView = new Version(document.querySelector(".version-container"));
 
 const summaryController = new SelectedProductsController(
     productList,
+    timeDimension,
     new SelectedProductsView(document.getElementById("product-list-selection-summary")),
 );
 

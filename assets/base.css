@@ -127,6 +127,10 @@ footer a, footer a:visited {
     user-select: none;
 }
 
+.product-selection-badge.product-selection-badge-inactive {
+    background-color: silver;
+}
+
 .product-selection-badge::after {
     margin-left: 1ch;
     content: "\00d7";

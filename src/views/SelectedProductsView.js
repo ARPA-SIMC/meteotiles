@@ -8,9 +8,26 @@ class SelectedProductsView {
         this.#root = element;
     }
 
-    render() {}
+    render(products, currentTime) {
+        const badges = products.map(product => {
+            const badge = document.createElement("span");
+            badge.classList.add("product-selection-badge");
+            if (product.getTimes().indexOf(currentTime) == -1) {
+                badge.classList.add("product-selection-badge-inactive");
+            } else {
+                badge.classList.remove("product-selection-badge-inactive");
+            }
+            badge.setAttribute("data-id", product.id);
+            badge.innerText = `${product.modelDescription} - ${formatDate(product.reftime)} - ${product.description}`;
+            badge.addEventListener("click", () => {
+                this.#onProductClicked(product);
+            });
+            return badge;
+        });
+        this.#root.replaceChildren(...badges);
+    }
 
-    renderProductSelected(product) {
+    #renderProductSelected(product, currentTime) {
         if (product.selected && this.#root.querySelector(`[data-id="${product.id}"]`) == null) {
             const badge = document.createElement("span");
             badge.classList.add("product-selection-badge");

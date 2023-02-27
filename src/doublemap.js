@@ -24,6 +24,7 @@ const versionView = new Version(document.querySelector(".version-container"));
 
 const summaryControllerA = new SelectedProductsController(
     productListA,
+    timeDimension,
     new SelectedProductsView(document.querySelector(".left-panel .product-list-selection-summary-container")),
 );
 
@@ -34,6 +35,7 @@ const productListMenuControllerA = new ProductListMenuController(
 
 const summaryControllerB = new SelectedProductsController(
     productListB,
+    timeDimension,
     new SelectedProductsView(document.querySelector(".right-panel .product-list-selection-summary-container")),
 );
 

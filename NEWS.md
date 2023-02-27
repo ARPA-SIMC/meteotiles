@@ -1,3 +1,11 @@
+# New in 0.16
+
+* Color of selected product badges depends on presence of current time
+
+# New in 0.15
+
+* Single/double map links in header (#55)
+
 # New in 0.14
 
 * Removed plugin Leaflet.TimeDimension (#52)
