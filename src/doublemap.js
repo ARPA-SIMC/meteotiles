@@ -111,7 +111,7 @@ productListB.registerOnProductSelected(product => {
     if (previousAvailableTimes.length == 0 || availableTimes.length == 0 || !product.selected) {
         // Do nothing
     } else if (JSON.stringify(previousAvailableTimes) != JSON.stringify(product.getTimes())) {
-        alert("Attenzione: i prodotti scelti hanno istanti di validità diversi e quindi, per alcuni istanti, non saranno visualizzati entrambi i prodotti");
+        alert("Attenzione: i prodotti scelti hanno istanti di validità diversi e quindi, per alcuni istanti, non tutti i prodotti saranno visualizzati");
     }
     previousAvailableTimes = availableTimes;
 });
