@@ -91,6 +91,31 @@ mapControllerB.bindOnLoaded(() => {
     }
 });
 
+let previousAvailableTimes = timeDimension.getAvailableTimes();
+productListA.registerOnProductSelected(product => {
+    // Quando seleziono un nuovo prodotto, devo segnalare il caso in cui non abbia i medesimi
+    // istanti di tempo fino ad ora visualizzati
+    const availableTimes = timeDimension.getAvailableTimes();
+    if (previousAvailableTimes.length == 0 || availableTimes.length == 0 || !product.selected) {
+        // Do nothing
+    } else if (JSON.stringify(previousAvailableTimes) != JSON.stringify(product.getTimes())) {
+        alert("Attenzione: i prodotti scelti hanno istanti di validità diversi e quindi, per alcuni istanti, non saranno visualizzati entrambi i prodotti");
+    }
+    previousAvailableTimes = availableTimes;
+});
+
+productListB.registerOnProductSelected(product => {
+    // Quando seleziono un nuovo prodotto, devo segnalare il caso in cui non abbia i medesimi
+    // istanti di tempo fino ad ora visualizzati
+    const availableTimes = timeDimension.getAvailableTimes();
+    if (previousAvailableTimes.length == 0 || availableTimes.length == 0 || !product.selected) {
+        // Do nothing
+    } else if (JSON.stringify(previousAvailableTimes) != JSON.stringify(product.getTimes())) {
+        alert("Attenzione: i prodotti scelti hanno istanti di validità diversi e quindi, per alcuni istanti, non saranno visualizzati entrambi i prodotti");
+    }
+    previousAvailableTimes = availableTimes;
+});
+
 summaryControllerA.init();
 productListMenuControllerA.init();
 mapControllerA.init();
