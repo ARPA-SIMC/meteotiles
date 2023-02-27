@@ -57,13 +57,19 @@ const playerController = new TimePlayerController(
     new TimePlayerView(document.querySelector(".time-player-container")),
 );
 
-let percentageA = 0;
-let percentageB = 0;
+let percentageA = null;
+let percentageB = null;
+
+function calculateMeanPercentage() {
+    const a = percentageA == null ? 100 : percentageA;
+    const b = percentageB == null ? 100 : percentageB;
+    const m = Math.floor((a + b) / 2);
+    return m;
+}
 
 mapControllerA.bindOnLoading((percentage) => {
     percentageA = percentage;
-    const meanPercentage = Math.floor((percentageA + percentageB)/2);
-    console.log(percentageA, percentageB, meanPercentage);
+    const meanPercentage = calculateMeanPercentage();
     playerController.setLoading(meanPercentage);
 });
 
@@ -75,13 +81,12 @@ mapControllerA.bindOnLoaded(() => {
 
 mapControllerB.bindOnLoading((percentage) => {
     percentageB = percentage;
-    const meanPercentage = Math.floor((percentageA + percentageB)/2);
-    console.log(percentageA, percentageB, meanPercentage);
+    const meanPercentage = calculateMeanPercentage();
     playerController.setLoading(meanPercentage);
 });
 
 mapControllerB.bindOnLoaded(() => {
-    if (percentageA == 100 && percentageB == 100) {
+    if (calculateMeanPercentage() == 100) {
         playerController.setLoaded();
     }
 });

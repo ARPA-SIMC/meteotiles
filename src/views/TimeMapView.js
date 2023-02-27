@@ -219,7 +219,6 @@ class TimeMapView {
     bindOnLayersLoaded(callback) {
         this.#onLayersLoaded = callback;
     }
-
 }
 
 export default TimeMapView;
