@@ -73,7 +73,7 @@ class TimeMapView {
     }
 
     #createMap() {
-        const map = L.map("map", {
+        const map = L.map(this.#root, {
             timeDimension: true,
             timeDimensionOptions: {
                 times: [new Date(0)],
