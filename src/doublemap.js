@@ -12,6 +12,8 @@ import { SelectedProductsController } from './controllers.js';
 import { ProductListMenuController } from './controllers.js';
 import { TimeMapController } from './controllers.js';
 import { TimePlayerController } from './controllers.js';
+import { CheckAvailableTimesConsistencyController } from './controllers.js';
+
 
 const timeState = new TimeState(TILES_SERVER_URL, 2);
 const productListA = timeState.getProductList(0);
@@ -91,13 +93,25 @@ mapControllerB.bindOnLoaded(() => {
     }
 });
 
+const checkAvailableTimesControllerA = new CheckAvailableTimesConsistencyController(
+    productListA,
+    timeDimension,
+);
+
+const checkAvailableTimesControllerB = new CheckAvailableTimesConsistencyController(
+    productListB,
+    timeDimension,
+);
+
 summaryControllerA.init();
 productListMenuControllerA.init();
 mapControllerA.init();
+checkAvailableTimesControllerA.init();
 
 summaryControllerB.init();
 productListMenuControllerB.init();
 mapControllerB.init();
+checkAvailableTimesControllerB.init();
 
 playerController.init();
 

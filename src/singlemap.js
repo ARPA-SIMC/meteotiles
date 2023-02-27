@@ -12,6 +12,7 @@ import { SelectedProductsController } from './controllers.js';
 import { ProductListMenuController } from './controllers.js';
 import { TimeMapController } from './controllers.js';
 import { TimePlayerController } from './controllers.js';
+import { CheckAvailableTimesConsistencyController } from './controllers.js';
 
 const timeState = new TimeState(TILES_SERVER_URL, 1);
 const productList = timeState.getProductList(0);
@@ -40,6 +41,11 @@ const playerController = new TimePlayerController(
     new TimePlayerView(document.getElementById("time-player")),
 );
 
+const checkAvailableTimesController = new CheckAvailableTimesConsistencyController(
+    productList,
+    timeDimension,
+);
+
 mapController.bindOnLoading((percentage) => {
     playerController.setLoading(percentage);
 });
@@ -52,6 +58,7 @@ summaryController.init();
 productListMenuController.init();
 mapController.init();
 playerController.init();
+checkAvailableTimesController.init();
 
 versionView.render();
 
