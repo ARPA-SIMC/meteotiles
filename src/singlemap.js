@@ -12,6 +12,7 @@ import { SelectedProductsController } from './controllers.js';
 import { ProductListMenuController } from './controllers.js';
 import { TimeMapController } from './controllers.js';
 import { TimePlayerController } from './controllers.js';
+import { CheckAvailableTimesConsistencyController } from './controllers.js';
 
 const timeState = new TimeState(TILES_SERVER_URL, 1);
 const productList = timeState.getProductList(0);
@@ -40,6 +41,11 @@ const playerController = new TimePlayerController(
     new TimePlayerView(document.getElementById("time-player")),
 );
 
+const checkAvailableTimesController = new CheckAvailableTimesConsistencyController(
+    productList,
+    timeDimension,
+);
+
 mapController.bindOnLoading((percentage) => {
     playerController.setLoading(percentage);
 });
@@ -48,23 +54,11 @@ mapController.bindOnLoaded(() => {
     playerController.setLoaded();
 });
 
-let previousAvailableTimes = timeDimension.getAvailableTimes();
-productList.registerOnProductSelected(product => {
-    // Quando seleziono un nuovo prodotto, devo segnalare il caso in cui non abbia i medesimi
-    // istanti di tempo fino ad ora visualizzati
-    const availableTimes = timeDimension.getAvailableTimes();
-    if (previousAvailableTimes.length == 0 || availableTimes.length == 0 || !product.selected) {
-        // Do nothing
-    } else if (JSON.stringify(previousAvailableTimes) != JSON.stringify(product.getTimes())) {
-        alert("Attenzione: i prodotti scelti hanno istanti di validità diversi e quindi, per alcuni istanti, non tutti i prodotti saranno visualizzati");
-    }
-    previousAvailableTimes = availableTimes;
-});
-
 summaryController.init();
 productListMenuController.init();
 mapController.init();
 playerController.init();
+checkAvailableTimesController.init();
 
 versionView.render();
 

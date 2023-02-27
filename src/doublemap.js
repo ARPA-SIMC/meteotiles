@@ -12,6 +12,8 @@ import { SelectedProductsController } from './controllers.js';
 import { ProductListMenuController } from './controllers.js';
 import { TimeMapController } from './controllers.js';
 import { TimePlayerController } from './controllers.js';
+import { CheckAvailableTimesConsistencyController } from './controllers.js';
+
 
 const timeState = new TimeState(TILES_SERVER_URL, 2);
 const productListA = timeState.getProductList(0);
@@ -91,38 +93,25 @@ mapControllerB.bindOnLoaded(() => {
     }
 });
 
-let previousAvailableTimes = timeDimension.getAvailableTimes();
-productListA.registerOnProductSelected(product => {
-    // Quando seleziono un nuovo prodotto, devo segnalare il caso in cui non abbia i medesimi
-    // istanti di tempo fino ad ora visualizzati
-    const availableTimes = timeDimension.getAvailableTimes();
-    if (previousAvailableTimes.length == 0 || availableTimes.length == 0 || !product.selected) {
-        // Do nothing
-    } else if (JSON.stringify(previousAvailableTimes) != JSON.stringify(product.getTimes())) {
-        alert("Attenzione: i prodotti scelti hanno istanti di validità diversi e quindi, per alcuni istanti, non saranno visualizzati entrambi i prodotti");
-    }
-    previousAvailableTimes = availableTimes;
-});
+const checkAvailableTimesControllerA = new CheckAvailableTimesConsistencyController(
+    productListA,
+    timeDimension,
+);
 
-productListB.registerOnProductSelected(product => {
-    // Quando seleziono un nuovo prodotto, devo segnalare il caso in cui non abbia i medesimi
-    // istanti di tempo fino ad ora visualizzati
-    const availableTimes = timeDimension.getAvailableTimes();
-    if (previousAvailableTimes.length == 0 || availableTimes.length == 0 || !product.selected) {
-        // Do nothing
-    } else if (JSON.stringify(previousAvailableTimes) != JSON.stringify(product.getTimes())) {
-        alert("Attenzione: i prodotti scelti hanno istanti di validità diversi e quindi, per alcuni istanti, non tutti i prodotti saranno visualizzati");
-    }
-    previousAvailableTimes = availableTimes;
-});
+const checkAvailableTimesControllerB = new CheckAvailableTimesConsistencyController(
+    productListB,
+    timeDimension,
+);
 
 summaryControllerA.init();
 productListMenuControllerA.init();
 mapControllerA.init();
+checkAvailableTimesControllerA.init();
 
 summaryControllerB.init();
 productListMenuControllerB.init();
 mapControllerB.init();
+checkAvailableTimesControllerB.init();
 
 playerController.init();
 
