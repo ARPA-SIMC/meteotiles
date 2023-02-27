@@ -1,6 +1,10 @@
-# New in version -unreleased-
+# New in UNRELEASED
 
 * Added changelog in NEWS.md
+* Current time more visibile (#50)
+* Removed plugin Leaflet.TimeDimension (#52)
+* Removed lag in product selection (#41)
+* Double map mode (#19)
 
 # New in version 0.12
 
