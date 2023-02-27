@@ -28,10 +28,12 @@ class TimePlayerView {
         this.#root.querySelector(".time-player-controls").addEventListener("wheel", (event) => {
             const direction = event.deltaY;
             const timerangeElement = this.#root.querySelector(".time-range");
-            if (direction < 0) {
-                this.#onStepForwardClicked();
-            } else {
-                this.#onStepBackwardClicked();
+            if (!timerangeElement.disabled) {
+                if (direction < 0) {
+                    this.#onStepForwardClicked();
+                } else {
+                    this.#onStepBackwardClicked();
+                }
             }
         }, {
             passive: true,
