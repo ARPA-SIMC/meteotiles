@@ -71,7 +71,7 @@ class TimePlayerView {
         } else {
             this.#root.querySelector(".time-player-controls .loader").classList.remove("loading");
         }
-        if ((isLoading || availableTimes.length > 0) && loadingPercentage != null) {
+        if ((isLoading || availableTimes.length > 0) && (loadingPercentage != null || loadingPercentage != NaN)) {
             this.#root.querySelector(".time-player-controls .loader").innerText = `${loadingPercentage}%`;
         } else {
             this.#root.querySelector(".time-player-controls .loader").innerText = "";
