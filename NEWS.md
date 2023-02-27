@@ -1,11 +1,14 @@
-# New in 0.13
+# New in 0.14
 
-* Added changelog in NEWS.md
-* Current time more visibile (#50)
 * Removed plugin Leaflet.TimeDimension (#52)
 * Removed lag in product selection (#41)
 * Double map mode (#19)
 * Alert when selected products have differente available times (#53)
+
+# New in 0.13
+
+* Added changelog in NEWS.md
+* Current time more visibile (#50)
 
 # New in version 0.12
 
