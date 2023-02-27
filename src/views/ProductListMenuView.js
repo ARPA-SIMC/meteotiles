@@ -69,6 +69,12 @@ class ProductListMenuView {
                     checkbox.checked = product.selected;
                     const label = document.createElement("label");
                     label.innerText = `${product.modelDescription} ${product.description}`;
+                    label.addEventListener('click', () => {
+                        if (!checkbox.disabled) {
+                            checkbox.checked = !checkbox.checked;
+                            this.#onProductClicked(product, checkbox.checked);
+                        }
+                    });
                     li.append(checkbox);
                     li.append(label);
                     checkbox.addEventListener('click', () => {
