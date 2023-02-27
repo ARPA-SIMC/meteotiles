@@ -93,10 +93,6 @@ class TimePlayerView {
     disableControls() {
         this.#root.querySelectorAll(".time-player-controls-buttons button").forEach((el) => el.disabled = true);
         this.#root.querySelector(".time-player-controls .time-range").disabled = true;
-        const playing = this.#root.querySelector(".time-player-controls .play-forward.playing");
-        if (playing) {
-            playing.disabled = false;
-        }
     }
 
     enableControls() {
