@@ -42,16 +42,16 @@ class TimeDimension {
     setAvailableTimes(availableTimes) {
         const newAvailableTimes = [...new Set(availableTimes)].sort((a, b) => a - b);
         // notify that available times changed
-        if (JSON.stringify(availableTimes) == JSON.stringify(this.getAvailableTimes())) {
+        if (JSON.stringify(newAvailableTimes) == JSON.stringify(this.getAvailableTimes())) {
             return;
         }
-        this.#availableTimes = availableTimes;
+        this.#availableTimes = newAvailableTimes;
         // change current time if needed
         if (availableTimes.length == 0) {
             this.setCurrentTime(null);
         } else if (this.#currentTime == null) {
-            this.setCurrentTime(availableTimes[0]);
-        } else if (availableTimes.indexOf(this.#currentTime) == -1) {
+            this.setCurrentTime(this.#availableTimes[0]);
+        } else if (this.#availableTimes.indexOf(this.#currentTime) == -1) {
             this.setCurrentTime(availableTimes[0]);
         }
         this.#notifyAvailableTimesChanged(this.getAvailableTimes());
