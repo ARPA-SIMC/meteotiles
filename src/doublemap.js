@@ -74,7 +74,7 @@ mapControllerA.bindOnLoading((percentage) => {
 });
 
 mapControllerA.bindOnLoaded(() => {
-    if (percentageA == 100 && percentageB == 100) {
+    if (calculateMeanPercentage() == 100) {
         playerController.setLoaded();
     }
 });
