@@ -242,11 +242,14 @@ footer a, footer a:visited {
 .time-player-controls .loader {
     display: inline-block;
     width: 4ch;
-    visibility: visible;
+    opacity: 0;
     font-weight: bold;
     text-align: right;
+    transition: opacity 2s linear 0s;
 }
 
 .time-player-controls .loader.loading {
     color: red;
+    opacity: 1;
+    transition: opacity 0s linear 0s;
 }
