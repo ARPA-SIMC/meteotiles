@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="assets/base.css" />
+        <link rel="stylesheet" href="assets/doublemap.css" />
+        <link rel="stylesheet" href="assets/leaflet.css" />
+        <link rel="stylesheet" href="assets/leaflet.control.legend.css" />
+        <script type="text/javascript" src="assets/leaflet-src.js"></script>
+        <script type="text/javascript" src="assets/leaflet.control.legend.js"></script>
+        <script type="text/javascript" src="assets/L.Map.Sync.js"></script>
+    </head>
+    <body>
+        <header>
+            <span class="logo"></span>
+        </header>
+        <main>
+            <div class="left-panel">
+                <div class="product-list-selection-summary-container">
+                </div>
+                <div class="map-menu-container">
+                    <div class="map-menu-products">
+                    </div>
+                </div>
+                <div class="map-container"></div>
+            </div>
+            <div class="right-panel">
+                <div class="product-list-selection-summary-container">
+                </div>
+                <div class="map-menu-container">
+                    <div class="map-menu-products">
+                    </div>
+                </div>
+                <div class="map-container"></div>
+            </div>
+            <div id="time-player" class="time-player-container">
+                <div class="time-player-controls">
+                    <div class="time-player-controls-buttons">
+                        <button class="step-backward">
+                        </button>
+                        <button class="play-forward">
+                        </button>
+                        <button class="step-forward">
+                        </button>
+                        <button class="loop">
+                        </button>
+                    </div>
+                    <input class="time-range" type="range" value="0" step="1" min="0" max="72">
+                    <span class="loader"></span>
+                    <span class="datetime-label"></span>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <span class="version-container">
+                <a class="version-link" href="https://github.com/ARPA-SIMC/meteotiles">
+                    meteotiles
+                    <span class="version">version DEVEL</span>
+                </a>
+                <span> - </span>
+                <span class="copyright">copyright © 2022-2023 ARPAE-SIMC</span>
+            </span>
+        </footer>
+        <script type="module" src="src/doublemap.js"></script>
+    </body>
+</html>
