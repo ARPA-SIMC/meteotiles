@@ -1,4 +1,6 @@
-# New in UNRELEASED
+# New in 0.18
+
+* Sync maps in double map application (#54)
 
 # New in 0.17
 
