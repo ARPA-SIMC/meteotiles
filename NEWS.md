@@ -1,3 +1,9 @@
+# New in UNRELEASED
+
+# New in 0.17
+
+* Fixed behaviour of alert when selected products have differente available times
+
 # New in 0.16
 
 * Color of selected product badges depends on presence of current time
