@@ -193,20 +193,20 @@ productListB.fetchProducts();
 productListC.fetchProducts();
 productListD.fetchProducts();
 
-productListA.registerOnProductsLoaded(() => {
-    mapControllerA.getLeafletMap().sync(mapControllerB.getLeafletMap());
-    mapControllerA.getLeafletMap().sync(mapControllerC.getLeafletMap());
-    mapControllerA.getLeafletMap().sync(mapControllerD.getLeafletMap());
+mapControllerA.getLeafletMap().sync(mapControllerB.getLeafletMap());
+mapControllerA.getLeafletMap().sync(mapControllerC.getLeafletMap());
+mapControllerA.getLeafletMap().sync(mapControllerD.getLeafletMap());
 
-    mapControllerB.getLeafletMap().sync(mapControllerA.getLeafletMap());
-    mapControllerB.getLeafletMap().sync(mapControllerC.getLeafletMap());
-    mapControllerB.getLeafletMap().sync(mapControllerD.getLeafletMap());
+/*
+mapControllerB.getLeafletMap().sync(mapControllerA.getLeafletMap());
+mapControllerB.getLeafletMap().sync(mapControllerC.getLeafletMap());
+mapControllerB.getLeafletMap().sync(mapControllerD.getLeafletMap());
 
-    mapControllerC.getLeafletMap().sync(mapControllerA.getLeafletMap());
-    mapControllerC.getLeafletMap().sync(mapControllerB.getLeafletMap());
-    mapControllerC.getLeafletMap().sync(mapControllerD.getLeafletMap());
+mapControllerC.getLeafletMap().sync(mapControllerA.getLeafletMap());
+mapControllerC.getLeafletMap().sync(mapControllerB.getLeafletMap());
+mapControllerC.getLeafletMap().sync(mapControllerD.getLeafletMap());
 
-    mapControllerD.getLeafletMap().sync(mapControllerA.getLeafletMap());
-    mapControllerD.getLeafletMap().sync(mapControllerB.getLeafletMap());
-    mapControllerD.getLeafletMap().sync(mapControllerC.getLeafletMap());
-});
+mapControllerD.getLeafletMap().sync(mapControllerA.getLeafletMap());
+mapControllerD.getLeafletMap().sync(mapControllerB.getLeafletMap());
+mapControllerD.getLeafletMap().sync(mapControllerC.getLeafletMap());
+*/
