@@ -1,3 +1,7 @@
+# New in 0.19
+
+* Fixed map sync
+
 # New in 0.18
 
 * Sync maps in double map application (#54)
