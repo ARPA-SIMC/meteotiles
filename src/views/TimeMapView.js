@@ -212,6 +212,10 @@ class TimeMapView {
         }
     }
 
+    getLeafletMap() {
+        return this.#map;
+    }
+
     bindOnLayersLoading(callback) {
         this.#onLayersLoading = callback;
     }

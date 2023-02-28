@@ -100,6 +100,9 @@ const checkAvailableTimesController = new CheckAvailableTimesConsistencyControll
     timeDimension,
 );
 
+mapControllerA.getLeafletMap().sync(mapControllerB.getLeafletMap());
+mapControllerB.getLeafletMap().sync(mapControllerA.getLeafletMap());
+
 summaryControllerA.init();
 productListMenuControllerA.init();
 mapControllerA.init();

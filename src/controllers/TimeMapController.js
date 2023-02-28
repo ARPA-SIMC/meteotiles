@@ -40,6 +40,10 @@ class TimeMapController {
         this.#view.render();
     }
 
+    getLeafletMap() {
+        return this.#view.getLeafletMap();
+    }
+
     bindOnLoading(callback) {
         this.#onLoading = callback;
     }
