@@ -43,7 +43,7 @@ const playerController = new TimePlayerController(
 );
 
 const checkAvailableTimesController = new CheckAvailableTimesConsistencyController(
-    productList,
+    timeState.getProductLists(),
     timeDimension,
 );
 

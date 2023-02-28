@@ -95,26 +95,20 @@ mapControllerB.bindOnLoaded(() => {
     }
 });
 
-const checkAvailableTimesControllerA = new CheckAvailableTimesConsistencyController(
-    productListA,
-    timeDimension,
-);
-
-const checkAvailableTimesControllerB = new CheckAvailableTimesConsistencyController(
-    productListB,
+const checkAvailableTimesController = new CheckAvailableTimesConsistencyController(
+    timeState.getProductLists(),
     timeDimension,
 );
 
 summaryControllerA.init();
 productListMenuControllerA.init();
 mapControllerA.init();
-checkAvailableTimesControllerA.init();
 
 summaryControllerB.init();
 productListMenuControllerB.init();
 mapControllerB.init();
-checkAvailableTimesControllerB.init();
 
+checkAvailableTimesController.init();
 playerController.init();
 
 versionView.render();

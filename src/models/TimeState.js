@@ -17,6 +17,10 @@ class TimeState {
         });
     }
 
+    getProductLists() {
+        return this.#productLists;
+    }
+
     getProductList(index) {
         return this.#productLists[index];
     }
