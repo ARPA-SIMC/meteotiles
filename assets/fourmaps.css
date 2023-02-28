@@ -1,0 +1,72 @@
+main {
+    display: grid;
+    overflow: hidden;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr auto;
+}
+
+.top-left-panel, .top-right-panel, .bottom-left-panel, .bottom-right-panel {
+    display: grid;
+    overflow: hidden;
+    grid-template-columns: 2fr 3fr 1fr;
+    grid-template-rows: auto 1fr 1fr;
+}
+
+.top-left-panel {
+    grid-column: 1/2;
+    grid-row: 1/2;
+}
+
+.top-right-panel {
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+
+.bottom-left-panel {
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+
+.bottom-right-panel {
+    grid-column: 2/3;
+    grid-row: 2/3;
+}
+
+.top-left-panel {
+    border-right: 2px solid var(--main-bg-color);
+    border-bottom: 2px solid var(--main-bg-color);
+}
+
+.top-right-panel {
+    border-left: 2px solid var(--main-bg-color);
+    border-bottom: 2px solid var(--main-bg-color);
+}
+
+.bottom-left-panel {
+    border-right: 2px solid var(--main-bg-color);
+    border-top: 2px solid var(--main-bg-color);
+}
+
+.bottom-right-panel {
+    border-left: 2px solid var(--main-bg-color);
+    border-top: 2px solid var(--main-bg-color);
+}
+
+.product-list-selection-summary-container {
+    grid-column: 1/4;
+}
+
+.map-menu-container {
+    grid-row: 2/4;
+    grid-column: 1;
+}
+
+.map-container {
+    grid-row: 2/4;
+    grid-column: 2/4;
+}
+
+.time-player-container {
+    grid-column: 1/3;
+    grid-row: 3/4;
+}
