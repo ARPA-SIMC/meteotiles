@@ -67,22 +67,23 @@ class TimeMapView {
     #layers = {};
     #onLayersLoading = () => {};
     #onLayersLoaded = () => {};
+    #mapOptions = {
+        center: [42.8, 12.6],
+        zoom: 5,
+        minZoom: 5,
+        maxZoom: 8,
+    }
 
-    constructor(element) {
+    constructor(element, mapOptions) {
         this.#root = element;
+        this.#mapOptions = {
+            ...this.#mapOptions,
+            ...mapOptions,
+        }
     }
 
     #createMap() {
-        const map = L.map(this.#root, {
-            timeDimension: true,
-            timeDimensionOptions: {
-                times: [new Date(0)],
-            },
-            center: [42.8, 12.6],
-            zoom: 5,
-            minZoom: 5,
-            maxZoom: 8,
-        });
+        const map = L.map(this.#root, this.#mapOptions);
 
         L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
             attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',

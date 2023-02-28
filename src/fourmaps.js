@@ -21,7 +21,10 @@ const productListB = timeState.getProductList(1);
 const productListC = timeState.getProductList(2);
 const productListD = timeState.getProductList(3);
 const timeDimension = timeState.getTimeDimension();
-
+const timeMapOptions = {
+    zoom: 4,
+    minZoom: 4,
+}
 const versionView = new Version(document.querySelector(".version-container"));
 
 const summaryControllerA = new SelectedProductsController(
@@ -38,7 +41,7 @@ const productListMenuControllerA = new ProductListMenuController(
 const mapControllerA = new TimeMapController(
     productListA,
     timeDimension,
-    new TimeMapView(document.querySelector(".top-left-panel .map-container")),
+    new TimeMapView(document.querySelector(".top-left-panel .map-container"), timeMapOptions),
 );
 
 const summaryControllerB = new SelectedProductsController(
@@ -55,7 +58,7 @@ const productListMenuControllerB = new ProductListMenuController(
 const mapControllerB = new TimeMapController(
     productListB,
     timeDimension,
-    new TimeMapView(document.querySelector(".top-right-panel .map-container")),
+    new TimeMapView(document.querySelector(".top-right-panel .map-container"), timeMapOptions),
 );
 
 const summaryControllerC = new SelectedProductsController(
@@ -72,7 +75,7 @@ const productListMenuControllerC = new ProductListMenuController(
 const mapControllerC = new TimeMapController(
     productListC,
     timeDimension,
-    new TimeMapView(document.querySelector(".bottom-left-panel .map-container")),
+    new TimeMapView(document.querySelector(".bottom-left-panel .map-container"), timeMapOptions),
 );
 
 const summaryControllerD = new SelectedProductsController(
@@ -89,7 +92,7 @@ const productListMenuControllerD = new ProductListMenuController(
 const mapControllerD = new TimeMapController(
     productListD,
     timeDimension,
-    new TimeMapView(document.querySelector(".bottom-right-panel .map-container")),
+    new TimeMapView(document.querySelector(".bottom-right-panel .map-container"), timeMapOptions),
 );
 
 const playerController = new TimePlayerController(
