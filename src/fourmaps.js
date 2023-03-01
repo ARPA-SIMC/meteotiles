@@ -21,10 +21,17 @@ const productListB = timeState.getProductList(1);
 const productListC = timeState.getProductList(2);
 const productListD = timeState.getProductList(3);
 const timeDimension = timeState.getTimeDimension();
-const timeMapOptions = {
-    zoom: 3,
-    minZoom: 3,
+const timeMapOptionsPrimary = {
+    setMapBounds: true,
 }
+const timeMapOptionsSecondary = {
+    setMapBounds: true,
+}
+const timeMapLeafletOptions = {
+    zoom: 4,
+    minZoom: 4,
+}
+
 const versionView = new Version(document.querySelector(".version-container"));
 
 const summaryControllerA = new SelectedProductsController(
@@ -41,7 +48,7 @@ const productListMenuControllerA = new ProductListMenuController(
 const mapControllerA = new TimeMapController(
     productListA,
     timeDimension,
-    new TimeMapView(document.querySelector(".top-left-panel .map-container"), timeMapOptions),
+    new TimeMapView(document.querySelector(".top-left-panel .map-container"), timeMapOptionsPrimary, timeMapLeafletOptions),
 );
 
 const summaryControllerB = new SelectedProductsController(
@@ -58,7 +65,7 @@ const productListMenuControllerB = new ProductListMenuController(
 const mapControllerB = new TimeMapController(
     productListB,
     timeDimension,
-    new TimeMapView(document.querySelector(".top-right-panel .map-container"), timeMapOptions),
+    new TimeMapView(document.querySelector(".top-right-panel .map-container"), timeMapOptionsSecondary, timeMapLeafletOptions),
 );
 
 const summaryControllerC = new SelectedProductsController(
@@ -75,7 +82,7 @@ const productListMenuControllerC = new ProductListMenuController(
 const mapControllerC = new TimeMapController(
     productListC,
     timeDimension,
-    new TimeMapView(document.querySelector(".bottom-left-panel .map-container"), timeMapOptions),
+    new TimeMapView(document.querySelector(".bottom-left-panel .map-container"), timeMapOptionsSecondary, timeMapLeafletOptions),
 );
 
 const summaryControllerD = new SelectedProductsController(
@@ -92,7 +99,7 @@ const productListMenuControllerD = new ProductListMenuController(
 const mapControllerD = new TimeMapController(
     productListD,
     timeDimension,
-    new TimeMapView(document.querySelector(".bottom-right-panel .map-container"), timeMapOptions),
+    new TimeMapView(document.querySelector(".bottom-right-panel .map-container"), timeMapOptionsSecondary, timeMapLeafletOptions),
 );
 
 const playerController = new TimePlayerController(
@@ -194,19 +201,17 @@ productListC.fetchProducts();
 productListD.fetchProducts();
 
 mapControllerA.getLeafletMap().sync(mapControllerB.getLeafletMap());
-mapControllerA.getLeafletMap().sync(mapControllerC.getLeafletMap());
-mapControllerA.getLeafletMap().sync(mapControllerD.getLeafletMap());
+// mapControllerA.getLeafletMap().sync(mapControllerC.getLeafletMap());
+// mapControllerA.getLeafletMap().sync(mapControllerD.getLeafletMap());
 
-/*
-mapControllerB.getLeafletMap().sync(mapControllerA.getLeafletMap());
+// mapControllerB.getLeafletMap().sync(mapControllerA.getLeafletMap());
 mapControllerB.getLeafletMap().sync(mapControllerC.getLeafletMap());
-mapControllerB.getLeafletMap().sync(mapControllerD.getLeafletMap());
+// mapControllerB.getLeafletMap().sync(mapControllerD.getLeafletMap());
 
-mapControllerC.getLeafletMap().sync(mapControllerA.getLeafletMap());
-mapControllerC.getLeafletMap().sync(mapControllerB.getLeafletMap());
+// mapControllerC.getLeafletMap().sync(mapControllerA.getLeafletMap());
+// mapControllerC.getLeafletMap().sync(mapControllerB.getLeafletMap());
 mapControllerC.getLeafletMap().sync(mapControllerD.getLeafletMap());
 
 mapControllerD.getLeafletMap().sync(mapControllerA.getLeafletMap());
-mapControllerD.getLeafletMap().sync(mapControllerB.getLeafletMap());
-mapControllerD.getLeafletMap().sync(mapControllerC.getLeafletMap());
-*/
+// mapControllerD.getLeafletMap().sync(mapControllerB.getLeafletMap());
+// mapControllerD.getLeafletMap().sync(mapControllerC.getLeafletMap());
