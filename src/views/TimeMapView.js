@@ -68,7 +68,7 @@ class TimeMapView {
     #onLayersLoading = () => {};
     #onLayersLoaded = () => {};
     #options = {
-        setMapBounds: true,
+        setFitMapBounds: true,
     }
     #mapOptions = {
         center: [42.8, 12.6],
@@ -121,11 +121,9 @@ class TimeMapView {
         // Estendo il bounding box a quello dei tile
         // https://github.com/ARPA-SIMC/meteotiles/issues/47
         // https://github.com/ARPA-SIMC/arkimaps/issues/91
-        if (this.#options.setMapBounds) {
-            const tileBounds = extendBoundsToTiles(this.#map, bounds);
-            this.setMapBounds(tileBounds, true);
-            this.#map.on('zoomend', () => this.setMapBounds(tileBounds, false));
-        }
+        const tileBounds = extendBoundsToTiles(this.#map, bounds);
+        this.setMapBounds(tileBounds, this.#options.setFitMapBounds);
+        this.#map.on('zoomend', () => this.setMapBounds(tileBounds, false));
     }
 
     renderTime(currentTime) {

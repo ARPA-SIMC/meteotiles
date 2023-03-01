@@ -22,10 +22,10 @@ const productListC = timeState.getProductList(2);
 const productListD = timeState.getProductList(3);
 const timeDimension = timeState.getTimeDimension();
 const timeMapOptionsPrimary = {
-    setMapBounds: true,
+    setFitMapBounds: true,
 }
 const timeMapOptionsSecondary = {
-    setMapBounds: true,
+    setFitMapBounds: false,
 }
 const timeMapLeafletOptions = {
     zoom: 4,
