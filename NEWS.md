@@ -1,3 +1,8 @@
+# New in UNRELEASED
+
+* CheckAvailableTimesConsistencyController uses only the product lists (#56)
+* Titles in HTML pages
+
 # New in 0.19
 
 * Fixed map sync
