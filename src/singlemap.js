@@ -44,7 +44,6 @@ const playerController = new TimePlayerController(
 
 const checkAvailableTimesController = new CheckAvailableTimesConsistencyController(
     timeState.getProductLists(),
-    timeDimension,
 );
 
 mapController.bindOnLoading((percentage) => {

@@ -1,26 +1,21 @@
 class CheckAvailableTimesConsistencyController {
     #productLists;
-    #timeDimension;
-    #previousAvailableTimes;
 
     constructor(productLists, timeDimension) {
         this.#productLists = productLists;
-        this.#timeDimension = timeDimension;
-        this.#previousAvailableTimes = timeDimension.getAvailableTimes();
     }
 
     init() {
         this.#productLists.forEach(productList => {
             productList.registerOnProductSelected(product => {
-                // Quando seleziono un nuovo prodotto, devo segnalare il caso in cui non abbia i medesimi
-                // istanti di tempo fino ad ora visualizzati
-                const availableTimes = this.#timeDimension.getAvailableTimes();
-                if (this.#previousAvailableTimes.length == 0 || availableTimes.length == 0 || !product.selected) {
-                    // Do nothing
-                } else if (JSON.stringify(this.#previousAvailableTimes) != JSON.stringify(product.getTimes())) {
+                const products = this.#productLists.map(l => l.getSelectedProducts()).flat();
+                const lists = products.map(p => p.getTimes());
+                const allEquals = lists.slice(1).every((l) => {
+                    return l.length == lists[0].length && [...l].every(t => lists[0].has(t))
+                })
+                if (!allEquals) {
                     alert("Attenzione: i prodotti scelti hanno istanti di validità diversi e quindi, per alcuni istanti, non tutti i prodotti saranno visualizzati");
                 }
-                this.#previousAvailableTimes = availableTimes;
             });
         });
     }

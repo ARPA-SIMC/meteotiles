@@ -97,7 +97,6 @@ mapControllerB.bindOnLoaded(() => {
 
 const checkAvailableTimesController = new CheckAvailableTimesConsistencyController(
     timeState.getProductLists(),
-    timeDimension,
 );
 
 summaryControllerA.init();
