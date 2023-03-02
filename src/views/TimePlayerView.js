@@ -47,8 +47,8 @@ class TimePlayerView {
 
         divButtons.append(
             stepBackwardButton,
-            stepForwardButton,
             playForwardButton,
+            stepForwardButton,
             loopButton,
         );
         divControls.append(divButtons);

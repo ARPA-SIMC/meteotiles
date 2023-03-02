@@ -22,6 +22,7 @@
     border: 1px solid silver;
     padding: 0.7em;
     border-radius: 20%;
+    margin: 0.2em;
 }
 
 .meteotiles-time-player .time-player-controls-buttons button.loop.active {
