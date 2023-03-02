@@ -136,69 +136,58 @@ footer a, footer a:visited {
     content: "\00d7";
 }
 
-.map-menu-container {
+.map-menu-products-container {
     padding: 0.2em 1em;
     overflow-y: auto;
     border-right: 0.2em solid var(--main-bg-color);
-}
-
-.map-menu-container .map-menu-header {
-    margin: 0;
-    padding: 0;
-}
-
-.map-menu-container .map-menu-products {
     font-size: 80%;
 }
 
-.map-menu-container .map-menu-products h2 {
+.map-menu-products-container h2 {
     font-size: 160%;
 }
 
-.map-menu-container .map-menu-products h3 {
+.map-menu-products-container h3 {
     font-size: 120%;
-}
-
-.map-menu-container .map-menu-products .map-menu-search input {
-    width: 80%;
-    padding: 0.5em;
-}
-
-
-.map-menu-container .map-menu-products ul {
-    padding: 0;
-}
-
-.map-menu-container .map-menu-products li {
-    list-style-type: none;
-    display: flex;
-}
-
-.map-menu-container .map-menu-products h3 {
     cursor: pointer;
 }
 
-.map-menu-container .map-menu-products h3::before {
+.map-menu-products-container h3::before {
     width: 2ch;
     content: "\25BD";
     padding-right: 0.2em;
 }
 
-.map-menu-container .map-menu-products h3.collapsed::before {
+.map-menu-products-container h3.collapsed::before {
     width: 2ch;
     content: "\25B7";
     padding-right: 0.2em;
 }
 
-.map-menu-container .map-menu-products .hidden {
+.map-menu-products-container .map-menu-search input {
+    width: 80%;
+    padding: 0.5em;
+}
+
+
+.map-menu-products-container ul {
+    padding: 0;
+}
+
+.map-menu-products-container li {
+    list-style-type: none;
+    display: flex;
+}
+
+.map-menu-products-container .hidden {
     display: none;
 }
 
-.map-menu-container .map-menu-products li input {
+.map-menu-products-container li input {
     align-self: center
 }
 
-.map-menu-container .map-menu-products li label {
+.map-menu-products-container li label {
     align-self: center
 }
 

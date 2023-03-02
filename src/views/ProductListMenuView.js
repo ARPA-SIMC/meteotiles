@@ -2,7 +2,7 @@ import { formatDate } from '../utils.js';
 
 class ProductListMenuView {
     #root;
-    #productsUl;
+    #productsDiv;
     #onProductClicked = () => {};
 
     constructor(root) {
@@ -25,16 +25,16 @@ class ProductListMenuView {
             this.#filterProductList(searchText);
         });
 
-        this.#productsUl = document.createElement("ul");
-        this.#productsUl.classList.add("product-list-ul");
-        this.#root.append(this.#productsUl);
+        this.#productsDiv = document.createElement("div");
+        this.#productsDiv.classList.add("product-list-ul");
+        this.#root.append(this.#productsDiv);
     }
 
     renderEnableProductSelection(enabled) {
         if (enabled) {
-            this.#productsUl.querySelectorAll('input[type="checkbox"]').forEach(input => input.disabled = false);
+            this.#productsDiv.querySelectorAll('input[type="checkbox"]').forEach(input => input.disabled = false);
         } else {
-            this.#productsUl.querySelectorAll('input[type="checkbox"]').forEach(input => {
+            this.#productsDiv.querySelectorAll('input[type="checkbox"]').forEach(input => {
                 if (!input.checked) {
                     input.disabled = true;
                 }
@@ -88,7 +88,7 @@ class ProductListMenuView {
                 });
                 return [titleElement, ul];
             }).flat();
-        this.#productsUl.replaceChildren(...nodes);
+        this.#productsDiv.replaceChildren(...nodes);
     }
 
     renderProductSelected(product) {
@@ -119,7 +119,7 @@ class ProductListMenuView {
         // NOTE: this is handled directly by the view, it should be handled by
         // the controller.
         const search = searchText.toLowerCase();
-        this.#productsUl.querySelectorAll("li.product-list-model-li").forEach(li => {
+        this.#productsDiv.querySelectorAll("li.product-list-model-li").forEach(li => {
             if (!li.innerText.toLowerCase().includes(search)) {
                 li.classList.add("hidden");
             } else {
