@@ -3,6 +3,7 @@
 * CheckAvailableTimesConsistencyController uses only the product lists (#56)
 * Titles in HTML pages
 * Split widgets style in CSS files
+* Fix loading percentage in double map
 
 # New in 0.19
 
