@@ -2,6 +2,7 @@
 
 * CheckAvailableTimesConsistencyController uses only the product lists (#56)
 * Titles in HTML pages
+* Split widgets style in CSS files
 
 # New in 0.19
 
