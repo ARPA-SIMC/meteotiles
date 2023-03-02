@@ -85,7 +85,7 @@
 }
 
 .meteotiles-time-player .time-player-controls .loader.loading {
-    color: red;
+    color: crimson;
     opacity: 1;
     transition: opacity 0s linear 0s;
 }
