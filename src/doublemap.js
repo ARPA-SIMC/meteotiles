@@ -30,7 +30,7 @@ const summaryControllerA = new SelectedProductsController(
 
 const productListMenuControllerA = new ProductListMenuController(
     productListA,
-    new ProductListMenuView(document.querySelector('.left-panel .map-menu-products')),
+    new ProductListMenuView(document.querySelector('.left-panel .map-menu-products-container')),
 );
 
 const summaryControllerB = new SelectedProductsController(
@@ -41,7 +41,7 @@ const summaryControllerB = new SelectedProductsController(
 
 const productListMenuControllerB = new ProductListMenuController(
     productListB,
-    new ProductListMenuView(document.querySelector('.right-panel .map-menu-products')),
+    new ProductListMenuView(document.querySelector('.right-panel .map-menu-products-container')),
 );
 
 const mapControllerA = new TimeMapController(
