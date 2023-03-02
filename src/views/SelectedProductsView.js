@@ -6,6 +6,7 @@ class SelectedProductsView {
 
     constructor(element) {
         this.#root = element;
+        this.#root.classList.add("meteotiles-selected-products");
     }
 
     render(products, currentTime) {

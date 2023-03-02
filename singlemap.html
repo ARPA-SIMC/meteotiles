@@ -4,6 +4,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="assets/base.css" />
+        <link rel="stylesheet" href="assets/ProductListMenu.css" />
+        <link rel="stylesheet" href="assets/SelectedProducts.css" />
+        <link rel="stylesheet" href="assets/TimeMap.css" />
+        <link rel="stylesheet" href="assets/TimePlayer.css" />
+        <link rel="stylesheet" href="assets/Version.css" />
         <link rel="stylesheet" href="assets/singlemap.css" />
         <link rel="stylesheet" href="assets/leaflet.css" />
         <link rel="stylesheet" href="assets/leaflet.control.legend.css" />
@@ -22,39 +27,13 @@
             </nav>
         </header>
         <main>
-            <div id="product-list-selection-summary" class="product-list-selection-summary-container">
-            </div>
-            <div class="map-menu-products-container" id="map-menu-products">
-            </div>
-            </div>
-            <div id="map" class="map-container"></div>
-            <div id="time-player" class="time-player-container">
-                <div class="time-player-controls">
-                    <div class="time-player-controls-buttons">
-                        <button class="step-backward">
-                        </button>
-                        <button class="play-forward">
-                        </button>
-                        <button class="step-forward">
-                        </button>
-                        <button class="loop">
-                        </button>
-                    </div>
-                    <input class="time-range" type="range" value="0" step="1" min="0" max="72">
-                    <span class="loader"></span>
-                    <span class="datetime-label"></span>
-                </div>
-            </div>
+            <div id="selected-products"></div>
+            <div id="product-list-menu"></div>
+            <div id="map"></div>
+            <div id="time-player"></div>
         </main>
         <footer>
-            <span class="version-container">
-                <a class="version-link" href="https://github.com/ARPA-SIMC/meteotiles">
-                    meteotiles
-                    <span class="version">version DEVEL</span>
-                </a>
-                <span> - </span>
-                <span class="copyright">copyright © 2022-2023 ARPAE-SIMC</span>
-            </span>
+            <span id="version"></span>
         </footer>
         <script type="module" src="src/singlemap.js"></script>
     </body>

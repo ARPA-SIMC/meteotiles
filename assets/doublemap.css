@@ -20,21 +20,21 @@ main {
     border-left: 2px solid var(--main-bg-color);
 }
 
-.product-list-selection-summary-container {
+.meteotiles-selected-products {
     grid-column: 1/4;
 }
 
-.map-menu-products-container {
+.meteotiles-product-list-menu {
     grid-row: 2/4;
     grid-column: 1;
 }
 
-.map-container {
+.meteotiles-time-map {
     grid-row: 2/4;
     grid-column: 2/4;
 }
 
-.time-player-container {
+.meteotiles-time-player {
     grid-row: 3/4;
     grid-column: 1/4;
 }

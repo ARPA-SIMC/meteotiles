@@ -10,22 +10,62 @@ class TimePlayerView {
 
     constructor(element) {
         this.#root = element;
+        this.#root.classList.add("meteotiles-time-player");
     }
 
     render() {
-        this.#root.querySelector(".play-forward").addEventListener("click", () => {
+        const divControls = document.createElement("div");
+        divControls.classList.add("time-player-controls");
+
+        const divButtons = document.createElement("div");
+        divButtons.classList.add("time-player-controls-buttons");
+
+        const stepBackwardButton = document.createElement("button");
+        stepBackwardButton.classList.add("step-backward");
+
+        const stepForwardButton = document.createElement("button");
+        stepForwardButton.classList.add("step-forward");
+
+        const playForwardButton = document.createElement("button");
+        playForwardButton.classList.add("play-forward");
+
+        const loopButton = document.createElement("button");
+        loopButton.classList.add("loop");
+
+        playForwardButton.addEventListener("click", () => {
             this.#onPlayClicked();
         });
-        this.#root.querySelector(".step-backward").addEventListener("click", () => {
+        stepBackwardButton.addEventListener("click", () => {
             this.#onStepBackwardClicked();
         });
-        this.#root.querySelector(".step-forward").addEventListener("click", () => {
+        stepForwardButton.addEventListener("click", () => {
             this.#onStepForwardClicked();
         });
-        this.#root.querySelector(".loop").addEventListener("click", (ev) => {
+        loopButton.addEventListener("click", (ev) => {
             this.#onLoopClicked();
         });
-        this.#root.querySelector(".time-player-controls").addEventListener("wheel", (event) => {
+
+        divButtons.append(
+            stepBackwardButton,
+            stepForwardButton,
+            playForwardButton,
+            loopButton,
+        );
+        divControls.append(divButtons);
+
+        const timeRangeInput = document.createElement("input");
+        timeRangeInput.classList.add("time-range");
+        timeRangeInput.type = "range";
+        timeRangeInput.value = "0";
+        timeRangeInput.step = "0";
+        timeRangeInput.min = "0";
+        timeRangeInput.max = "1";
+
+        timeRangeInput.addEventListener("change", (event) => {
+            this.#onSelectTimeIndex(timeRangeInput.value);
+        }, false);
+
+        divControls.addEventListener("wheel", (event) => {
             const direction = event.deltaY;
             const timerangeElement = this.#root.querySelector(".time-range");
             if (!timerangeElement.disabled) {
@@ -38,9 +78,17 @@ class TimePlayerView {
         }, {
             passive: true,
         });
-        this.#root.querySelector(".time-range").addEventListener("change", (event) => {
-            this.#onSelectTimeIndex(this.#root.querySelector(".time-range").value);
-        }, false);
+        divControls.append(timeRangeInput);
+
+        const loaderSpan = document.createElement("span");
+        loaderSpan.classList.add("loader");
+        divControls.append(loaderSpan);
+
+        const datetimeSpan = document.createElement("span");
+        datetimeSpan.classList.add("datetime-label");
+        divControls.append(datetimeSpan);
+
+        this.#root.append(divControls);
     }
 
     renderTime(currentTime, availableTimes, isEnabled, isPlaying, isPlayForwardEnabled, isStepForwardEnabled, isStepBackwardEnabled, isLoopOn, isLoading, loadingPercentage) {

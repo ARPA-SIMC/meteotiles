@@ -20,45 +20,45 @@ const productListA = timeState.getProductList(0);
 const productListB = timeState.getProductList(1);
 const timeDimension = timeState.getTimeDimension();
 
-const versionView = new Version(document.querySelector(".version-container"));
+const versionView = new Version(document.querySelector("#version"));
 
 const summaryControllerA = new SelectedProductsController(
     productListA,
     timeDimension,
-    new SelectedProductsView(document.querySelector(".left-panel .product-list-selection-summary-container")),
+    new SelectedProductsView(document.querySelector("#selected-products-left")),
 );
 
 const productListMenuControllerA = new ProductListMenuController(
     productListA,
-    new ProductListMenuView(document.querySelector('.left-panel .map-menu-products-container')),
+    new ProductListMenuView(document.querySelector('#product-list-menu-left')),
 );
 
 const summaryControllerB = new SelectedProductsController(
     productListB,
     timeDimension,
-    new SelectedProductsView(document.querySelector(".right-panel .product-list-selection-summary-container")),
+    new SelectedProductsView(document.querySelector("#selected-products-right")),
 );
 
 const productListMenuControllerB = new ProductListMenuController(
     productListB,
-    new ProductListMenuView(document.querySelector('.right-panel .map-menu-products-container')),
+    new ProductListMenuView(document.querySelector('#product-list-menu-right')),
 );
 
 const mapControllerA = new TimeMapController(
     productListA,
     timeDimension,
-    new TimeMapView(document.querySelector(".left-panel .map-container")),
+    new TimeMapView(document.querySelector("#map-left")),
 );
 
 const mapControllerB = new TimeMapController(
     productListB,
     timeDimension,
-    new TimeMapView(document.querySelector(".right-panel .map-container")),
+    new TimeMapView(document.querySelector("#map-right")),
 );
 
 const playerController = new TimePlayerController(
     timeDimension,
-    new TimePlayerView(document.querySelector(".time-player-container")),
+    new TimePlayerView(document.querySelector("#time-player")),
 );
 
 let percentageA = null;

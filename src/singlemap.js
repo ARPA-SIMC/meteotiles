@@ -18,17 +18,17 @@ const timeState = new TimeState(TILES_SERVER_URL, 1);
 const productList = timeState.getProductList(0);
 const timeDimension = timeState.getTimeDimension();
 
-const versionView = new Version(document.querySelector(".version-container"));
+const versionView = new Version(document.querySelector("#version"));
 
 const summaryController = new SelectedProductsController(
     productList,
     timeDimension,
-    new SelectedProductsView(document.getElementById("product-list-selection-summary")),
+    new SelectedProductsView(document.getElementById("selected-products")),
 );
 
 const productListMenuController = new ProductListMenuController(
     productList,
-    new ProductListMenuView(document.getElementById('map-menu-products')),
+    new ProductListMenuView(document.getElementById('product-list-menu')),
 );
 
 const mapController = new TimeMapController(

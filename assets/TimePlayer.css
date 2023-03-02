@@ -1,0 +1,90 @@
+.meteotiles-time-player {
+    padding: 0.5em;
+    color: black;
+    text-align: center;
+    background-color: var(--main-bg-color);
+}
+
+.meteotiles-time-player .time-player-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 1em;
+}
+
+.meteotiles-time-player .time-player-controls-buttons {
+    display: inline;
+}
+
+.meteotiles-time-player .time-player-controls-buttons button {
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid silver;
+    padding: 0.7em;
+    border-radius: 20%;
+}
+
+.meteotiles-time-player .time-player-controls-buttons button.loop.active {
+    background-color: CornFlowerBlue;
+}
+
+.meteotiles-time-player .time-player-controls-buttons button:active {
+    background-color: CornFlowerBlue;
+}
+
+.meteotiles-time-player .time-player-controls-buttons button::before {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    content: "";
+    content: "";
+    background-repeat: no-repeat;
+    background-size: 1em 1em;
+}
+
+.meteotiles-time-player .time-player-controls-buttons .step-backward::before {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-chevron-double-left' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/><path fill-rule='evenodd' d='M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/></svg>");
+}
+
+.meteotiles-time-player .time-player-controls-buttons .play-forward::before {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-chevron-right' viewBox='0 0 16 16'> <path fill-rule='evenodd' d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/></svg>");
+}
+
+.meteotiles-time-player .time-player-controls-buttons .play-forward.playing::before {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pause' viewBox='0 0 16 16'><path d='M6 3.5a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5zm4 0a.5.5 0 0 1 .5.5v8a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z'/></svg>");
+}
+
+.meteotiles-time-player .time-player-controls-buttons .step-forward::before {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-chevron-double-right' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708z'/><path fill-rule='evenodd' d='M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708z'/></svg>");
+}
+
+.meteotiles-time-player .time-player-controls-buttons .loop::before {
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-clockwise' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z'/><path d='M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z'/></svg>");
+}
+
+.meteotiles-time-player .time-player-controls .time-range {
+    vertical-align: middle;
+    width: 100ch;
+}
+
+.meteotiles-time-player .time-player-controls .datetime-label {
+    display: inline-block;
+    width: 16ch;
+    font-size: 140%;
+    font-weight: bold;
+}
+
+.meteotiles-time-player .time-player-controls .loader {
+    display: inline-block;
+    width: 4ch;
+    opacity: 0;
+    font-weight: bold;
+    text-align: right;
+    transition: opacity 2s linear 0s;
+}
+
+.meteotiles-time-player .time-player-controls .loader.loading {
+    color: red;
+    opacity: 1;
+    transition: opacity 0s linear 0s;
+}

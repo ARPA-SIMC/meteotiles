@@ -10,6 +10,7 @@ class ProductListMenuView {
     }
 
     render() {
+        this.#root.classList.add('meteotiles-product-list-menu');
         this.#root.append(this.#getTitleDom());
 
         const searchDiv = document.createElement("div");

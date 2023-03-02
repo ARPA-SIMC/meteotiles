@@ -1,0 +1,31 @@
+.meteotiles-selected-products {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-bottom: 0.2em solid var(--main-bg-color);
+    padding: 0.1em;
+    height: 3em;
+}
+
+.meteotiles-selected-products .product-selection-badge {
+    background-color: var(--main-bg-color);
+    color: white;
+    font-weight: bold;
+    padding: 0.5em;
+    text-align: center;
+    border-radius: 5px;
+    font-size: 80%;
+    margin: 0.4em;
+    cursor: pointer;
+    display: inline-block;
+    user-select: none;
+}
+
+.meteotiles-selected-products .product-selection-badge.product-selection-badge-inactive {
+    background-color: silver;
+}
+
+.meteotiles-selected-products .product-selection-badge::after {
+    margin-left: 1ch;
+    content: "\00d7";
+}

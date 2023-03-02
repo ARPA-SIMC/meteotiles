@@ -5,11 +5,11 @@ main {
     grid-template-rows: auto 1fr 1fr auto;
 }
 
-#product-list-selection-summary {
+#selected-products {
     grid-column: 1/4;
 }
 
-#map-menu-products {
+#product-list-menu {
     grid-row: 2/4;
     grid-column: 1;
 }

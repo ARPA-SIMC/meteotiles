@@ -5,11 +5,15 @@ class Version {
 
     constructor(element) {
         this.#root = element;
+        this.#root.classList.add("meteotiles-version");
     }
 
     render() {
-        this.#root.querySelector("a.version-link").href += `/releases/tag/v${VERSION}`;
-        this.#root.querySelector(".version").innerText = `version ${VERSION} (prototype)`;
+        const anchor = document.createElement("a");
+        anchor.classList.add("version-link");
+        anchor.href = `https://github.com/ARPA-SIMC/meteotiles/releases/tag/${VERSION}`;
+        anchor.innerText = `meteotiles version ${VERSION} (prototype) - Copyright © 2022-2023 ARPAE-SIMC`;
+        this.#root.append(anchor);
     }
 }
 

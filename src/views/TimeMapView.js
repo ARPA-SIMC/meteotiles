@@ -70,6 +70,7 @@ class TimeMapView {
 
     constructor(element) {
         this.#root = element;
+        this.#root.classList.add("meteotiles-time-map");
     }
 
     #createMap() {
