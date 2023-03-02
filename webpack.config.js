@@ -1,11 +1,14 @@
 const path = require('path');
 
 module.exports = {
-    entry: './src/singlemap.js',
+    entry: {
+        singlemap: './src/singlemap.js',
+        doublemap: './src/doublemap.js',
+    },
     plugins: [
     ],
     output: {
-        filename: 'singlemap.js',
+        filename: '[name].js',
         path: path.resolve(__dirname, 'dist'),
         clean: true,
     },
