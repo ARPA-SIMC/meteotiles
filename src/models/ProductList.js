@@ -1,5 +1,5 @@
 import BoundingBox from "./BoundingBox.js"
-import Product from "./Product.js";
+import ForecastProduct from "./ForecastProduct.js";
 
 
 class ProductList {
@@ -53,7 +53,7 @@ class ProductList {
                             const products = [];
                             for (const item of json) {
                                 for (const [reftime, reftimeOptions] of Object.entries(item.reftimes)) {
-                                    const product = new Product(
+                                    const product = new ForecastProduct(
                                         ++id,
                                         this.#baseUrl,
                                         modelKey,
@@ -85,6 +85,7 @@ class ProductList {
                 return this;
             })
             .catch(error => {
+                console.error(error);
                 this.#notifyProductsFetchError(error);
             });
     }
