@@ -45,7 +45,13 @@ class ProductListMenuView {
 
     renderProductList(products) {
         const groupedProductList = products.reduce((acc, product) => {
-            const key = `${product.modelDescription} - ${formatDate(product.reftime)}`;
+            let key = "";
+            if ("modelDescription" in product && "reftime" in product) {
+                key = `${product.modelDescription} - ${formatDate(product.reftime)}`;
+            } else {
+                key = "Generic product";
+            }
+
             if (key in acc) {
                 acc[key].push(product);
             } else {
@@ -69,7 +75,13 @@ class ProductListMenuView {
                     checkbox.setAttribute("value", product.id);
                     checkbox.checked = product.selected;
                     const label = document.createElement("label");
-                    label.innerText = `${product.modelDescription} ${product.description}`;
+                    let labelText = "";
+                    if ("modelDescription" in product) {
+                        labelText = `${product.modelDescription} ${product.description}`;
+                    } else {
+                        labelText = product.description;
+                    }
+                    label.innerText = labelText;
                     label.addEventListener('click', () => {
                         if (!checkbox.disabled) {
                             checkbox.checked = !checkbox.checked;
