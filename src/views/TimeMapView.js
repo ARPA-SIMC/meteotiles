@@ -67,22 +67,32 @@ class TimeMapView {
     #layers = {};
     #onLayersLoading = () => {};
     #onLayersLoaded = () => {};
+    #mapOptions = {
+        center: [42.8, 12.6],
+        zoom: 5,
+        minZoom: 5,
+        maxZoom: 8,
+        zoomControl: true,
+        maxBounds: null,
+    };
 
-    constructor(element) {
+    constructor(element, mapOptions) {
         this.#root = element;
         this.#root.classList.add("meteotiles-time-map");
+        this.#mapOptions = {
+            ...this.#mapOptions,
+            ...mapOptions,
+        };
     }
 
     #createMap() {
         const map = L.map(this.#root, {
-            timeDimension: true,
-            timeDimensionOptions: {
-                times: [new Date(0)],
-            },
-            center: [42.8, 12.6],
-            zoom: 5,
-            minZoom: 5,
-            maxZoom: 8,
+            center: this.#mapOptions.center,
+            zoom: this.#mapOptions.zoom,
+            minZoom: this.#mapOptions.minZoom,
+            maxZoom: this.#mapOptions.maxZoom,
+            zoomControl: this.#mapOptions.zoomControl,
+            maxBounds: this.#mapOptions.maxBounds,
         });
 
         L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
@@ -108,15 +118,17 @@ class TimeMapView {
 
     renderLoaded(products) {
         // this.createProductListLayers(productList);
-        const bounds = products
-            .map((p) => convertBoundingBoxToLeafletBounds(p.boundingBox))
-            .reduce((acc, cur) => acc.extend(cur));
-        // Estendo il bounding box a quello dei tile
-        // https://github.com/ARPA-SIMC/meteotiles/issues/47
-        // https://github.com/ARPA-SIMC/arkimaps/issues/91
-        const tileBounds = extendBoundsToTiles(this.#map, bounds);
-        this.setMapBounds(tileBounds, true);
-        this.#map.on('zoomend', () => this.setMapBounds(tileBounds, false));
+        if (this.#mapOptions.maxBounds == null) {
+            const bounds = products
+                .map((p) => convertBoundingBoxToLeafletBounds(p.boundingBox))
+                .reduce((acc, cur) => acc.extend(cur));
+            // Estendo il bounding box a quello dei tile
+            // https://github.com/ARPA-SIMC/meteotiles/issues/47
+            // https://github.com/ARPA-SIMC/arkimaps/issues/91
+            const tileBounds = extendBoundsToTiles(this.#map, bounds);
+            this.setMapBounds(tileBounds, true);
+            this.#map.on('zoomend', () => this.setMapBounds(tileBounds, false));
+        }
     }
 
     renderTime(currentTime) {
