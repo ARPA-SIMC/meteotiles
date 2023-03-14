@@ -42,6 +42,10 @@ const mapController = new TimeMapController(
             [42, 10],
             [46, 15],
         ],
+        boxZoom: false,
+        doubleClickZoom: false,
+        dragging: false,
+        scrollWheelZoom: false,
     }),
 );
 
@@ -73,4 +77,14 @@ productList.registerOnProductsLoadedCallbacks(() => {
     const cosmo_2I_tp1h = productList.getProducts().find(p => p.modelName == "cosmo_2I" && p.name == "tp1h_ita_small_tiles")
     productList.setSelected(cosmo_2I_tp1h.id, true);
 });
+
+document.addEventListener("wheel", event => {
+    const direction = event.deltaY;
+    if (direction < 0) {
+        timeDimension.nextTime();
+    } else {
+        timeDimension.previousTime();
+    }
+});
+
 productList.fetchProducts();

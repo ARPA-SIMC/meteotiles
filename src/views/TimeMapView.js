@@ -74,6 +74,10 @@ class TimeMapView {
         maxZoom: 8,
         zoomControl: true,
         maxBounds: null,
+        boxZoom: true,
+        doubleClickZoom: true,
+        dragging: true,
+        scrollWheelZoom: true,
     };
 
     constructor(element, mapOptions) {
@@ -93,6 +97,10 @@ class TimeMapView {
             maxZoom: this.#mapOptions.maxZoom,
             zoomControl: this.#mapOptions.zoomControl,
             maxBounds: this.#mapOptions.maxBounds,
+            boxZoom: this.#mapOptions.boxZoom,
+            doubleClickZoom: this.#mapOptions.doubleClickZoom,
+            dragging: this.#mapOptions.dragging,
+            scrollWheelZoom: this.#mapOptions.scrollWheelZoom,
         });
 
         L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}', {
