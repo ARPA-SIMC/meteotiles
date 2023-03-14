@@ -70,7 +70,6 @@ checkAvailableTimesController.init();
 versionView.render();
 
 productList.registerOnProductsLoadedCallbacks(() => {
-    productList.getProducts().forEach(p => console.log(p.modelName, p.name));
     const cosmo_2I_tp1h = productList.getProducts().find(p => p.modelName == "cosmo_2I" && p.name == "tp1h_ita_small_tiles")
     productList.setSelected(cosmo_2I_tp1h.id, true);
 });
