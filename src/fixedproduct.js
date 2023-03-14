@@ -74,8 +74,10 @@ checkAvailableTimesController.init();
 versionView.render();
 
 productList.registerOnProductsLoadedCallbacks(() => {
-    const cosmo_2I_tp1h = productList.getProducts().find(p => p.modelName == "cosmo_2I" && p.name == "tp1h_ita_small_tiles")
+    const cosmo_2I_tp1h = productList.getProducts().find(p => p.modelName == "cosmo_2I" && p.name == "tp1h_ita_small_tiles");
+    const cosmo_2I_w10m = productList.getProducts().find(p => p.modelName == "cosmo_2I" && p.name == "warrows10m_ita_small_tiles_zoom");
     productList.setSelected(cosmo_2I_tp1h.id, true);
+    productList.setSelected(cosmo_2I_w10m.id, true);
 });
 
 document.addEventListener("wheel", event => {
