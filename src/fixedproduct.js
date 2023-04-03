@@ -14,6 +14,9 @@ import { TimeMapController } from './controllers.js';
 import { TimePlayerController } from './controllers.js';
 import { CheckAvailableTimesConsistencyController } from './controllers.js';
 
+const configParam = new URLSearchParams(window.location.search).get("config");
+const config = JSON.parse(atob(configParam));
+
 const timeState = new TimeState(TILES_SERVER_URL, 1);
 const productList = timeState.getProductList(0);
 const timeDimension = timeState.getTimeDimension();
@@ -33,15 +36,12 @@ const mapController = new TimeMapController(
     productList,
     timeDimension,
     new TimeMapView(document.getElementById("map"), {
-        center: [45.5, 12.6],
-        zoom: 8,
-        minZoom: 8,
-        maxZoom: 8,
+        center: config.map.center,
+        zoom: config.map.zoom,
+        minZoom: config.map.minZoom,
+        maxZoom: config.map.maxZoom,
         zoomControl: false,
-        maxBounds: [
-            [42, 10],
-            [46, 15],
-        ],
+        maxBounds: config.map.maxBounds,
         boxZoom: false,
         doubleClickZoom: false,
         dragging: false,
@@ -74,10 +74,10 @@ checkAvailableTimesController.init();
 versionView.render();
 
 productList.registerOnProductsLoadedCallbacks(() => {
-    const cosmo_2I_tp1h = productList.getProducts().find(p => p.modelName == "cosmo_2I" && p.name == "tp1h_ita_small_tiles");
-    const cosmo_2I_w10m = productList.getProducts().find(p => p.modelName == "cosmo_2I" && p.name == "warrows10m_ita_small_tiles_zoom");
-    productList.setSelected(cosmo_2I_tp1h.id, true);
-    productList.setSelected(cosmo_2I_w10m.id, true);
+    config.products.forEach(item => {
+        const product = productList.getProducts().find(p => p.modelName == item.model && p.name == item.name);
+        productList.setSelected(product.id, true);
+    });
 });
 
 document.addEventListener("wheel", event => {
