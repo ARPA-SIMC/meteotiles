@@ -11,7 +11,7 @@ export function formatDate(date) {
  * This class calculates the total loading percentage of the maps from
  * different TimeMapController objects and updates a TimePlayerController.
  */
-export class TotalLoadingPercentageHandler {
+export class MapTotalLoadingPercentageHandler {
     #playerController;
     #mapControllers;
     #percentages;

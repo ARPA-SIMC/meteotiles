@@ -14,7 +14,7 @@ import { TimeMapController } from './controllers.js';
 import { TimePlayerController } from './controllers.js';
 import { CheckAvailableTimesConsistencyController } from './controllers.js';
 
-import { TotalLoadingPercentageHandler } from './utils.js';
+import { MapTotalLoadingPercentageHandler } from './utils.js';
 
 
 const timeState = new TimeState(TILES_SERVER_URL, 2);
@@ -63,7 +63,7 @@ const playerController = new TimePlayerController(
     new TimePlayerView(document.querySelector("#time-player")),
 );
 
-const totalLoadingPercentageHandler = new TotalLoadingPercentageHandler(
+const totalLoadingPercentageHandler = new MapTotalLoadingPercentageHandler(
     playerController,
     [mapControllerA, mapControllerB],
 );
