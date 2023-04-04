@@ -15,6 +15,12 @@ class ProductList {
         this.#baseUrl = baseUrl;
     }
 
+    setProducts(products) {
+        this.#notifyProductsLoading();
+        this.#products = Object.fromEntries(products.map(product => [product.id, product]));
+        this.#notifyProductsLoaded();
+    }
+
     getProducts() {
         return Object.values(this.#products);
     }
