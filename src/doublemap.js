@@ -14,6 +14,8 @@ import { TimeMapController } from './controllers.js';
 import { TimePlayerController } from './controllers.js';
 import { CheckAvailableTimesConsistencyController } from './controllers.js';
 
+import { TotalLoadingPercentageHandler } from './utils.js';
+
 
 const timeState = new TimeState(TILES_SERVER_URL, 2);
 const productListA = timeState.getProductList(0);
@@ -61,41 +63,10 @@ const playerController = new TimePlayerController(
     new TimePlayerView(document.querySelector("#time-player")),
 );
 
-let percentageA = null;
-let percentageB = null;
-
-function calculateMeanPercentage() {
-    const a = percentageA == null ? 100 : percentageA;
-    const b = percentageB == null ? 100 : percentageB;
-    const m = Math.floor((a + b) / 2);
-    return m;
-}
-
-mapControllerA.bindOnLoading((percentage) => {
-    percentageA = percentage;
-    const meanPercentage = calculateMeanPercentage();
-    playerController.setLoading(meanPercentage);
-});
-
-mapControllerA.bindOnLoaded(() => {
-    percentageA = 100;
-    if (calculateMeanPercentage() == 100) {
-        playerController.setLoaded();
-    }
-});
-
-mapControllerB.bindOnLoading((percentage) => {
-    percentageB = percentage;
-    const meanPercentage = calculateMeanPercentage();
-    playerController.setLoading(meanPercentage);
-});
-
-mapControllerB.bindOnLoaded(() => {
-    percentageB = 100;
-    if (calculateMeanPercentage() == 100) {
-        playerController.setLoaded();
-    }
-});
+const totalLoadingPercentageHandler = new TotalLoadingPercentageHandler(
+    playerController,
+    [mapControllerA, mapControllerB],
+);
 
 const checkAvailableTimesController = new CheckAvailableTimesConsistencyController(
     timeState.getProductLists(),
@@ -111,6 +82,8 @@ mapControllerB.init();
 
 checkAvailableTimesController.init();
 playerController.init();
+
+totalLoadingPercentageHandler.init();
 
 versionView.render();
 
