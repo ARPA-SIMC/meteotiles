@@ -1,0 +1,5 @@
+distro: fedora36
+maintscript: |
+    set -uxe
+    /usr/bin/dnf install -q -y git vim-enhanced
+    /usr/bin/dnf install -q -y npm
