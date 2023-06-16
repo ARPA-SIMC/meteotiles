@@ -1,21 +1,23 @@
-IMAGEDIR=.moncic-ci
-IMAGENAME=meteotiles
+MONCI_IMAGE=meteotiles
 
-bootstrap: $(IMAGEDIR)/.bootstrap-state
+.moncic-ci-bootstrap:
+	monci image $(MONCI_IMAGE) extends fedora38
+	monci image $(MONCI_IMAGE) install npm
+	touch .moncic-ci-bootstrap
 
-$(IMAGEDIR)/.bootstrap-state: $(IMAGEDIR)/$(IMAGENAME).yaml
-	monci bootstrap -I $(IMAGEDIR) --recreate $(IMAGENAME)
-	touch $@
+check: .moncic-ci-bootstrap
+	monci run -W . $(MONCI_IMAGE) \
+		bash -c \
+		"npm install && \
+		npm run compile && \
+		npm test"
 
-remove-image:
-	monci remove -I $(IMAGEDIR) $(IMAGENAME)
-	$(RM) $(IMAGEDIR)/.bootstrap-state
-
-check: $(IMAGEDIR)/.bootstrap-state
-	monci run -I $(IMAGEDIR) -W . $(IMAGENAME) bash -c "npm install && npm run compile && npm test"
-
-dist: $(IMAGEDIR)/.bootstrap-state
+dist: .moncic-ci-bootstrap
 	mkdir -p dist
-	monci run -I $(IMAGEDIR) -W . --bind $(CURDIR)/dist:/dist --user $(IMAGENAME) bash -c "npm install && npm run build && cp dist/* /dist/"
+	monci run -W . --bind $(CURDIR)/dist:/dist --user $(MONCI_IMAGE) bash -c "npm install && npm run build && cp dist/* /dist/"
 
-.PHONY: bootstrap provision-development check dist
+clean:
+	monci remove --purge $(MONCI_IMAGE)
+	$(RM) .moncic-ci-bootstrap
+
+.PHONY: check
