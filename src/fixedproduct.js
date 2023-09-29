@@ -12,10 +12,49 @@ import { SelectedProductsController } from './controllers.js';
 import { ProductListMenuController } from './controllers.js';
 import { TimeMapController } from './controllers.js';
 import { TimePlayerController } from './controllers.js';
-import { CheckAvailableTimesConsistencyController } from './controllers.js';
 
-const configParam = new URLSearchParams(window.location.search).get("config");
-const config = JSON.parse(atob(configParam));
+const CONFIG_URL_PARAM_NAME = "configURL";
+const CONFIG_STRING_PARAM_NAME = "configString";
+
+const configURL = new URLSearchParams(window.location.search).get(CONFIG_URL_PARAM_NAME);
+const configString = new URLSearchParams(window.location.search).get(CONFIG_STRING_PARAM_NAME);
+let config = null;
+if (configURL != null) {
+    let configResp = null;
+    try {
+        configResp = await fetch(configURL);
+    } catch (error) {
+        const errorMessage = `Errore durante lo scaricamento della configurazione da ${configURL}: ${error}`;
+        alert(errorMessage);
+        throw new Error(errorMessage);
+    }
+    if (!configResp.ok) {
+        const errorMessage = `Errore durante lo scaricamento della configurazione da ${configURL}: ${configResp.statusText}`;
+        alert(errorMessage);
+        throw new Error(errorMessage);
+    }
+    try {
+        config = await configResp.json();
+    } catch (error) {
+        const errorMessage = `Errore durante lo scaricamento della configurazione da ${configURL}: ${error}`;
+        alert(errorMessage);
+        throw new Error(errorMessage);
+    }
+} else if (configString != null) {
+    try {
+        config = JSON.parse(atob(configString));
+    } catch (error) {
+        const errorMessage = `Errore durante la lettura della configurazione: ${error}`;
+        alert(errorMessage);
+        throw new Error(errorMessage);
+    }
+} else {
+    const errorMessage = `Errore: non è stata passata nessun configurazione. Usa il parametro "${CONFIG_URL_PARAM_NAME}" o il parametro "${CONFIG_STRING_PARAM_NAME}" nell'URL`;
+    alert(errorMessage);
+    throw new Error(errorMessage);
+}
+
+// TODO: config validator
 
 const timeState = new TimeState(TILES_SERVER_URL, 1);
 const productList = timeState.getProductList(0);
@@ -65,7 +104,6 @@ mapController.bindOnLoaded(() => {
 summaryController.init();
 mapController.init();
 playerController.init();
-checkAvailableTimesController.init();
 
 versionView.render();
 
