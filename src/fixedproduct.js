@@ -54,10 +54,6 @@ const playerController = new TimePlayerController(
     new TimePlayerView(document.getElementById("time-player")),
 );
 
-const checkAvailableTimesController = new CheckAvailableTimesConsistencyController(
-    timeState.getProductLists(),
-);
-
 mapController.bindOnLoading((percentage) => {
     playerController.setLoading(percentage);
 });
