@@ -3,17 +3,10 @@
     "map": {
         "center": [45.5, 12.6],
         "zoom": 8,
-        "minZoom": 8,
-        "maxZoom": 8,
-        "zoomControl": false,
         "maxBounds": [
             [42, 10],
             [46, 15]
-        ],
-        "boxZoom": false,
-        "doubleClickZoom": false,
-        "dragging": false,
-        "scrollWheelZoom": false
+        ]
     },
     "products": [{
         "model": "cosmo_2I",

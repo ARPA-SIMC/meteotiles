@@ -77,8 +77,8 @@ const mapController = new TimeMapController(
     new TimeMapView(document.getElementById("map"), {
         center: config.map.center,
         zoom: config.map.zoom,
-        minZoom: config.map.minZoom,
-        maxZoom: config.map.maxZoom,
+        minZoom: config.map.zoom,
+        maxZoom: config.map.zoom,
         zoomControl: false,
         maxBounds: config.map.maxBounds,
         boxZoom: false,
