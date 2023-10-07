@@ -4,6 +4,7 @@
 * Titles in HTML pages
 * Split widgets style in CSS files
 * Fix loading percentage in double map
+* Use a mediator class to calculate the total loading percentage
 
 # New in 0.19
 
