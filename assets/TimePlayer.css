@@ -65,13 +65,13 @@
 
 .meteotiles-time-player .time-player-controls .time-range {
     vertical-align: middle;
-    width: 100ch;
+    width: 50ch;
 }
 
 .meteotiles-time-player .time-player-controls .datetime-label {
     display: inline-block;
-    width: 16ch;
-    font-size: 140%;
+    width: 20ch;
+    font-size: 110%;
     font-weight: bold;
 }
 
