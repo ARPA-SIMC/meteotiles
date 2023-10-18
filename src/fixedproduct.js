@@ -108,10 +108,17 @@ playerController.init();
 versionView.render();
 
 productList.registerOnProductsLoadedCallbacks(() => {
+    let filteredProducts = []
     config.products.forEach(item => {
-        const product = productList.getProducts().find(p => p.modelName == item.model && p.name == item.name);
-        productList.setSelected(product.id, true);
+        const products = productList.getProducts().filter(p => p.modelName == item.model && p.name == item.name);
+        filteredProducts = filteredProducts.concat(products);
     });
+    const filteredProductsByReftime = Object.groupBy(filteredProducts, p => p.reftime)
+    const reftimes = Object.keys(filteredProductsByReftime).toSorted();
+    const lastReftime = reftimes.slice(-1)[0];
+    if (lastReftime) {
+        filteredProductsByReftime[lastReftime].forEach(p => productList.setSelected(p.id, true));
+    }
 });
 
 document.addEventListener("wheel", event => {
