@@ -3,7 +3,8 @@ export function formatDate(date) {
         return "";
     }
     const d = date instanceof Date ? date : new Date(date);
-    return d.toISOString().slice(0, 16).replace("T", " ").replaceAll("-", "/");
+    const locale = (navigator && navigator.language) || 'it';
+    return d.toLocaleString(locale, {'weekday': 'short'}) + " " + d.toISOString().slice(0, 16).replace("T", " ").replaceAll("-", "/");
 }
 
 
