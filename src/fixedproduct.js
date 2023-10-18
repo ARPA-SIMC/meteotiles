@@ -15,9 +15,11 @@ import { TimePlayerController } from './controllers.js';
 
 const CONFIG_URL_PARAM_NAME = "configURL";
 const CONFIG_STRING_PARAM_NAME = "configString";
+const REFTIME_PARAM_NAME = "reftime";
 
 const configURL = new URLSearchParams(window.location.search).get(CONFIG_URL_PARAM_NAME);
 const configString = new URLSearchParams(window.location.search).get(CONFIG_STRING_PARAM_NAME);
+
 let config = null;
 if (configURL != null) {
     let configResp = null;
@@ -114,10 +116,16 @@ productList.registerOnProductsLoadedCallbacks(() => {
         filteredProducts = filteredProducts.concat(products);
     });
     const filteredProductsByReftime = Object.groupBy(filteredProducts, p => p.reftime)
-    const reftimes = Object.keys(filteredProductsByReftime).toSorted();
-    const lastReftime = reftimes.slice(-1)[0];
-    if (lastReftime) {
-        filteredProductsByReftime[lastReftime].forEach(p => productList.setSelected(p.id, true));
+    const reftimeParam = new URLSearchParams(window.location.search).get(REFTIME_PARAM_NAME);
+    let reftime = null;
+    if (reftimeParam) {
+        reftime = new Date(reftimeParam);
+    } else {
+        const reftimes = Object.keys(filteredProductsByReftime).toSorted();
+        reftime = reftimes.slice(-1)[0];
+    }
+    if (reftime) {
+        filteredProductsByReftime[reftime].forEach(p => productList.setSelected(p.id, true));
     }
 });
 
