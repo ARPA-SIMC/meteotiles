@@ -1,0 +1,15 @@
+{
+    "title": "COSMO 2I - altezza zero termico Emilia Romagna",
+    "map": {
+        "center": [45.5, 12.6],
+        "zoom": 8,
+        "maxBounds": [
+            [42, 10],
+            [46, 15]
+        ]
+    },
+    "products": [{
+        "model": "cosmo_2I",
+        "name": "hzero_ita_small_tiles"
+    }]
+}

@@ -1,0 +1,18 @@
+{
+    "title": "COSMO 2I - MSLP e vento 10m Emilia Romagna",
+    "map": {
+        "center": [42.5, 12.5],
+        "zoom": 6,
+        "maxBounds": [
+            [35, 4.5],
+            [47, 22.5]
+        ]
+    },
+    "products": [{
+        "model": "cosmo_2I",
+        "name": "mslp_ita_small_tiles"
+    }, {
+        "model": "cosmo_2I",
+        "name": "warrows10m_ita_small_tiles_zoom"
+    }]
+}
