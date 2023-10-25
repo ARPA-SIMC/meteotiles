@@ -1,10 +1,15 @@
-# New in UNRELEASED
+# New in 0.20
 
 * CheckAvailableTimesConsistencyController uses only the product lists (#56)
 * Titles in HTML pages
 * Split widgets style in CSS files
 * Fix loading percentage in double map
 * Use a mediator class to calculate the total loading percentage
+* Use CartoDB.Positron instead of Stamen Toner Lite (#61)
+* Add "fixed" interface (#60)
+* Filter by more recent reftime in "fixed" interface (#62)
+* GET parameter "reftime" in "fixed" interface (#62)
+
 
 # New in 0.19
 
