@@ -169,7 +169,11 @@ class TimeMapView {
         const legendUrl = `${product.baseUrl}/${product.modelName}/${date}/${product.name}+legend.png`;
         if (product.selected) {
             const productLayers = Object.fromEntries(product.forecastSteps.map(step => {
-                const time = product.reftime.getTime() + step * 3600 * 1000;
+                // TODO: fix temporanea per i modelli che hanno lo step in minuti. Si
+                // suppone che non ci siano modelli con step +500h (i.e. quasi 21
+                // giorni) e che in tal caso si suppone che siano minuti.
+                const scale = product.stepUnit == "m" ? 60 : 3600 ;
+                const time = product.reftime.getTime() + step * scale * 1000;
                 const hour = new String(step).padStart(3, '0');
                 const layer = L.tileLayer(`${product.baseUrl}/${product.modelName}/${date}/${product.name}+${hour}/{z}/{x}/{y}.png`, {
                     minNativeZoom: product.minZoom || this.#map.getMinZoom(),
