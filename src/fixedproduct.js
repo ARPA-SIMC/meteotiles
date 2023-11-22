@@ -1,4 +1,4 @@
-import { TILES_SERVER_URL } from './settings.js';
+import { TILES_SERVER_URL_PARAM_NAME, TILES_SERVER_URL_DEFAULT, GRID_DEBUG_PARAM_NAME } from './settings.js';
 
 import { TimeState } from './models.js';
 
@@ -13,12 +13,15 @@ import { ProductListMenuController } from './controllers.js';
 import { TimeMapController } from './controllers.js';
 import { TimePlayerController } from './controllers.js';
 
+
 const CONFIG_URL_PARAM_NAME = "configURL";
 const CONFIG_STRING_PARAM_NAME = "configString";
 const REFTIME_PARAM_NAME = "reftime";
 
 const configURL = new URLSearchParams(window.location.search).get(CONFIG_URL_PARAM_NAME);
 const configString = new URLSearchParams(window.location.search).get(CONFIG_STRING_PARAM_NAME);
+const tilesServerUrl = new URLSearchParams(window.location.search).get(TILES_SERVER_URL_PARAM_NAME) || TILES_SERVER_URL_DEFAULT;
+const gridDebug = new URLSearchParams(window.location.search).get(GRID_DEBUG_PARAM_NAME) == "true";
 
 let config = null;
 if (configURL != null) {
@@ -58,7 +61,7 @@ if (configURL != null) {
 
 // TODO: config validator
 
-const timeState = new TimeState(TILES_SERVER_URL, 1);
+const timeState = new TimeState(tilesServerUrl, 1);
 const productList = timeState.getProductList(0);
 const timeDimension = timeState.getTimeDimension();
 
@@ -77,6 +80,8 @@ const mapController = new TimeMapController(
     productList,
     timeDimension,
     new TimeMapView(document.getElementById("map"), {
+        gridDebug: gridDebug,
+    }, {
         center: config.map.center,
         zoom: config.map.zoom,
         minZoom: config.map.zoom,

@@ -1,4 +1,4 @@
-import { TILES_SERVER_URL } from './settings.js';
+import { TILES_SERVER_URL_PARAM_NAME, TILES_SERVER_URL_DEFAULT, GRID_DEBUG_PARAM_NAME } from './settings.js';
 
 import { TimeState } from './models.js';
 
@@ -17,7 +17,10 @@ import { CheckAvailableTimesConsistencyController } from './controllers.js';
 import { MapTotalLoadingPercentageHandler } from './utils.js';
 
 
-const timeState = new TimeState(TILES_SERVER_URL, 2);
+const tilesServerUrl = new URLSearchParams(window.location.search).get(TILES_SERVER_URL_PARAM_NAME) || TILES_SERVER_URL_DEFAULT;
+const gridDebug = new URLSearchParams(window.location.search).get(GRID_DEBUG_PARAM_NAME) == "true";
+
+const timeState = new TimeState(tilesServerUrl, 2);
 const productListA = timeState.getProductList(0);
 const productListB = timeState.getProductList(1);
 const timeDimension = timeState.getTimeDimension();
@@ -49,13 +52,17 @@ const productListMenuControllerB = new ProductListMenuController(
 const mapControllerA = new TimeMapController(
     productListA,
     timeDimension,
-    new TimeMapView(document.querySelector("#map-left")),
+    new TimeMapView(document.querySelector("#map-left"), {
+        gridDebug: gridDebug
+    }),
 );
 
 const mapControllerB = new TimeMapController(
     productListB,
     timeDimension,
-    new TimeMapView(document.querySelector("#map-right")),
+    new TimeMapView(document.querySelector("#map-right"), {
+        gridDebug: gridDebug
+    }),
 );
 
 const playerController = new TimePlayerController(

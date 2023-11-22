@@ -1,5 +1,3 @@
-import { USE_GRID_DEBUG } from './../settings.js';
-
 L.GridLayer.GridDebug = L.GridLayer.extend({
     createTile: function (coords) {
         const tile = document.createElement('div');
@@ -67,6 +65,9 @@ class TimeMapView {
     #layers = {};
     #onLayersLoading = () => {};
     #onLayersLoaded = () => {};
+    #options = {
+        gridDebug: false,
+    };
     #mapOptions = {
         center: [42.8, 12.6],
         zoom: 5,
@@ -80,9 +81,13 @@ class TimeMapView {
         scrollWheelZoom: true,
     };
 
-    constructor(element, mapOptions) {
+    constructor(element, options, mapOptions) {
         this.#root = element;
         this.#root.classList.add("meteotiles-time-map");
+        this.#options = {
+            ...this.#options,
+            ...options,
+        };
         this.#mapOptions = {
             ...this.#mapOptions,
             ...mapOptions,
@@ -112,7 +117,7 @@ class TimeMapView {
             'position': 'topright'
         }).addTo(map);
 
-        if (USE_GRID_DEBUG) {
+        if (this.#options.gridDebug) {
             map.addLayer(new L.GridLayer.GridDebug());
         }
 
