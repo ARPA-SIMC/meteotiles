@@ -20,7 +20,7 @@ def create_handler(tiles_server_url, do_redirect, tiles_cache_ttl):
                 new_path = f"{tiles_server_url}/{path}"
                 if do_redirect:
                     self.send_response(302)
-                    self.send_header('Location', new_path)
+                    self.send_header("Location", new_path)
                     self.end_headers()
                 else:
                     request = Request(new_path)
@@ -47,13 +47,15 @@ def create_handler(tiles_server_url, do_redirect, tiles_cache_ttl):
     return DevelopmentHttpHandler
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--port", type=int, default=8000)
-    parser.add_argument("--action",
-                        choices=["redirect", "proxy"],
-                        default="redirect",
-                        help="Redirect (HTTP 302) or act as a proxy for tiles (default: %(default)s)")
+    parser.add_argument(
+        "--action",
+        choices=["redirect", "proxy"],
+        default="redirect",
+        help="Redirect (HTTP 302) or act as a proxy for tiles (default: %(default)s)",
+    )
     parser.add_argument("--tiles-cache-ttl", type=int, default=None)
     parser.add_argument("tiles_server_url")
     args = parser.parse_args()
