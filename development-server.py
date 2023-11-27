@@ -31,18 +31,8 @@ def create_handler(tiles_server_url, do_redirect, tiles_cache_ttl):
                     try:
                         with urlopen(request) as response:
                             self.send_response(response.status)
-                            self.send_header("Access-Control-Allow-Origin", "*")
-                            for key, value in response.getheaders():
-                                if key == "Access-Control-Allow-Origin":
-                                    pass
-                                elif key == "Cache-Control" and tiles_cache_ttl is not None:
-                                    pass
-                                else:
-                                    self.send_header(key, value)
-
                             if tiles_cache_ttl is not None:
                                 self.send_header("Cache-Control", f"max-age={tiles_cache_ttl}")
-
 
                             self.end_headers()
                             self.wfile.write(response.read())
@@ -68,6 +58,9 @@ if __name__ == '__main__':
     parser.add_argument("--tiles-cache-ttl", type=int, default=None)
     parser.add_argument("tiles_server_url")
     args = parser.parse_args()
+    if args.action == "redirect" and args.tiles_cache_ttl is not None:
+        print("WARNING: --tiles-cache-ttl has no effect when --action is not set to proxy")
+
     handler = create_handler(args.tiles_server_url, args.action == "redirect", args.tiles_cache_ttl)
     server = HTTPServer(("localhost", args.port), handler)
     server.serve_forever()

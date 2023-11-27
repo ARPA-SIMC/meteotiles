@@ -18,11 +18,12 @@ python3 development-server.py --port ${PORT} ${TILES_SERVER_URL}
 xdg-open http://localhost:${PORT}
 ```
 
-Il server `development-server.py` di default risponde con un `HTTP 302 Found` alle
-richieste di tiles, redirezionando le richieste all'URL passato da riga di
+Il server `development-server.py` di default risponde con un `HTTP 302 Found`
+alle richieste di tiles, redirezionando le richieste all'URL passato da riga di
 comando. È possibile farlo funzionare in modalità proxy con l'opzione
-`--action=proxy`: in questo caso, l'header `Access-Control-Allow-Origin` viene
-impostato a `*` per tutte le richieste al tile server.
+`--action=proxy` (per eventuali limiti nella redirezione legati a CORS) e
+impostare una cache lato client con l'opzione `--tiles-cache-ttl=SECONDS` per
+rendere più veloce i test.
 
 È inoltre possibile modificare l'URL del web tiles server usando il parametro
 GET `tilesServerURL=URL` (il server deve permettere le richieste CORS): e
