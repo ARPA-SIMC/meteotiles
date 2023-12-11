@@ -20,16 +20,10 @@ class Product {
         // TODO: fix temporanea per i modelli che hanno lo step in minuti. Si
         // suppone che non ci siano modelli con step +500h (i.e. quasi 21
         // giorni) e che in tal caso si suppone che siano minuti.
-        this.stepUnit = Math.max(...this.forecastSteps) > 500 ? "m" : "h";
+        this.stepUnit = "h";
     }
 
     getTimes() {
-        // TODO: fix temporanea per i modelli che hanno lo step in minuti. Si
-        // suppone che non ci siano modelli con step +500h (i.e. quasi 21
-        // giorni) e che in tal caso si suppone che siano minuti.
-        if (this.stepUnit == "m") {
-            return this.forecastSteps.map(step => this.reftime.getTime() + step * 60 * 1000);
-        }
         return this.forecastSteps.map(step => this.reftime.getTime() + step * 3600 * 1000);
     }
 }

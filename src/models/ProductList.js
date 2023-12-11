@@ -67,7 +67,8 @@ class ProductList {
                                         `${item.recipe.name}_${item.flavour.name}`,
                                         item.recipe.description,
                                         new Date(reftime + "Z"),
-                                        Object.keys(reftimeOptions.steps).map(s => parseInt(s)),
+                                        // Arkimaps supports only hours ("h") so far, so we can ignore the suffix
+                                        Object.keys(reftimeOptions.steps).map(step => parseInt(step.slice(0, -1))),
                                         new BoundingBox(item.flavour.lat_min, item.flavour.lon_min, item.flavour.lat_max, item.flavour.lon_max),
                                         item.flavour.zoom_min,
                                         item.flavour.zoom_max,
