@@ -1,0 +1,21 @@
+{
+    "title": "ICON 2I - Geopotenziale 500hPa + Temperatura 500hPa + Vento 500hPa",
+    "map": {
+        "center": [42.5, 12.5],
+        "zoom": 6,
+        "maxBounds": [
+            [35, 4.5],
+            [47, 22.5]
+        ]
+    },
+    "products": [{
+        "model": "icon_2I",
+        "name": "z500_ita_small_tiles"
+    }, {
+        "model": "icon_2I",
+        "name": "t500_ita_small_tiles"
+    }, {
+        "model": "icon_2I",
+        "name": "wflags500_ita_small_tiles"
+    }]
+}

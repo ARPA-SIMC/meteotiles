@@ -1,0 +1,15 @@
+{
+    "title": "ICON 2I - Temperatura 2m",
+    "map": {
+        "center": [42.5, 12.5],
+        "zoom": 6,
+        "maxBounds": [
+            [35, 4.5],
+            [47, 22.5]
+        ]
+    },
+    "products": [{
+        "model": "icon_2I",
+        "name": "t2m_ita_small_tiles"
+    }]
+}

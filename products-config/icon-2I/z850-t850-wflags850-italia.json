@@ -1,0 +1,21 @@
+{
+    "title": "ICON 2I - Geopotenziale 850hPa + Temperatura 850hPa + Vento 850hPa",
+    "map": {
+        "center": [42.5, 12.5],
+        "zoom": 6,
+        "maxBounds": [
+            [35, 4.5],
+            [47, 22.5]
+        ]
+    },
+    "products": [{
+        "model": "icon_2I",
+        "name": "z850_ita_small_tiles"
+    }, {
+        "model": "icon_2I",
+        "name": "t850_ita_small_tiles"
+    }, {
+        "model": "icon_2I",
+        "name": "wflags850_ita_small_tiles"
+    }]
+}

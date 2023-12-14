@@ -1,0 +1,15 @@
+{
+    "title": "ICON 2I - Temperatura 2m Emilia Romagna",
+    "map": {
+        "center": [45.5, 12.0],
+        "zoom": 8,
+        "maxBounds": [
+            [43.7, 9.18],
+            [45.15, 12.8]
+        ]
+    },
+    "products": [{
+        "model": "icon_2I",
+        "name": "t2m_ita_small_tiles"
+    }]
+}

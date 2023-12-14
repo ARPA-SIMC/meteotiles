@@ -1,0 +1,15 @@
+{
+    "title": "ICON 2I - Altezza zero termico Emilia Romagna",
+    "map": {
+        "center": [45.5, 12.0],
+        "zoom": 8,
+        "maxBounds": [
+            [43.7, 9.18],
+            [45.15, 12.8]
+        ]
+    },
+    "products": [{
+        "model": "icon_2I",
+        "name": "hzero_ita_small_tiles"
+    }]
+}
