@@ -9,7 +9,7 @@
         ]
     },
     "shapes": [{
-        "url": "shp/europe.geojson"
+        "url": "shp/europa.geojson"
     }],
     "products": [{
         "model": "icon_2I",
