@@ -113,6 +113,7 @@ class TimeMapView {
         });
         if (this.#mapOptions.fitBounds) {
             map.fitBounds(this.#mapOptions.fitBounds);
+            map.on('resize', () => map.fitBounds(this.#mapOptions.fitBounds));
         }
 
         L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {

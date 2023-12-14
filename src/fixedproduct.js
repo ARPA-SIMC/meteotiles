@@ -85,8 +85,6 @@ const mapController = new TimeMapController(
     }, {
         center: config.map.center,
         zoom: config.map.zoom,
-        minZoom: config.map.zoom,
-        maxZoom: config.map.zoom,
         zoomControl: false,
         maxBounds: config.map.maxBounds,
         fitBounds: config.map.maxBounds,
