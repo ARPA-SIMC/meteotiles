@@ -76,6 +76,7 @@ class TimeMapView {
         maxZoom: 8,
         zoomControl: true,
         maxBounds: null,
+        fitBounds: null,
         boxZoom: true,
         doubleClickZoom: true,
         dragging: true,
@@ -110,6 +111,9 @@ class TimeMapView {
             dragging: this.#mapOptions.dragging,
             scrollWheelZoom: this.#mapOptions.scrollWheelZoom,
         });
+        if (this.#mapOptions.fitBounds) {
+            map.fitBounds(this.#mapOptions.fitBounds);
+        }
 
         L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
             subdomains: 'abcd',
