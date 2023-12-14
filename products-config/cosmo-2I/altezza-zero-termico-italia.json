@@ -1,5 +1,5 @@
 {
-    "title": "ICON 2I - Temperatura 2m",
+    "title": "COSMO 2I - Altezza zero termico",
     "map": {
         "center": [42.5, 12.5],
         "zoom": 6,
@@ -9,10 +9,10 @@
         ]
     },
     "shapes": [{
-        "url": "shp/europe.geojson"
+        "url": "shp/europa.geojson"
     }],
     "products": [{
-        "model": "icon_2I",
-        "name": "t2m_ita_small_tiles"
+        "model": "cosmo_2I",
+        "name": "hzero_ita_small_tiles"
     }]
 }

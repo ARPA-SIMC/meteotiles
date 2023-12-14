@@ -1,5 +1,5 @@
 {
-    "title": "COSMO 2I - altezza zero termico Italia",
+    "title": "COSMO 2I - Temperatura 2m",
     "map": {
         "center": [42.5, 12.5],
         "zoom": 6,
@@ -8,8 +8,11 @@
             [47, 22.5]
         ]
     },
+    "shapes": [{
+        "url": "shp/europe.geojson"
+    }],
     "products": [{
         "model": "cosmo_2I",
-        "name": "hzero_ita_small_tiles"
+        "name": "t2m_ita_small_tiles"
     }]
 }

@@ -81,6 +81,7 @@ const mapController = new TimeMapController(
     timeDimension,
     new TimeMapView(document.getElementById("map"), {
         gridDebug: gridDebug,
+        shapes: config.shapes ? config.shapes : [],
     }, {
         center: config.map.center,
         zoom: config.map.zoom,

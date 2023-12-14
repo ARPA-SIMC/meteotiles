@@ -1,5 +1,5 @@
 {
-    "title": "ICON 2I - Geopotenziale 700hPa + Temperatura 700hPa + Vento 700hPa",
+    "title": "COSMO 2I - Geopotenziale 700hPa + Temperatura 700hPa + Vento 700hPa",
     "map": {
         "center": [42.5, 12.5],
         "zoom": 6,
@@ -12,13 +12,13 @@
         "url": "shp/europa.geojson"
     }],
     "products": [{
-        "model": "icon_2I",
+        "model": "cosmo_2I",
         "name": "z700_ita_small_tiles"
     }, {
-        "model": "icon_2I",
+        "model": "cosmo_2I",
         "name": "t700_ita_small_tiles"
     }, {
-        "model": "icon_2I",
+        "model": "cosmo_2I",
         "name": "wflags700_ita_small_tiles"
     }]
 }

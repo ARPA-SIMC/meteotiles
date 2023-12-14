@@ -8,6 +8,9 @@
             [47, 22.5]
         ]
     },
+    "shapes": [{
+        "url": "shp/europa.geojson"
+    }],
     "products": [{
         "model": "icon_2I",
         "name": "z500_ita_small_tiles"

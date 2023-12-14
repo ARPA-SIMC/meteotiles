@@ -8,6 +8,9 @@
             [45.15, 12.8]
         ]
     },
+    "shapes": [{
+        "url": "shp/province-er.geojson"
+    }],
     "products": [{
         "model": "icon_2I",
         "name": "hzero_ita_small_tiles"

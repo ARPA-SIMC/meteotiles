@@ -1,5 +1,5 @@
 {
-    "title": "ICON 2I - Temperatura 2m Emilia Romagna",
+    "title": "COSMO 2I - Altezza zero termico Emilia Romagna",
     "map": {
         "center": [45.5, 12.0],
         "zoom": 8,
@@ -12,7 +12,7 @@
         "url": "shp/province-er.geojson"
     }],
     "products": [{
-        "model": "icon_2I",
-        "name": "t2m_ita_small_tiles"
+        "model": "cosmo_2I",
+        "name": "hzero_ita_small_tiles"
     }]
 }

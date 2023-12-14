@@ -1,5 +1,5 @@
 {
-    "title": "COSMO 2I - MSLP e vento 10m Emilia Romagna",
+    "title": "COSMO 2I - Geopotenziale[500 hPa] + Temperatura generica[850 hPa]",
     "map": {
         "center": [42.5, 12.5],
         "zoom": 6,
@@ -8,11 +8,14 @@
             [47, 22.5]
         ]
     },
+    "shapes": [{
+        "url": "shp/europa.geojson"
+    }],
     "products": [{
         "model": "cosmo_2I",
-        "name": "mslp_ita_small_tiles"
+        "name": "z500_ita_small_tiles"
     }, {
         "model": "cosmo_2I",
-        "name": "warrows10m_ita_small_tiles_zoom"
+        "name": "t850_ita_small_tiles"
     }]
 }

@@ -67,6 +67,7 @@ class TimeMapView {
     #onLayersLoaded = () => {};
     #options = {
         gridDebug: false,
+        shapes: [],
     };
     #mapOptions = {
         center: [42.8, 12.6],
@@ -80,6 +81,8 @@ class TimeMapView {
         dragging: true,
         scrollWheelZoom: true,
     };
+    #tilesPaneName = "products";
+    #shapesPaneName = "shapes";
 
     constructor(element, options, mapOptions) {
         this.#root = element;
@@ -121,6 +124,26 @@ class TimeMapView {
             map.addLayer(new L.GridLayer.GridDebug());
         }
 
+        const tilesPane = map.createPane(this.#tilesPaneName);
+        tilesPane.style.zIndex = 250;
+
+        const shapesPane = map.createPane(this.#shapesPaneName);
+        this.#options.shapes.forEach(shape => {
+            fetch(shape.url)
+                .then(resp => resp.json())
+                .then(geojson => {
+                    const l = L.geoJSON(geojson.features, {
+                        pane: this.#shapesPaneName,
+                        style: {
+                            color: "black",
+                            fillColor: "transparent",
+                            weight: 2,
+                        },
+                    });
+                    l.addTo(map);
+                });
+        });
+        shapesPane.style.zIndex = 240;
         return map;
     }
 
@@ -181,8 +204,9 @@ class TimeMapView {
                     maxNativeZoom: product.maxZoom || this.#map.getMaxZoom(),
                     tms: false,
                     opacity: product.opacity || 0.6,
-                    zIndex: product.zIndex || 1,
+                    zIndex: this.#map.getPane(this.#tilesPaneName).zIndex + (product.zIndex || 1),
                     bounds: convertBoundingBoxToLeafletBounds(product.boundingBox),
+                    pane: this.#tilesPaneName,
                 });
                 layer.on('loading', () => {
                     this.#onLayersLoading(this.#getLoadingPercentage());

@@ -1,0 +1,24 @@
+{
+    "title": "COSMO 2I - Geopotenziale 925hPa + Temperatura 925hPa + Vento 925hPa",
+    "map": {
+        "center": [42.5, 12.5],
+        "zoom": 6,
+        "maxBounds": [
+            [35, 4.5],
+            [47, 22.5]
+        ]
+    },
+    "shapes": [{
+        "url": "shp/europa.geojson"
+    }],
+    "products": [{
+        "model": "cosmo_2I",
+        "name": "z925_ita_small_tiles"
+    }, {
+        "model": "cosmo_2I",
+        "name": "t925_ita_small_tiles"
+    }, {
+        "model": "cosmo_2I",
+        "name": "wflags925_ita_small_tiles"
+    }]
+}

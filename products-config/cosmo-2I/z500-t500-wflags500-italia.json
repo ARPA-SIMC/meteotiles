@@ -1,5 +1,5 @@
 {
-    "title": "ICON 2I - Geopotenziale 500hPa + Temperatura 500hPa + Vento 500hPa",
+    "title": "COSMO 2I - Geopotenziale 500hPa + Temperatura 500hPa + Vento 500hPa",
     "map": {
         "center": [42.5, 12.5],
         "zoom": 6,
@@ -12,13 +12,13 @@
         "url": "shp/europa.geojson"
     }],
     "products": [{
-        "model": "icon_2I",
+        "model": "cosmo_2I",
         "name": "z500_ita_small_tiles"
     }, {
-        "model": "icon_2I",
+        "model": "cosmo_2I",
         "name": "t500_ita_small_tiles"
     }, {
-        "model": "icon_2I",
+        "model": "cosmo_2I",
         "name": "wflags500_ita_small_tiles"
     }]
 }
