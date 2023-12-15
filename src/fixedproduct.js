@@ -61,6 +61,10 @@ if (configURL != null) {
 
 // TODO: config validator
 
+if (config.title) {
+    document.title = config.title;
+}
+
 const timeState = new TimeState(tilesServerUrl, 1);
 const productList = timeState.getProductList(0);
 const timeDimension = timeState.getTimeDimension();
