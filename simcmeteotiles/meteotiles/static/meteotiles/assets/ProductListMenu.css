@@ -1,0 +1,81 @@
+.meteotiles-product-list-menu {
+    padding: 0.2em 1em;
+    overflow-y: auto;
+    border-right: 0.2em solid var(--main-bg-color);
+    font-size: 80%;
+}
+
+.meteotiles-product-list-menu h2 {
+    font-size: 160%;
+}
+
+.meteotiles-product-list-menu h3 {
+    font-size: 120%;
+    cursor: pointer;
+}
+
+.meteotiles-product-list-menu h3::before {
+    width: 2ch;
+    content: "\25BD";
+    padding-right: 0.2em;
+}
+
+.meteotiles-product-list-menu h3.collapsed::before {
+    width: 2ch;
+    content: "\25B7";
+    padding-right: 0.2em;
+}
+
+.meteotiles-product-list-menu .map-menu-search input {
+    width: 80%;
+    padding: 0.5em;
+}
+
+
+.meteotiles-product-list-menu ul {
+    padding: 0;
+}
+
+.meteotiles-product-list-menu li {
+    list-style-type: none;
+    display: flex;
+}
+
+.meteotiles-product-list-menu .hidden {
+    display: none;
+}
+
+.meteotiles-product-list-menu li input {
+    align-self: center
+}
+
+.meteotiles-product-list-menu li label {
+    align-self: center
+}
+
+.meteotiles-product-list-menu .loader {
+    width: 3ch;
+    height: 3ch;
+    margin: 0 0.5em;
+    display: inline-block;
+    border: 5px solid CornFlowerBlue;
+    border-bottom-color: #FF3D00;
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+    visibility: hidden;
+    vertical-align: middle;
+}
+
+.meteotiles-product-list-menu .loader.loading {
+    visibility: visible;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

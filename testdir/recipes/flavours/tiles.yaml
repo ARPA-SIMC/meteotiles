@@ -1,0 +1,25 @@
+---
+flavours:
+ - name: emro_tiles
+   tile:
+     zoom_min: 4
+     zoom_max: 5
+     lat_min: 43.4
+     lat_max: 45.2
+     lon_min: 9.0
+     lon_max: 13.2
+   steps:
+     add_coastlines_bg:
+       skip: yes
+     add_grid:
+       skip: yes
+     add_coastlines_fg:
+       skip: yes
+     add_boundaries:
+       skip: yes
+     add_user_boundaries:
+       skip: yes
+     add_geopoints:
+       skip: yes
+     add_symbols:
+       skip: yes

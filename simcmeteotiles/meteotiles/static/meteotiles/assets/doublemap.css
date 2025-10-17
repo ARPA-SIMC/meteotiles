@@ -1,0 +1,40 @@
+main {
+    display: grid;
+    overflow: hidden;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr auto;
+}
+
+.left-panel, .right-panel {
+    display: grid;
+    overflow: hidden;
+    grid-template-columns: 2fr 3fr 1fr;
+    grid-template-rows: auto 1fr 1fr;
+}
+
+.left-panel {
+    border-right: 2px solid var(--main-bg-color);
+}
+
+.right-panel {
+    border-left: 2px solid var(--main-bg-color);
+}
+
+.meteotiles-selected-products {
+    grid-column: 1/4;
+}
+
+.meteotiles-product-list-menu {
+    grid-row: 2/4;
+    grid-column: 1;
+}
+
+.meteotiles-time-map {
+    grid-row: 2/4;
+    grid-column: 2/4;
+}
+
+.meteotiles-time-player {
+    grid-row: 3/4;
+    grid-column: 1/4;
+}

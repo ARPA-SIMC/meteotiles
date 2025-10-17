@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'meteotiles/assets/base.css' %}" />
+        <link rel="stylesheet" href="{% static 'meteotiles/assets/ProductListMenu.css' %}" />
+        <link rel="stylesheet" href="{% static 'meteotiles/assets/SelectedProducts.css' %}" />
+        <link rel="stylesheet" href="{% static 'meteotiles/assets/TimeMap.css' %}" />
+        <link rel="stylesheet" href="{% static 'meteotiles/assets/TimePlayer.css' %}" />
+        <link rel="stylesheet" href="{% static 'meteotiles/assets/Version.css' %}" />
+        <link rel="stylesheet" href="{% static 'meteotiles/assets/singlemap.css' %}" />
+        <link rel="stylesheet" href="{% static 'meteotiles/assets/leaflet.css' %}" />
+        <link rel="stylesheet" href="{% static 'meteotiles/assets/leaflet.control.legend.css' %}" />
+        <script type="text/javascript" src="{% static 'meteotiles/assets/leaflet-src.js' %}"></script>
+        <script type="text/javascript" src="{% static 'meteotiles/assets/leaflet.control.legend.js' %}"></script>
+        <title>meteotiles - single map</title>
+    </head>
+    <body>
+        <header>
+            <span class="logo"></span>
+            <nav>
+                    <ul>
+                        <li>Mappa singola</li>
+                        <li><a href="{% url 'doublemap' %}">Mappa doppia</a></li>
+                    </ul>
+            </nav>
+        </header>
+        <main>
+            <div id="selected-products"></div>
+            <div id="product-list-menu"></div>
+            <div id="map"></div>
+            <div id="time-player"></div>
+        </main>
+        <footer>
+            <span id="version"></span>
+        </footer>
+        <script type="module" src="{% static 'meteotiles/src/singlemap.js' %}"></script>
+    </body>
+</html>

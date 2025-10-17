@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'meteotiles/assets/base.css' %}" />
+        <link rel="stylesheet" href="{% static 'meteotiles/assets/ProductListMenu.css' %}" />
+        <link rel="stylesheet" href="{% static 'meteotiles/assets/SelectedProducts.css' %}" />
+        <link rel="stylesheet" href="{% static 'meteotiles/assets/TimeMap.css' %}" />
+        <link rel="stylesheet" href="{% static 'meteotiles/assets/TimePlayer.css' %}" />
+        <link rel="stylesheet" href="{% static 'meteotiles/assets/Version.css' %}" />
+        <link rel="stylesheet" href="{% static 'meteotiles/assets/doublemap.css' %}" />
+        <link rel="stylesheet" href="{% static 'meteotiles/assets/leaflet.css' %}" />
+        <link rel="stylesheet" href="{% static 'meteotiles/assets/leaflet.control.legend.css' %}" />
+        <script type="text/javascript" src="{% static 'meteotiles/assets/leaflet-src.js' %}"></script>
+        <script type="text/javascript" src="{% static 'meteotiles/assets/leaflet.control.legend.js' %}"></script>
+        <title>meteotiles - double map</title>
+    </head>
+    <body>
+        <header>
+            <span class="logo"></span>
+            <nav>
+                    <ul>
+                        <li><a href="{% url 'singlemap' %}">Mappa singola</a></li>
+                        <li>Mappa doppia</li>
+                    </ul>
+            </nav>
+        </header>
+        <main>
+            <div class="left-panel">
+                <div id="selected-products-left">
+                </div>
+                <div id="product-list-menu-left">
+                </div>
+                <div id="map-left"></div>
+            </div>
+            <div class="right-panel">
+                <div id="selected-products-right">
+                </div>
+                <div id="product-list-menu-right">
+                </div>
+                <div id="map-right"></div>
+            </div>
+            <div id="time-player"></div>
+        </main>
+        <footer>
+            <span id="version"></span>
+        </footer>
+        <script type="module" src="{% static 'meteotiles/src/doublemap.js' %}"></script>
+    </body>
+</html>

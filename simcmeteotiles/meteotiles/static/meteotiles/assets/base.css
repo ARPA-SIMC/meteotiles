@@ -1,0 +1,78 @@
+:root {
+    --main-bg-color: #53a8b6;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+body {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+header {
+    background-color: black;
+    font-weight: normal;
+    color: white;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+header .logo {
+    vertical-align: middle;
+    display: inline-block;
+    background-image: url("./logo.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    box-shadow: 0 0 8px 8px inset black;
+    height: 36px;
+    width: 136px;
+}
+
+header nav {
+    margin-left: auto;
+    display: inline;
+    padding: 1em;
+    font-size: 90%;
+}
+
+header nav ul {
+    display: inline;
+    list-style-type: none;
+}
+
+header nav ul li {
+    display: inline;
+    margin-left: 0.5em;
+}
+
+header nav a {
+    color: white;
+}
+
+header nav a:visited {
+    color: white;
+}
+
+
+main {
+    background-color: white;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    padding: 0.5em;
+    text-align: center;
+    font-size: 90%;
+}
+
+footer a, footer a:visited {
+    color: var(--main-bg-color);
+}

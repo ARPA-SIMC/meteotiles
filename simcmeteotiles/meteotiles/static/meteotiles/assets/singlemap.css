@@ -1,0 +1,25 @@
+main {
+    display: grid;
+    overflow: hidden;
+    grid-template-columns: 1.5fr 3fr 3fr;
+    grid-template-rows: auto 1fr 1fr auto;
+}
+
+#selected-products {
+    grid-column: 1/4;
+}
+
+#product-list-menu {
+    grid-row: 2/4;
+    grid-column: 1;
+}
+
+#map {
+    grid-row: 2/4;
+    grid-column: 2/4;
+}
+
+#time-player {
+    grid-row: 4/5;
+    grid-column: 1/4;
+}
