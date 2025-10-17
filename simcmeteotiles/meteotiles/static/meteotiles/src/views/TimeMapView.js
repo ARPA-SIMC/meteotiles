@@ -207,12 +207,12 @@ class TimeMapView {
 
     renderProductSelected(product) {
         const date = product.reftime.toISOString().split(".")[0];
-        const legendUrl = `${product.baseUrl}/${product.modelName}/${date}/${product.name}+legend.png`;
+        const legendUrl = product.legendUrl;
         if (product.selected) {
-            const productLayers = Object.fromEntries(product.forecastSteps.map(step => {
-                const time = product.reftime.getTime() + step * 3600 * 1000;
-                const hour = new String(step).padStart(3, '0');
-                const layer = L.tileLayer(`${product.baseUrl}/${product.modelName}/${date}/${product.name}+${hour}/{z}/{x}/{y}.png`, {
+            const productLayers = Object.fromEntries(Object.entries(product.forecastUrls).map(([forecastTime, forecastUrl]) => {
+                const time = new Date(forecastTime);
+                const tileUrl = `${forecastUrl}/{z}/{x}/{y}.png`;
+                const layer = L.tileLayer(tileUrl, {
                     minNativeZoom: product.minZoom || this.#map.getMinZoom(),
                     maxNativeZoom: product.maxZoom || this.#map.getMaxZoom(),
                     tms: false,
@@ -224,12 +224,12 @@ class TimeMapView {
                 layer.on('loading', () => {
                     this.#onLayersLoading(this.#getLoadingPercentage());
                     if (this.#layers[product.id]) {
-                        this.#layers[product.id].loaded[step] = false;
+                        this.#layers[product.id].loaded[forecastTime] = false;
                     }
                 });
                 layer.on('load', () => {
                     if (this.#layers[product.id]) {
-                        this.#layers[product.id].loaded[step] = true;
+                        this.#layers[product.id].loaded[forecastTime] = true;
                         this.#onLayersLoading(this.#getLoadingPercentage());
                     }
                     if (this.#areLayersLoaded()) {
@@ -238,10 +238,11 @@ class TimeMapView {
                 })
                 return [time, layer];
             }));
+            console.log(productLayers);
             this.#layers[product.id] = {
                 layers: productLayers,
                 product: product,
-                loaded: Object.fromEntries(product.forecastSteps.map(step => [step, false])),
+                loaded: Object.keys(product.forecastUrls).map(forecastTime => [forecastTime, false]),
             };
             Object.values(productLayers).map(layer => setTimeout(() => {
                 layer.addTo(this.#map)

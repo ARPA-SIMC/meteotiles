@@ -15,6 +15,7 @@
         <link rel="stylesheet" href="{% static 'meteotiles/assets/leaflet.control.legend.css' %}" />
         <script type="text/javascript" src="{% static 'meteotiles/assets/leaflet-src.js' %}"></script>
         <script type="text/javascript" src="{% static 'meteotiles/assets/leaflet.control.legend.js' %}"></script>
+        <script type="text/javascript" src="{% static 'meteotiles/assets/L.Map.Sync.js' %}"></script>
         <title>meteotiles - double map</title>
     </head>
     <body>
@@ -47,6 +48,11 @@
         <footer>
             <span id="version"></span>
         </footer>
+        <script>
+            window.METEOTILES_SETTINGS = {
+                PRODUCTS_URL: "{% url 'weather_models' %}",
+            };
+        </script>
         <script type="module" src="{% static 'meteotiles/src/doublemap.js' %}"></script>
     </body>
 </html>

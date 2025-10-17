@@ -1,4 +1,4 @@
-import { TILES_SERVER_URL_PARAM_NAME, TILES_SERVER_URL_DEFAULT, GRID_DEBUG_PARAM_NAME } from './settings.js';
+import { GRID_DEBUG_PARAM_NAME } from './settings.js';
 
 import { TimeState } from './models.js';
 
@@ -16,11 +16,10 @@ import { CheckAvailableTimesConsistencyController } from './controllers.js';
 
 import { MapTotalLoadingPercentageHandler } from './utils.js';
 
-
-const tilesServerUrl = new URLSearchParams(window.location.search).get(TILES_SERVER_URL_PARAM_NAME) || TILES_SERVER_URL_DEFAULT;
 const gridDebug = new URLSearchParams(window.location.search).get(GRID_DEBUG_PARAM_NAME) == "true";
+const productsApiUrl = window.METEOTILES_SETTINGS.PRODUCTS_URL
 
-const timeState = new TimeState(tilesServerUrl, 2);
+const timeState = new TimeState(productsApiUrl, 2);
 const productListA = timeState.getProductList(0);
 const productListB = timeState.getProductList(1);
 const timeDimension = timeState.getTimeDimension();

@@ -36,6 +36,11 @@
         <footer>
             <span id="version"></span>
         </footer>
+        <script>
+            window.METEOTILES_SETTINGS = {
+                PRODUCTS_URL: "{% url 'weather_models' %}",
+            };
+        </script>
         <script type="module" src="{% static 'meteotiles/src/singlemap.js' %}"></script>
     </body>
 </html>

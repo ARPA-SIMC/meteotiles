@@ -6,9 +6,9 @@ class TimeState {
     #timeDimension;
     #productLists = [];
 
-    constructor(baseUrl, numberOfProductLists) {
+    constructor(productsApiUrl, numberOfProductLists) {
         this.#timeDimension = new TimeDimension();
-        this.#productLists = new Array(numberOfProductLists).fill().map(() => new ProductList(baseUrl));
+        this.#productLists = new Array(numberOfProductLists).fill().map(() => new ProductList(productsApiUrl));
         this.#productLists.forEach(productList => {
             productList.registerOnProductSelected((product) => {
                 const availableTimes = [...new Set(this.#productLists.map(l => l.getAvailableTimes()).flat())];

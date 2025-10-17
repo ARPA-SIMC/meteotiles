@@ -44,7 +44,7 @@ def api_weather_models_list(request):
                             {
                                 "short_name": weather_product_run.short_name,
                                 "long_name": weather_product_run.long_name,
-                                "forecasts_urls": {
+                                "forecast_urls": {
                                     (
                                         weather_model_run.reftime
                                         + timedelta(hours=fcstep)
