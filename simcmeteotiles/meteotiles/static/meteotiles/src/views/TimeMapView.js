@@ -207,7 +207,6 @@ class TimeMapView {
 
     renderProductSelected(product) {
         const date = product.reftime.toISOString().split(".")[0];
-        const legendUrl = product.legendUrl;
         if (product.selected) {
             const productLayers = Object.fromEntries(Object.entries(product.forecastUrls).map(([forecastTime, forecastUrl]) => {
                 const time = new Date(forecastTime);
@@ -248,8 +247,8 @@ class TimeMapView {
                 layer.addTo(this.#map)
                 hideLayer(layer);
             }));
-            if (product.legendOn) {
-                this.#legendControl.addLegend(legendUrl, {
+            if (product.legendUrl) {
+                this.#legendControl.addLegend(product.legendUrl, {
                     opacity: product.opacity || 0.6
                 });
             }
