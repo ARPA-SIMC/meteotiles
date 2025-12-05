@@ -23,7 +23,7 @@ class UtilsTestCase(TestCase):
         weather_model = WeatherModel(short_name='icon_2I', long_name='ICON-2I', public=True)
         weather_model.full_clean()
         weather_model.save()
-        inputdir = settings.BASE_DIR.parent / Path('testdata/data/20250903_t')
+        inputdir = settings.BASE_DIR / Path('testdata/data/20250903_t')
         call_command('meteotiles-import-arkimaps-products', 'icon_2I', inputdir)
         self.assertEqual(WeatherModelRun.objects.count(), 1)
         self.assertEqual(WeatherModelRun.objects.first().reftime, datetime(2025, 9, 3, tzinfo=timezone.utc))
