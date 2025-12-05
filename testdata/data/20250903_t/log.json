@@ -1,0 +1,374 @@
+[
+ {
+  "ts": 1756992189.6090958,
+  "level": 10,
+  "msg": "flavour emro_tiles: recipe tiles/tp1h uses inputs: {'tpdec1h'}",
+  "name": "arkimaps.flavours"
+ },
+ {
+  "ts": 1756992189.609384,
+  "level": 20,
+  "msg": "input tpdec1h: missing source data",
+  "name": "arkimaps.inputs"
+ },
+ {
+  "ts": 1756992189.6095183,
+  "level": 10,
+  "msg": "flavour emro_tiles: recipe tiles/tp1h input tpdec1h not available",
+  "name": "arkimaps.flavours"
+ },
+ {
+  "ts": 1756992189.6096601,
+  "level": 10,
+  "msg": "flavour emro_tiles: recipe tiles/t2m uses inputs: {'t2m'}",
+  "name": "arkimaps.flavours"
+ },
+ {
+  "ts": 1756992189.6098824,
+  "level": 10,
+  "msg": "flavour emro_tiles: recipe tiles/t2m input t2m available for instants 2025-09-03T00:00:00+000, 2025-09-03T00:00:00+001",
+  "name": "arkimaps.flavours"
+ },
+ {
+  "ts": 1756992189.6106288,
+  "level": 10,
+  "msg": "t2m+000/4/8/5+w1h1: add_basemap (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6110682,
+  "level": 10,
+  "msg": "t2m+000/4/8/5+w1h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6111865,
+  "level": 10,
+  "msg": "t2m+000/4/8/5+w1h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.611293,
+  "level": 10,
+  "msg": "t2m+000/4/8/5+w1h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6114032,
+  "level": 10,
+  "msg": "t2m+000/4/8/5+w1h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.611503,
+  "level": 10,
+  "msg": "t2m+000/4/8/5+w1h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6115892,
+  "level": 10,
+  "msg": "t2m+000/4/8/5+w1h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6124988,
+  "level": 10,
+  "msg": "t2m+000/5/16/11+w2h1: add_basemap (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6131105,
+  "level": 10,
+  "msg": "t2m+000/5/16/11+w2h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6133642,
+  "level": 10,
+  "msg": "t2m+000/5/16/11+w2h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.613574,
+  "level": 10,
+  "msg": "t2m+000/5/16/11+w2h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6138651,
+  "level": 10,
+  "msg": "t2m+000/5/16/11+w2h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6140673,
+  "level": 10,
+  "msg": "t2m+000/5/16/11+w2h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6142614,
+  "level": 10,
+  "msg": "t2m+000/5/16/11+w2h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6181388,
+  "level": 10,
+  "msg": "t2m+001/4/8/5+w1h1: add_basemap (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6185453,
+  "level": 10,
+  "msg": "t2m+001/4/8/5+w1h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.618651,
+  "level": 10,
+  "msg": "t2m+001/4/8/5+w1h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6188316,
+  "level": 10,
+  "msg": "t2m+001/4/8/5+w1h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6189537,
+  "level": 10,
+  "msg": "t2m+001/4/8/5+w1h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.619063,
+  "level": 10,
+  "msg": "t2m+001/4/8/5+w1h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.619235,
+  "level": 10,
+  "msg": "t2m+001/4/8/5+w1h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6203105,
+  "level": 10,
+  "msg": "t2m+001/5/16/11+w2h1: add_basemap (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6209998,
+  "level": 10,
+  "msg": "t2m+001/5/16/11+w2h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6211684,
+  "level": 10,
+  "msg": "t2m+001/5/16/11+w2h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6213217,
+  "level": 10,
+  "msg": "t2m+001/5/16/11+w2h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.621505,
+  "level": 10,
+  "msg": "t2m+001/5/16/11+w2h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6216323,
+  "level": 10,
+  "msg": "t2m+001/5/16/11+w2h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6218593,
+  "level": 10,
+  "msg": "t2m+001/5/16/11+w2h1: add_contour (skipped)",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992189.6233885,
+  "level": 10,
+  "msg": "5 orders to dispatch in groups of 16",
+  "name": "render"
+ },
+ {
+  "ts": 1756992189.626882,
+  "level": 10,
+  "msg": "Using selector: EpollSelector",
+  "name": "asyncio"
+ },
+ {
+  "ts": 1756992189.6272633,
+  "level": 10,
+  "msg": "1 render scripts to run on 8 parallel tasks",
+  "name": "render"
+ },
+ {
+  "ts": 1756992189.6274617,
+  "level": 10,
+  "msg": "Waiting for 1 tasks",
+  "name": "render"
+ },
+ {
+  "ts": 1756992191.2614925,
+  "level": 10,
+  "msg": "1 tasks done, 0 tasks pending",
+  "name": "render"
+ },
+ {
+  "ts": 1756992191.2616284,
+  "level": 10,
+  "msg": "/tmp/edigiacomo/tmpek4etbnx/renderers/renderer000.py: task done",
+  "name": "render"
+ },
+ {
+  "ts": 1756992191.2618055,
+  "level": 20,
+  "msg": "Rendered t2m+000/legend to 2025-09-03T00:00:00/tiles/t2m_emro_tiles+legend.png",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992191.2728677,
+  "level": 10,
+  "msg": "STREAM b'IHDR' 16 13",
+  "name": "PIL.PngImagePlugin"
+ },
+ {
+  "ts": 1756992191.2731464,
+  "level": 10,
+  "msg": "STREAM b'bKGD' 41 6",
+  "name": "PIL.PngImagePlugin"
+ },
+ {
+  "ts": 1756992191.2733028,
+  "level": 10,
+  "msg": "b'bKGD' 41 6 (unknown)",
+  "name": "PIL.PngImagePlugin"
+ },
+ {
+  "ts": 1756992191.273437,
+  "level": 10,
+  "msg": "STREAM b'IDAT' 59 8192",
+  "name": "PIL.PngImagePlugin"
+ },
+ {
+  "ts": 1756992191.2917793,
+  "level": 20,
+  "msg": "Rendered t2m+001/5/16/11+w2h1 to 2025-09-03T00:00:00/tiles/t2m_emro_tiles+001/5/16/11.png",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992191.3023946,
+  "level": 20,
+  "msg": "Rendered t2m+001/5/16/11+w2h1 to 2025-09-03T00:00:00/tiles/t2m_emro_tiles+001/5/17/11.png",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992191.3026578,
+  "level": 10,
+  "msg": "STREAM b'IHDR' 16 13",
+  "name": "PIL.PngImagePlugin"
+ },
+ {
+  "ts": 1756992191.3027866,
+  "level": 10,
+  "msg": "STREAM b'bKGD' 41 6",
+  "name": "PIL.PngImagePlugin"
+ },
+ {
+  "ts": 1756992191.3028858,
+  "level": 10,
+  "msg": "b'bKGD' 41 6 (unknown)",
+  "name": "PIL.PngImagePlugin"
+ },
+ {
+  "ts": 1756992191.3029957,
+  "level": 10,
+  "msg": "STREAM b'IDAT' 59 8192",
+  "name": "PIL.PngImagePlugin"
+ },
+ {
+  "ts": 1756992191.3137705,
+  "level": 20,
+  "msg": "Rendered t2m+000/5/16/11+w2h1 to 2025-09-03T00:00:00/tiles/t2m_emro_tiles+000/5/16/11.png",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992191.3219714,
+  "level": 20,
+  "msg": "Rendered t2m+000/5/16/11+w2h1 to 2025-09-03T00:00:00/tiles/t2m_emro_tiles+000/5/17/11.png",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992191.3222492,
+  "level": 10,
+  "msg": "STREAM b'IHDR' 16 13",
+  "name": "PIL.PngImagePlugin"
+ },
+ {
+  "ts": 1756992191.322397,
+  "level": 10,
+  "msg": "STREAM b'bKGD' 41 6",
+  "name": "PIL.PngImagePlugin"
+ },
+ {
+  "ts": 1756992191.3225281,
+  "level": 10,
+  "msg": "b'bKGD' 41 6 (unknown)",
+  "name": "PIL.PngImagePlugin"
+ },
+ {
+  "ts": 1756992191.322631,
+  "level": 10,
+  "msg": "STREAM b'IDAT' 59 8192",
+  "name": "PIL.PngImagePlugin"
+ },
+ {
+  "ts": 1756992191.3298044,
+  "level": 20,
+  "msg": "Rendered t2m+001/4/8/5+w1h1 to 2025-09-03T00:00:00/tiles/t2m_emro_tiles+001/4/8/5.png",
+  "name": "orders"
+ },
+ {
+  "ts": 1756992191.330085,
+  "level": 10,
+  "msg": "STREAM b'IHDR' 16 13",
+  "name": "PIL.PngImagePlugin"
+ },
+ {
+  "ts": 1756992191.3302114,
+  "level": 10,
+  "msg": "STREAM b'bKGD' 41 6",
+  "name": "PIL.PngImagePlugin"
+ },
+ {
+  "ts": 1756992191.3303242,
+  "level": 10,
+  "msg": "b'bKGD' 41 6 (unknown)",
+  "name": "PIL.PngImagePlugin"
+ },
+ {
+  "ts": 1756992191.3304505,
+  "level": 10,
+  "msg": "STREAM b'IDAT' 59 8192",
+  "name": "PIL.PngImagePlugin"
+ },
+ {
+  "ts": 1756992191.3363614,
+  "level": 20,
+  "msg": "Rendered t2m+000/4/8/5+w1h1 to 2025-09-03T00:00:00/tiles/t2m_emro_tiles+000/4/8/5.png",
+  "name": "orders"
+ }
+]
