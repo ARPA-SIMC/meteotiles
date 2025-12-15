@@ -127,6 +127,6 @@ METEOTILES_BASEDIR = "/tmp/meteotiles"
 METEOTILES_URL = "/tiles"
 
 try:
-    from arkiweb.project.local_settings import *
+    from simcmeteotiles.local_settings import *
 except ModuleNotFoundError:
     pass
