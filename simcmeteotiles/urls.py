@@ -25,5 +25,5 @@ import meteotiles.urls
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("meteotiles/", include(meteotiles.urls)),
+    path("/", include(meteotiles.urls)),
 ] + static(settings.METEOTILES_URL, document_root=settings.METEOTILES_BASEDIR) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
