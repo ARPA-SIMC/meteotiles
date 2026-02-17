@@ -19,7 +19,7 @@ class Product {
     }
 
     getTimes() {
-        return Object.keys(this.forecastUrls).map(validityTime => new Date(validityTime));
+        return Object.keys(this.forecastUrls);
     }
 }
 

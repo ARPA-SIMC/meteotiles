@@ -40,7 +40,7 @@ class TimeDimension {
     }
 
     setAvailableTimes(availableTimes) {
-        const newAvailableTimes = [...new Set(availableTimes)].sort((a, b) => a - b);
+        const newAvailableTimes = [...new Set(availableTimes)].sort();
         // notify that available times changed
         if (JSON.stringify(newAvailableTimes) == JSON.stringify(this.getAvailableTimes())) {
             return;

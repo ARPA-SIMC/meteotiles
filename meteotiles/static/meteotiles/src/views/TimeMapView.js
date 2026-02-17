@@ -209,7 +209,6 @@ class TimeMapView {
         const date = product.reftime.toISOString().split(".")[0];
         if (product.selected) {
             const productLayers = Object.fromEntries(Object.entries(product.forecastUrls).map(([forecastTime, forecastUrl]) => {
-                const time = new Date(forecastTime);
                 const tileUrl = `${forecastUrl}/{z}/{x}/{y}.png`;
                 const layer = L.tileLayer(tileUrl, {
                     minNativeZoom: product.minZoom || this.#map.getMinZoom(),
@@ -235,9 +234,8 @@ class TimeMapView {
                         this.#onLayersLoaded();
                     }
                 })
-                return [time, layer];
+                return [forecastTime, layer];
             }));
-            console.log(productLayers);
             this.#layers[product.id] = {
                 layers: productLayers,
                 product: product,
