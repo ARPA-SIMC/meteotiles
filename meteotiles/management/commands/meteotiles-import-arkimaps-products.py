@@ -53,7 +53,7 @@ class Command(BaseCommand):
                 )
 
                 forecast_steps = [int(step[:-1]) for step in reftime_item["steps"].keys()]
-                legend_on = reftime_item["legend_info"]["legend"]
+                legend_on = reftime_item["legend_info"] is not None
 
                 try:
                     old_weather_product_run = WeatherProductRun.objects.get(
