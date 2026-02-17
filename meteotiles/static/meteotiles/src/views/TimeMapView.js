@@ -254,7 +254,7 @@ class TimeMapView {
             const productLayers = this.#layers[product.id].layers;
             Object.values(productLayers).forEach(layer => this.#map.removeLayer(layer));
             delete this.#layers[product.id];
-            if (product.legendOn) {
+            if (product.legendUrl) {
                 this.#legendControl.removeLegend(legendUrl);
             }
             if (this.#areLayersLoaded()) {
