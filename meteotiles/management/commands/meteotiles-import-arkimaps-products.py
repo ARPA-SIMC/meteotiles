@@ -89,7 +89,8 @@ class Command(BaseCommand):
                         output_fc_dir,
                     )
 
-                shutil.copy(
-                    new_products_directory / get_arkimaps_product_legend_relpath(weather_product_run),
-                    get_meteotiles_legend_path(weather_product_run),
-                )
+                if legend_on:
+                    shutil.copy(
+                        new_products_directory / get_arkimaps_product_legend_relpath(weather_product_run),
+                        get_meteotiles_legend_path(weather_product_run),
+                    )
