@@ -130,3 +130,6 @@ try:
     from simcmeteotiles.local_settings import *
 except ModuleNotFoundError:
     pass
+
+LOGIN_REDIRECT_URL = '/meteotiles/'
+LOGOUT_REDIRECT_URL = '/meteotiles/'

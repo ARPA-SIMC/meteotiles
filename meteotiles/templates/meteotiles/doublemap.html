@@ -25,6 +25,12 @@
                     <ul>
                         <li><a href="{% url 'singlemap' %}">Mappa singola</a></li>
                         <li>Mappa doppia</li>
+                        {% if user.is_authenticated %}
+                        <li>{{ user.username }}</li>
+                        <li><a href="{% url 'logout' %}">logout</a></li>
+                        {% else %}
+                        <li><a href="{% url 'login' %}">login</a></li>
+                        {% endif %}
                     </ul>
             </nav>
         </header>

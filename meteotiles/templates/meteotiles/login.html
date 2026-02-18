@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{% static 'meteotiles/assets/base.css' %}" />
+        <link rel="stylesheet" href="{% static 'meteotiles/assets/login.css' %}" />
+        <title>meteotiles - login</title>
+    </head>
+    <body>
+        <header>
+            <span class="logo"></span>
+            <nav>
+                    <ul>
+                        <li><a href="{% url 'singlemap' %}">Mappa singola</li>
+                        <li><a href="{% url 'doublemap' %}">Mappa doppia</a></li>
+                    </ul>
+            </nav>
+        </header>
+        <main>
+            <div id="login-div">
+                <h2>Login</h2>
+                {% if form.errors %}
+                <p style="color:red;">Username o password non validi</p>
+                {% endif %}
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <label>Username:</label>
+                    {{ form.username }}
+
+                    <br><br>
+
+                    <label>Password:</label>
+                    {{ form.password }}
+
+                    <br><br>
+
+                    <button type="submit">Accedi</button>
+                </form>
+            </div>
+        </main>
+        <footer>
+            <span id="version"></span>
+        </footer>
+    </body>
+</html>
