@@ -3,14 +3,14 @@ from datetime import timedelta
 
 from django.conf import settings
 
-from .models import WeatherProductRun
+from .models import WeatherProductRun, WeatherModelRun
 
 
-def get_meteotiles_run_dir(weather_model_run: WeatherModedelRun) -> Path:
+def get_meteotiles_run_dir(weather_model_run: WeatherModelRun) -> Path:
     return Path(settings.METEOTILES_BASEDIR) / get_meteotiles_run_reldir(weather_model_run)
 
 
-def get_meteotiles_run_reldir(weather_model_run: WeatherModedelRun) -> Path:
+def get_meteotiles_run_reldir(weather_model_run: WeatherModelRun) -> Path:
     return Path(
         weather_product_run.weather_model_run.weather_model.short_name,
         weather_product_run.weather_model_run.reftime.strftime("%Y%m%d%H%M%S"),
