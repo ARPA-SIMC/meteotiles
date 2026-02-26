@@ -6,10 +6,19 @@ from django.conf import settings
 from .models import WeatherProductRun
 
 
-def get_meteotiles_product_reldir(weather_product_run: WeatherProductRun) -> Path:
+def get_meteotiles_run_dir(weather_model_run: WeatherModedelRun) -> Path:
+    return Path(settings.METEOTILES_BASEDIR) / get_meteotiles_run_reldir(weather_model_run)
+
+
+def get_meteotiles_run_reldir(weather_model_run: WeatherModedelRun) -> Path:
     return Path(
         weather_product_run.weather_model_run.weather_model.short_name,
         weather_product_run.weather_model_run.reftime.strftime("%Y%m%d%H%M%S"),
+    )
+
+
+def get_meteotiles_product_reldir(weather_product_run: WeatherProductRun) -> Path:
+    return get_meteotiles_run_reldir(weather_product_run.weather_model_run) / Path(
         weather_product_run.short_name,
     )
 
