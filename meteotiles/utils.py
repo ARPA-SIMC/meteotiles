@@ -12,8 +12,8 @@ def get_meteotiles_run_dir(weather_model_run: WeatherModelRun) -> Path:
 
 def get_meteotiles_run_reldir(weather_model_run: WeatherModelRun) -> Path:
     return Path(
-        weather_product_run.weather_model_run.weather_model.short_name,
-        weather_product_run.weather_model_run.reftime.strftime("%Y%m%d%H%M%S"),
+        weather_model_run.weather_model.short_name,
+        weather_model_run.reftime.strftime("%Y%m%d%H%M%S"),
     )
 
 
